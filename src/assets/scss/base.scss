@@ -10,16 +10,19 @@
 
     --font-main-m: 16px/1 var(--font-main);
     --font-main-xl: 24px/1 var(--font-main);
-    --font-main-xxl: 36px/1 var(--font-main);
+    --font-main-xxl: 42px/1 var(--font-main);
 
     --font-title-m: 16px/1 var(--font-title);
-    --font-title-xxl: 41px/1 var(--font-title);
+    --font-title-xxl: 52px/1 var(--font-title);
 
     /* colors */
     --color-font: #000000;
     --color-background: #ffffff;
     --color-highlight: #fff200;
     --color-borders: #e6e6e6;
+
+    --color-yellow-light: #ffe3bc;
+    --color-yellow-accent: #ffc347;
 
 }
 
@@ -29,6 +32,7 @@ html, body {
 
 body {
     font: var(--font-main-m);
+    overflow: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
