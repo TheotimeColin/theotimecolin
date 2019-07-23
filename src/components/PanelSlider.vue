@@ -1,6 +1,6 @@
 <template>
     <div class="PanelSlider">
-        <PanelItem :image="assets.tempProjectMain" />
+        <PanelItem :image="assets.tempProjectMain" ref="item" />
     </div>
 </template>
 
@@ -14,7 +14,15 @@ export default {
     components: { PanelItem },
     data: () => ({
         assets: { tempProjectMain }
-    })
+    }),
+    methods: {
+        onTransitionBefore () {
+            this.$refs.item.onTransitionBefore()
+        },
+        onTransitionAfter () {
+            this.$refs.item.onTransitionAfter()
+        }
+    }
 }
 </script>
 

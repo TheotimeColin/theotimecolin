@@ -5,26 +5,59 @@ import { TweenLite, CSSPlugin } from 'gsap/all'
 
 export default {
     name: 'FlipAnimation',
+    data: () => ({
+        flipAnimation: {
+            before: {},
+            after: {},
+            delta: {}
+        }
+    }),
     methods: {
-        flipAnimate ({ element = null, modifier = null, toggle = true }) {
-            if (!element || !modifier) return
+        flipAnimate ({
+            element = null,
+            modifier = null,
+            toggle = true,
+            onBefore = null,
+            onAfter = null
+        }) {
+            if (!element) return
 
-            const before = element.getBoundingClientRect()
+            if (onBefore) onBefore()
+            this.flipAnimateBefore({ element })
 
-            if (toggle) {
-                element.classList.add(modifier)
-            } else {
-                element.classList.remove(modifier)
+            if (modifier) {
+                if (toggle) {
+                    element.classList.add(modifier)
+                } else {
+                    element.classList.remove(modifier)
+                }
             }
 
-            const after = element.getBoundingClientRect()
+            if (onAfter) onAfter()
+            this.flipAnimateAfter({ element })
+        },
+        flipAnimateBefore ({ element = null }) {
+            if (!element) return
 
-            const delta = {
-                x: before.left - after.left,
-                y: before.top - after.top
+            this.flipAnimation.before = {
+                x: element.offsetLeft,
+                y: element.offsetTop
+            }
+        },
+        flipAnimateAfter ({ element = null }) {
+            if (!element) return
+
+            this.flipAnimation.after = {
+                x: element.offsetLeft,
+                y: element.offsetTop
             }
 
-            TweenLite.fromTo(element, 0.5,  { ...delta }, { x: 0, y: 0 })
+            this.flipAnimation.delta = {
+                x: this.flipAnimation.before.x - this.flipAnimation.after.x,
+                y: this.flipAnimation.before.y - this.flipAnimation.after.y
+            }
+
+            TweenLite.fromTo(element, 0.5,  { ...this.flipAnimation.delta }, { x: 0, y: 0 })
         }
     }
 }

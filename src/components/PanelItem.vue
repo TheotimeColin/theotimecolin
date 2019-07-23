@@ -1,14 +1,25 @@
 <template>
     <div class="PanelItem">
-        <div class="PanelItem_image" :style="{ backgroundImage: `url(${image})`}"></div>
+        <img class="PanelItem_image" :src="image" ref="image">
     </div>
 </template>
 
 <script>
+import FlipAnimation from '@/mixins/FlipAnimation'
+
 export default {
-    name: "PanelItem",
+    name: 'PanelItem',
+    mixins: [ FlipAnimation ],
     props: {
         image: { type: String, required: true }
+    },
+    methods: {
+        onTransitionBefore () {
+            this.flipAnimateBefore({ element: this.$refs.image, absolute: false })
+        },
+        onTransitionAfter () {
+            this.flipAnimateAfter({ element: this.$refs.image, absolute: false })
+        }
     }
 }
 </script>
@@ -18,12 +29,13 @@ export default {
     display: inline-block;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .PanelItem_image {
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
+
 }
 </style>
 

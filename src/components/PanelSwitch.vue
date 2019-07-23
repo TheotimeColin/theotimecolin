@@ -1,7 +1,7 @@
 <template>
     <div class="PanelSwitch" :class="[ ...modifiers ]" @click="onClick()">
         <div class="PanelSwitch_content" ref="content">
-            <PanelSlider />
+            <PanelSlider ref="panelSlider" />
         </div>
     </div>
 </template>
@@ -24,11 +24,13 @@ export default {
     methods: {
         onClick () {
             this.state.isLeft = !this.state.isLeft
-            
+
             this.flipAnimate({
                 element: this.$refs.content,
                 modifier: 'is-left',
-                toggle: this.state.isLeft
+                toggle: this.state.isLeft,
+                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                onAfter: () => this.$refs.panelSlider.onTransitionAfter()
             })
         }
     }
@@ -48,7 +50,7 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    width: 50%;
+    width: 55%;
     height: 100%;
     background-color: var(--color-yellow-light);
 }
@@ -56,6 +58,7 @@ export default {
 .PanelSwitch_content.is-left {
     right: auto;
     left: 0;
+    width: 45%;
 }
 </style>
 
