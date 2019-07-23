@@ -1,6 +1,6 @@
 <template>
     <div class="PanelSwitch" :class="[ ...modifiers ]" @click="onClick()">
-        <div class="PanelSwitch_content">
+        <div class="PanelSwitch_content" ref="content">
             <PanelSlider />
         </div>
     </div>
@@ -9,17 +9,27 @@
 <script>
 import PanelSlider from '@/components/PanelSlider'
 
+import FlipAnimation from '@/mixins/FlipAnimation'
+
 export default {
     name: 'PanelSwitch',
     components: { PanelSlider },
+    mixins: [ FlipAnimation ],
     data : () => ({
-        modifiers: {
-            'is-left': false
-        }
+        state: {
+            isLeft: false
+        },
+        modifiers: {}
     }),
     methods: {
         onClick () {
-            this.modifiers['is-left'] = !this.modifiers['is-left']
+            this.state.isLeft = !this.state.isLeft
+            
+            this.flipAnimate({
+                element: this.$refs.content,
+                modifier: 'is-left',
+                toggle: this.state.isLeft
+            })
         }
     }
 }
@@ -43,11 +53,9 @@ export default {
     background-color: var(--color-yellow-light);
 }
 
-.PanelSwitch.is-left {
-
-    .PanelSwitch_content {
-        
-    }
+.PanelSwitch_content.is-left {
+    right: auto;
+    left: 0;
 }
 </style>
 
