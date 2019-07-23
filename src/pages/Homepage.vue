@@ -3,7 +3,6 @@
         <BaseCorners />
 
         <div class="Homepage_left">
-            <div>théotime</div>
             <div>
                 <BaseDisplayTitle class="Homepage_title">
                     <template slot="baseline">code with</template>
@@ -20,7 +19,8 @@
                     <template slot="highlight">creativity</template>
                 </BaseDisplayTitle>
             </div>
-            <div>about</div>
+
+            <BaseNavigation />
         </div>
 
         <PanelSwitch class="Homepage_right" />
@@ -31,11 +31,12 @@
 import BaseContent from '@/components/BaseContent'
 import BaseCorners from '@/components/BaseCorners'
 import BaseDisplayTitle from '@/components/BaseDisplayTitle'
+import BaseNavigation from '@/components/BaseNavigation'
 import PanelSwitch from '@/components/PanelSwitch'
 
 export default {
     name: "Homepage",
-    components: { BaseCorners, BaseDisplayTitle, BaseContent, PanelSwitch }   
+    components: { BaseCorners, BaseDisplayTitle, BaseContent, PanelSwitch, BaseNavigation }   
 }
 </script>
 
@@ -44,7 +45,8 @@ export default {
     display: flex;
     height: 100%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    position: relative;
 }
 
 .Homepage_title {

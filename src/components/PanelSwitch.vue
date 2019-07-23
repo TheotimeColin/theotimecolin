@@ -1,14 +1,17 @@
 <template>
     <div class="PanelSwitch" :class="[ ...modifiers ]" @click="onClick()">
         <div class="PanelSwitch_content">
-
+            <PanelSlider />
         </div>
     </div>
 </template>
 
 <script>
+import PanelSlider from '@/components/PanelSlider'
+
 export default {
-    name: "PanelSwitch",
+    name: 'PanelSwitch',
+    components: { PanelSlider },
     data : () => ({
         modifiers: {
             'is-left': false
@@ -38,6 +41,13 @@ export default {
     width: 50%;
     height: 100%;
     background-color: var(--color-yellow-light);
+}
+
+.PanelSwitch.is-left {
+
+    .PanelSwitch_content {
+        
+    }
 }
 </style>
 
