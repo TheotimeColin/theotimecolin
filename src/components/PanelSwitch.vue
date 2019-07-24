@@ -52,7 +52,6 @@ export default {
     right: 0;
     width: 55%;
     height: 100%;
-    background-color: var(--color-yellow-light);
 }
 
 .PanelSwitch_content.is-left {
