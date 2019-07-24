@@ -47,6 +47,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     position: relative;
+    padding-left: 40px;
 }
 
 .Homepage_title {

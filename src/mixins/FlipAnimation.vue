@@ -1,7 +1,7 @@
 <template></template>
 
 <script>
-import { TweenLite, CSSPlugin } from 'gsap/all'
+import { TweenLite, CSSPlugin, EasePack } from 'gsap/all'
 
 export default {
     name: 'FlipAnimation',
@@ -64,7 +64,7 @@ export default {
                 scaleY: scale ? this.flipAnimation.before.height / this.flipAnimation.after.height : 1
             }
 
-            TweenLite.fromTo(element, 0.5,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1 })
+            TweenLite.fromTo(element, 1.5,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: Power4.easeInOut })
         }
     }
 }

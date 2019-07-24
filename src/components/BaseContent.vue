@@ -12,7 +12,6 @@ export default {
 
 <style lang="scss" scoped>
 .Content {
-    padding: 40px;
     position: absolute;
     top: 20px;
     left: 20px;

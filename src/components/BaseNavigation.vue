@@ -1,5 +1,5 @@
 <template>
-    <nav class="Navigation">
+    <nav class="Navigation" :class="[ ...modifiers ]">
         <div class="Navigation_item Navigation_item--top">théotime</div>
         <div class="Navigation_item Navigation_item--bot">about</div>
     </nav>
@@ -7,23 +7,32 @@
 
 <script>
 export default {
-    name: 'BaseNavigation'
+    name: 'BaseNavigation',
+    props: {
+        modifiers: { type: Object, default: () => {} }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .Navigation_item {
     position: absolute;
-    left: 0;
+    left: 40px;
     font-weight: bold;
 }
 
 .Navigation_item--top {
-    top: 0;
+    top: 40px;
 }
 
 .Navigation_item--bot {
-    bottom: 0;
+    bottom: 40px;
+}
+
+.Navigation.is-yellow {
+    .Navigation_item {
+        color: var(--color-yellow-accent);
+    }
 }
 </style>
 

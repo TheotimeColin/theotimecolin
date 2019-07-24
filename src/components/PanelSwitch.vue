@@ -1,5 +1,9 @@
 <template>
-    <div class="PanelSwitch" :class="[ ...modifiers ]" @click="onClick()">
+    <div class="PanelSwitch" :class="{ ...modifiers }" @click="onClick()">
+        <div class="PanelSwitch_clip" ref="clip">
+            <BaseNavigation :modifiers="{ 'is-yellow': true }" />
+        </div>
+
         <div class="PanelSwitch_content" ref="content">
             <PanelSlider ref="panelSlider" />
         </div>
@@ -7,13 +11,16 @@
 </template>
 
 <script>
+import { TweenLite, CSSPlugin, EasePack } from 'gsap/all'
+
 import PanelSlider from '@/components/PanelSlider'
+import BaseNavigation from '@/components/BaseNavigation'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
 
 export default {
     name: 'PanelSwitch',
-    components: { PanelSlider },
+    components: { PanelSlider, BaseNavigation },
     mixins: [ FlipAnimation ],
     data : () => ({
         state: {
@@ -24,6 +31,11 @@ export default {
     methods: {
         onClick () {
             this.state.isLeft = !this.state.isLeft
+
+            TweenLite.to(this.$refs.clip, 1.5, {
+                clipPath: `polygon(${this.state.isLeft ? 0 : 55}% 0%, 100% 0%, 100% 100%, ${this.state.isLeft ? 0 : 55}% 100%)`,
+                ease: Power4.easeInOut
+            })
 
             this.flipAnimate({
                 element: this.$refs.content,
@@ -52,6 +64,13 @@ export default {
     right: 0;
     width: 55%;
     height: 100%;
+}
+
+.PanelSwitch_clip {
+    height: 100%;
+    position: relative;
+    z-index: 6;
+    clip-path: polygon(55% 0%, 100% 0%, 100% 100%, 55% 100%);
 }
 
 .PanelSwitch_content.is-left {
