@@ -19,7 +19,9 @@ export default {
             toggle = true,
             onBefore = null,
             onAfter = null,
-            scale = false
+            scale = false,
+            transitionDuration = 1,
+            ease = Power4.easeInOut
         }) {
             if (!element) return
 
@@ -35,7 +37,7 @@ export default {
             }
 
             if (onAfter) onAfter()
-            this.flipAnimateAfter({ element, scale })
+            this.flipAnimateAfter({ element, scale, transitionDuration, ease })
         },
         flipAnimateBefore ({ element = null, scale = false }) {
             if (!element) return
@@ -47,7 +49,7 @@ export default {
                 height: element.offsetHeight
             }
         },
-        flipAnimateAfter ({ element = null, scale = false }) {
+        flipAnimateAfter ({ element = null, scale = false, transitionDuration = 1, ease = Power4.easeInOut }) {
             if (!element) return
 
             this.flipAnimation.after = {
@@ -64,7 +66,7 @@ export default {
                 scaleY: scale ? this.flipAnimation.before.height / this.flipAnimation.after.height : 1
             }
 
-            TweenLite.fromTo(element, 1.5,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: Power4.easeInOut })
+            TweenLite.fromTo(element, transitionDuration,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: ease })
         }
     }
 }

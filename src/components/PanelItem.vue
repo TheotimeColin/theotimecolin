@@ -15,10 +15,10 @@ export default {
     },
     methods: {
         onTransitionBefore () {
-            this.flipAnimateBefore({ element: this.$refs.image })
+            this.flipAnimateBefore({ element: this.$refs.image,  })
         },
-        onTransitionAfter () {
-            this.flipAnimateAfter({ element: this.$refs.image })
+        onTransitionAfter ({ transitionDuration = 1, ease = null }) {
+            this.flipAnimateAfter({ element: this.$refs.image, transitionDuration, ease })
         }
     }
 }

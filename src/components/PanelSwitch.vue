@@ -32,18 +32,37 @@ export default {
         onClick () {
             this.state.isLeft = !this.state.isLeft
 
-            TweenLite.to(this.$refs.clip, 1.5, {
+            TweenLite.to(this.$refs.clip, 1, {
                 clipPath: `polygon(${this.state.isLeft ? 0 : 55}% 0%, 100% 0%, 100% 100%, ${this.state.isLeft ? 0 : 55}% 100%)`,
-                ease: Power4.easeInOut
+                ease: Power4.easeOut
             })
 
             this.flipAnimate({
                 element: this.$refs.content,
-                modifier: 'is-left',
-                toggle: this.state.isLeft,
+                modifier: 'is-center',
+                transitionDuration: 1,
+                ease: Power4.easeOut,
                 onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
-                onAfter: () => this.$refs.panelSlider.onTransitionAfter()
+                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                    ease: Power4.easeOut,
+                    transitionDuration: 1
+                })
             })
+
+            setTimeout(() => {
+                this.flipAnimate({
+                    element: this.$refs.content,
+                    modifier: 'is-left',
+                    toggle: this.state.isLeft,
+                    transitionDuration: 1.25,
+                    ease: Power4.easeInOut,
+                    onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                    onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                        ease: Power4.easeInOut,
+                        transitionDuration: 1.25
+                    })
+                })
+            }, 1000)
         }
     }
 }
@@ -71,6 +90,12 @@ export default {
     position: relative;
     z-index: 6;
     clip-path: polygon(55% 0%, 100% 0%, 100% 100%, 55% 100%);
+}
+
+.PanelSwitch_content.is-center {
+    right: auto;
+    left: 0;
+    width: 100%;
 }
 
 .PanelSwitch_content.is-left {

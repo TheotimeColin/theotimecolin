@@ -23,12 +23,22 @@ export default {
     }),
     methods: {
         onTransitionBefore () {
-            this.flipAnimateBefore({ element: this.$refs.background, scale: true })
+            this.flipAnimateBefore({
+                element: this.$refs.background,
+                scale: true
+            })
+
             this.$refs.item.onTransitionBefore()
         },
-        onTransitionAfter () {
-            this.flipAnimateAfter({ element: this.$refs.background, scale: true })
-            this.$refs.item.onTransitionAfter()
+        onTransitionAfter ({ transitionDuration = 1, ease = null }) {
+            this.flipAnimateAfter({
+                element: this.$refs.background,
+                scale: true,
+                transitionDuration: transitionDuration,
+                ease
+            })
+
+            this.$refs.item.onTransitionAfter({ transitionDuration, ease })
         }
     }
 }
