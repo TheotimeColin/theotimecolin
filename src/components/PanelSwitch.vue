@@ -5,7 +5,7 @@
         </div>
 
         <div class="PanelSwitch_content" ref="content">
-            <PanelSlider ref="panelSlider" />
+            <PanelSlider ref="panelSlider" :isLeft="state.isLeft" />
         </div>
     </div>
 </template>

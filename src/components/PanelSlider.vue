@@ -1,9 +1,9 @@
 <template>
-    <div class="PanelSlider">
+    <div class="PanelSlider" :class="{ 'is-left': isLeft }">
         <div class="PanelSlider_background" ref="background"></div>
 
         <div class="PanelSlider_rail">
-            <PanelItem :image="assets.tempProjectMain" ref="item" />
+            <PanelItem :image="assets.tempProjectMain" ref="item" :isLeft="isLeft" />
         </div>
     </div>
 </template>
@@ -18,6 +18,9 @@ export default {
     name: 'PanelSlider',
     mixins: [ FlipAnimation ],
     components: { PanelItem },
+    props: {
+        isLeft: { type: Boolean, default: false }
+    },
     data: () => ({
         assets: { tempProjectMain }
     }),
@@ -57,7 +60,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--color-yellow-light);
+    background-color: var(--color-yellow-background);
     transform-origin: top left;
 }
 
