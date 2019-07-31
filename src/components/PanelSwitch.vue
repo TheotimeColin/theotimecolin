@@ -32,22 +32,24 @@ export default {
         onClick () {
             this.state.isLeft = !this.state.isLeft
 
-            TweenLite.to(this.$refs.clip, 1, {
-                clipPath: `polygon(${this.state.isLeft ? 0 : 55}% 0%, 100% 0%, 100% 100%, ${this.state.isLeft ? 0 : 55}% 100%)`,
-                ease: Power4.easeOut
-            })
-
-            this.flipAnimate({
-                element: this.$refs.content,
-                modifier: 'is-center',
-                transitionDuration: 1,
-                ease: Power4.easeOut,
-                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
-                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
-                    ease: Power4.easeOut,
-                    transitionDuration: 1
+            setTimeout(() => {
+                TweenLite.to(this.$refs.clip, 1, {
+                    clipPath: `polygon(${this.state.isLeft ? 0 : 55}% 0%, 100% 0%, 100% 100%, ${this.state.isLeft ? 0 : 55}% 100%)`,
+                    ease: Power4.easeOut
                 })
-            })
+
+                this.flipAnimate({
+                    element: this.$refs.content,
+                    modifier: 'is-center',
+                    transitionDuration: 1,
+                    ease: Power4.easeOut,
+                    onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                    onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                        ease: Power4.easeOut,
+                        transitionDuration: 1
+                    })
+                })
+            }, 750)
 
             setTimeout(() => {
                 this.flipAnimate({
@@ -62,7 +64,7 @@ export default {
                         transitionDuration: 1.25
                     })
                 })
-            }, 1000)
+            }, 1750)
         }
     }
 }
@@ -83,6 +85,7 @@ export default {
     right: 0;
     width: 55%;
     height: 100%;
+    will-change: transform;
 }
 
 .PanelSwitch_clip {

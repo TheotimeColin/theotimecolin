@@ -3,17 +3,24 @@
         <img class="PanelItem_image" :src="image" ref="image">
 
         <div class="PanelItem_titles">
-            <div class="PanelItem_title">Kanarys</div>
-            <div class="PanelItem_subtitle">Find workplaces where you belong</div>
+            <div class="PanelItem_title">
+                <BaseTransitionText :appear="!isLeft" text="Kanarys" />
+            </div>
+            <div class="PanelItem_subtitle">
+                <BaseTransitionText :appear="!isLeft" text="Find workplaces where you belong" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import BaseTransitionText from '@/components/BaseTransitionText'
+
 import FlipAnimation from '@/mixins/FlipAnimation'
 
 export default {
     name: 'PanelItem',
+    components: { BaseTransitionText },
     mixins: [ FlipAnimation ],
     props: {
         image: { type: String, required: true },
@@ -58,11 +65,8 @@ export default {
     margin-top: 10px;
 }
 
-.PanelItem.is-left {
-    .PanelItem_title,
-    .PanelItem_subtitle {
-        opacity: 0;
-    }
+.PanelItem_image {
+    will-change: transform;
 }
 </style>
 
