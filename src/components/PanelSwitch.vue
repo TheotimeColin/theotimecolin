@@ -93,6 +93,7 @@ export default {
     position: relative;
     z-index: 6;
     clip-path: polygon(55% 0%, 100% 0%, 100% 100%, 55% 100%);
+    pointer-events: none;
 }
 
 .PanelSwitch_content.is-center {

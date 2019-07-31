@@ -49,7 +49,6 @@ export default {
 
 <style lang="scss" scoped>
 .PanelSlider {
-    // overflow: hidden;
     height: 100%;
     position: relative;
 }
