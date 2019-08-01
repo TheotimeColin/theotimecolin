@@ -1,10 +1,10 @@
 <template>
-    <div class="PanelSwitch" :class="{ ...modifiers }" @click="onClick()">
+    <div class="PanelSwitch" :class="{ ...modifiers }">
         <div class="PanelSwitch_clip" ref="clip">
             <BaseNavigation :modifiers="{ 'is-yellow': true }" />
         </div>
 
-        <div class="PanelSwitch_content" ref="content">
+        <div class="PanelSwitch_content" ref="content" @click="onClick()">
             <PanelSlider ref="panelSlider" :isLeft="state.isLeft" />
         </div>
     </div>
