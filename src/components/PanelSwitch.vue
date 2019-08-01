@@ -40,12 +40,16 @@ export default {
         }
     },
     watch: {
-        isLeft () {
-            this.onProjectSwitch()
+        isLeft (v) {
+            if (v) {
+                this.onGoLeft()
+            } else {
+                this.onGoRight()
+            }
         }
     },
     methods: {
-        async onProjectSwitch () {
+        async onGoLeft (v) {
             this.state.isLeft = true
 
             await this.delay(350)
@@ -82,10 +86,45 @@ export default {
                 })
             })
         },
+        async onGoRight (v) {
+            this.state.isLeft = false
+
+            this.flipAnimate({
+                element: this.$refs.content,
+                modifier: 'is-center',
+                toggle: this.state.isLeft,
+                transitionDuration: 1,
+                ease: Power4.easeOut,
+                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                    ease: Power4.easeOut,
+                    transitionDuration: 1
+                })
+            })
+
+            await this.delay(500)
+
+            TweenLite.to(this.$refs.clip, 1.25, {
+                clipPath: `polygon(55% 0%, 100% 0%, 100% 100%, 55% 100%)`,
+                ease: Power4.easeInOut
+            })
+
+            this.flipAnimate({
+                element: this.$refs.content,
+                modifier: 'is-left',
+                toggle: this.state.isLeft,
+                transitionDuration: 1.25,
+                ease: Power4.easeInOut,
+                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                    ease: Power4.easeInOut,
+                    transitionDuration: 1.25
+                })
+            })
+        },
         delay (ms) {
             return new Promise(res => setTimeout(res, ms))
         }
-
     }
 }
 </script>
