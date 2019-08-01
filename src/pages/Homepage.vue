@@ -1,19 +1,8 @@
 <template>
     <div class="Homepage">
-        <BaseDisplayTitle class="Homepage_title">
-            <template slot="baseline">code with</template>
-            <template slot="highlight">passion</template>
-        </BaseDisplayTitle>
-
-        <BaseDisplayTitle class="Homepage_title">
-            <template slot="baseline">design with</template>
-            <template slot="highlight">purpose</template>
-        </BaseDisplayTitle>
-
-        <BaseDisplayTitle class="Homepage_title">
-            <template slot="baseline">work with</template>
-            <template slot="highlight">creativity</template>
-        </BaseDisplayTitle>
+        <BaseDisplayTitle class="Homepage_title" baseline="code with" highlight="passion" :appear="appear" />
+        <BaseDisplayTitle class="Homepage_title" baseline="design with" highlight="purpose" :appear="appear" />
+        <BaseDisplayTitle class="Homepage_title" baseline="work with" highlight="creativity" :appear="appear" />
     </div>
 </template>
 
@@ -23,7 +12,15 @@ import BaseDisplayTitle from '@/components/BaseDisplayTitle'
 
 export default {
     name: "Homepage",
-    components: { BaseDisplayTitle }   
+    components: { BaseDisplayTitle },
+    props: {
+        appear: { type: Boolean, default: false }
+    },
+    mounted () {
+        setTimeout(() => {
+            this.appear = true
+        }, 1000)
+    }
 }
 </script>
 
@@ -33,6 +30,11 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: self-start;
         padding: 40px;
+    }
+
+    .Homepage_title {
+        margin: 8px 0;
     }
 </style>

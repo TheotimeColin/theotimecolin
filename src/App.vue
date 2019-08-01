@@ -1,17 +1,13 @@
 <template>
-  <BaseContent class="App" :class="{ 'is-left': isLeft }">
+  <BaseContent class="App">
     <BaseCorners />
 
-    <transition name="test" mode="out-in">
-      <div class="App_left">
-          <BaseNavigation />
-          <transition name="test" mode="out-in">
-            <router-view/>
-          </transition>
-      </div>
-    </transition>
+    <div class="App_content" :class="{ 'is-left': isLeft }">
+        <BaseNavigation />
+        <router-view/>
+    </div>
 
-    <PanelSwitch class="App_right" :isLeft="isLeft" />
+    <PanelSwitch class="App_panel" :isLeft="isLeft" />
   </BaseContent>
 </template>
 
@@ -43,9 +39,11 @@ export default {
 <style lang="scss">
   @import "assets/scss/base.scss";
 
-  .App_left {
+  .App_content {
     height: 100%;
     width: 45%;
+    position: relative;
+    z-index: 2;
   }
   
   .test-enter-active,
@@ -53,10 +51,8 @@ export default {
     transition-duration: 1s;
   }
 
-  .App.is-left {
-    .App_left {
-      margin-left: 45%;
-      width: 60%;
-    }
+  .App_content.is-left {
+    margin-left: 45%;
+    width: 60%;
   }
 </style>

@@ -1,6 +1,9 @@
 <template>
     <div class="TransitionText" :class="{ 'is-appear': appear }">
-        <span class="TransitionText_letter" v-for="letter in hash" :key="letter.id">{{ letter.value }}</span>
+        <div class="TransitionText_placeholder">{{ text }}</div>
+        <div class="TransitionText_animation">
+            <span class="TransitionText_letter" v-for="letter in hash" :key="letter.id">{{ letter.value }}</span>
+        </div>
     </div>
 </template>
 
@@ -21,13 +24,26 @@ export default {
 
 <style lang="scss" scoped>
 .TransitionText {
+    position: relative;
+}
+
+.TransitionText_placeholder {
+    opacity: 0;
+}
+
+.TransitionText_animation {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 110%;
+    width: 110%;
     overflow: hidden;
 }
 
 .TransitionText_letter {
     display: inline-block;
     min-width: 5px;
-    transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 110%, 0);
     transition: all 500ms ease;
 
     @for $i from 0 through 20 {

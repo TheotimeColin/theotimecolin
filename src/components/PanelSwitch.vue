@@ -87,12 +87,10 @@ export default {
             })
         },
         async onGoRight (v) {
-            this.state.isLeft = false
-
             this.flipAnimate({
                 element: this.$refs.content,
                 modifier: 'is-center',
-                toggle: this.state.isLeft,
+                toggle: false,
                 transitionDuration: 1,
                 ease: Power4.easeOut,
                 onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
@@ -103,6 +101,8 @@ export default {
             })
 
             await this.delay(500)
+
+            this.state.isLeft = false
 
             TweenLite.to(this.$refs.clip, 1.25, {
                 clipPath: `polygon(55% 0%, 100% 0%, 100% 100%, 55% 100%)`,
