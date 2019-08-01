@@ -25,7 +25,7 @@ export default {
     props: {
         isLeft: { type: Boolean, default: false }
     },
-    data : () => ({
+    data: () => ({
         state: {
             isLeft: false
         },
@@ -38,10 +38,11 @@ export default {
             this.state.isLeft = true
             this.modifiers['is-left'] = true
         }
-
-        setTimeout(() => {
-            // this.onProjectSwitch()
-        }, 1000)
+    },
+    watch: {
+        isLeft () {
+            this.onProjectSwitch()
+        }
     },
     methods: {
         async onProjectSwitch () {
@@ -66,7 +67,7 @@ export default {
                 })
             })
 
-            await this.delay(1750)
+            await this.delay(500)
 
             this.flipAnimate({
                 element: this.$refs.content,

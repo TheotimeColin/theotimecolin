@@ -16,7 +16,10 @@ export default new Router({
     {
       path: '/project/:id',
       name: 'Project',
-      component: Project
+      component: Project,
+      meta: {
+        isLeft: true
+      }
     }
   ]
 })
