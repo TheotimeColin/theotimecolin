@@ -4,7 +4,7 @@
             <BaseNavigation :modifiers="{ 'is-yellow': true }" />
         </div>
 
-        <div class="PanelSwitch_content" ref="content" @click="onClick()">
+        <div class="PanelSwitch_content" ref="content">
             <PanelSlider ref="panelSlider" :isLeft="state.isLeft" />
         </div>
     </div>
@@ -38,45 +38,53 @@ export default {
             this.state.isLeft = true
             this.modifiers['is-left'] = true
         }
+
+        setTimeout(() => {
+            // this.onProjectSwitch()
+        }, 1000)
     },
     methods: {
-        onClick () {
-            this.state.isLeft = !this.state.isLeft
+        async onProjectSwitch () {
+            this.state.isLeft = true
 
-            setTimeout(() => {
-                TweenLite.to(this.$refs.clip, 1, {
-                    clipPath: `polygon(${this.state.isLeft ? 0 : 55}% 0%, 100% 0%, 100% 100%, ${this.state.isLeft ? 0 : 55}% 100%)`,
-                    ease: Power4.easeOut
-                })
+            await this.delay(350)
 
-                this.flipAnimate({
-                    element: this.$refs.content,
-                    modifier: 'is-center',
-                    transitionDuration: 1,
+            TweenLite.to(this.$refs.clip, 1, {
+                clipPath: `polygon(${this.state.isLeft ? 0 : 55}% 0%, 100% 0%, 100% 100%, ${this.state.isLeft ? 0 : 55}% 100%)`,
+                ease: Power4.easeOut
+            })
+
+            this.flipAnimate({
+                element: this.$refs.content,
+                modifier: 'is-center',
+                transitionDuration: 1,
+                ease: Power4.easeOut,
+                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
                     ease: Power4.easeOut,
-                    onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
-                    onAfter: () => this.$refs.panelSlider.onTransitionAfter({
-                        ease: Power4.easeOut,
-                        transitionDuration: 1
-                    })
+                    transitionDuration: 1
                 })
-            }, 750)
+            })
 
-            setTimeout(() => {
-                this.flipAnimate({
-                    element: this.$refs.content,
-                    modifier: 'is-left',
-                    toggle: this.state.isLeft,
-                    transitionDuration: 1.25,
+            await this.delay(1750)
+
+            this.flipAnimate({
+                element: this.$refs.content,
+                modifier: 'is-left',
+                toggle: this.state.isLeft,
+                transitionDuration: 1.25,
+                ease: Power4.easeInOut,
+                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
                     ease: Power4.easeInOut,
-                    onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
-                    onAfter: () => this.$refs.panelSlider.onTransitionAfter({
-                        ease: Power4.easeInOut,
-                        transitionDuration: 1.25
-                    })
+                    transitionDuration: 1.25
                 })
-            }, 1750)
+            })
+        },
+        delay (ms) {
+            return new Promise(res => setTimeout(res, ms))
         }
+
     }
 }
 </script>
