@@ -22,12 +22,23 @@ export default {
     name: 'PanelSwitch',
     components: { PanelSlider, BaseNavigation },
     mixins: [ FlipAnimation ],
+    props: {
+        isLeft: { type: Boolean, default: false }
+    },
     data : () => ({
         state: {
             isLeft: false
         },
-        modifiers: {}
+        modifiers: {
+            'is-left': false
+        }
     }),
+    mounted () {
+        if (this.isLeft) {
+            this.state.isLeft = true
+            this.modifiers['is-left'] = true
+        }
+    },
     methods: {
         onClick () {
             this.state.isLeft = !this.state.isLeft
@@ -102,10 +113,15 @@ export default {
     width: 100%;
 }
 
+.PanelSwitch.is-left .PanelSwitch_content,
 .PanelSwitch_content.is-left {
     right: auto;
     left: 0;
     width: 45%;
+}
+
+.PanelSwitch.is-left .PanelSwitch_clip {
+    clip-path: polygon(0% 0%, 100% 0%, 1000% 100%, 0% 100%);
 }
 </style>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelItem" :class="{ 'is-left': isLeft }">
+    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="{ 'is-left': isLeft }">
         <img class="PanelItem_image" :src="image" ref="image">
 
         <div class="PanelItem_titles">
@@ -10,7 +10,7 @@
                 <BaseTransitionText :appear="!isLeft" text="Find workplaces where you belong" />
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>

@@ -1,16 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Homepage from '@/pages/Homepage'
+import Project from '@/pages/Project'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '',
       name: 'Homepage',
       component: Homepage
+    },
+    {
+      path: '/project/:id',
+      name: 'Project',
+      component: Project
     }
   ]
 })
