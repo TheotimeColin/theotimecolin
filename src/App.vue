@@ -5,6 +5,7 @@
     <div class="App_content" :class="{ 'is-left': isLeft }">
         <BaseNavigation />
         <router-view/>
+        <PanelValues :is-loaded="state.loaded"/>
     </div>
 
     <PanelSwitch class="App_panel" :isLeft="isLeft" />
@@ -15,13 +16,17 @@
 import BaseContent from '@/components/BaseContent'
 import BaseCorners from '@/components/BaseCorners'
 import PanelSwitch from '@/components/PanelSwitch'
+import PanelValues from '@/components/PanelValues'
 import BaseNavigation from '@/components/BaseNavigation'
 
 export default {
   name: 'App',
-  components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation },
+  components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues },
   data: () => ({
-    isLeft: false
+    isLeft: false,
+    state: {
+      loaded: false
+    }
   }),
   created () {
     this.$router.beforeEach((to, from, next) => {
@@ -32,6 +37,10 @@ export default {
   },
   mounted () {
     this.isLeft = this.$route.meta.isLeft ? this.$route.meta.isLeft : false
+
+    setTimeout(() => {
+      this.state.loaded = true
+    }, 2000)
   }
 }
 </script>

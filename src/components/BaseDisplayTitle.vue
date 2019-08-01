@@ -1,10 +1,9 @@
 <template>
     <h1 class="DisplayTitle" :class="{ 'is-appear': appear }">
-        <BaseHighlight :appear="appear" :leave="this.highlightLeave" />
-        
-        <BaseTransitionText class="DisplayTitle_baseline" :appear="appear" :text="baseline" />
+        <BaseTransitionText class="DisplayTitle_baseline" :appear="appear" :text="baseline"/>
 
         <span class="DisplayTitle_highlight">
+            <BaseHighlight :appear="appear" />
             <BaseTransitionText class="DisplayTitle_highlightText" :appear="appear" :text="highlight" />
         </span>
     </h1>
@@ -20,7 +19,8 @@ export default {
     props: {
         baseline: { type: String },
         highlight: { type: String },
-        appear: { type: Boolean, default: false }
+        appear: { type: Boolean, default: false },
+        appearFull: { type: Boolean, default: false }
     },
     data: () => ({
         highlightLeave: false,
@@ -34,6 +34,16 @@ export default {
                     setTimeout(() => {
                         this.highlightLeave = true
                     }, 600)
+                }
+            }
+        },
+        appearFull: {
+            immediate: true,
+            handler (v) {
+                if (v) {
+                    setTimeout(() => {
+                        this.hightlightAppear = true
+                    }, 200)
                 }
             }
         }

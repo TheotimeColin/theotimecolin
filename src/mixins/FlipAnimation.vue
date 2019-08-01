@@ -8,12 +8,12 @@ export default {
     data: () => ({
         flipAnimation: {
             before: {},
-            after: {},
             delta: {}
         }
     }),
     methods: {
         flipAnimate ({
+            id = Math.random().toString(36).substr(2, 9),
             element = null,
             modifier = null,
             toggle = true,
@@ -24,9 +24,9 @@ export default {
             ease = Power4.easeInOut
         }) {
             if (!element) return
-
+            
             if (onBefore) onBefore()
-            this.flipAnimateBefore({ element, scale })
+            this.flipAnimateBefore({ id, element, scale })
 
             if (modifier) {
                 if (toggle) {
@@ -36,34 +36,29 @@ export default {
                 }
             }
 
-            if (onAfter) onAfter()
-            this.flipAnimateAfter({ element, scale, transitionDuration, ease })
+            this.$nextTick(() => {
+                if (onAfter) onAfter()
+                this.flipAnimateAfter({ id, element, scale, transitionDuration, ease })
+            })
         },
-        flipAnimateBefore ({ element = null, scale = false }) {
+        flipAnimateBefore ({ id = 1, element = null, scale = false, position = true }) {
             if (!element) return
 
-            this.flipAnimation.before = {
+            this.flipAnimation.before[id] = {
                 x: element.offsetLeft,
                 y: element.offsetTop,
                 width: element.offsetWidth,
                 height: element.offsetHeight
             }
         },
-        flipAnimateAfter ({ element = null, scale = false, transitionDuration = 1, ease = Power4.easeInOut }) {
+        flipAnimateAfter ({ id = 1, element = null, scale = false, position = true, transitionDuration = 1, ease = Power4.easeInOut }) {
             if (!element) return
-
-            this.flipAnimation.after = {
-                x: element.offsetLeft,
-                y: element.offsetTop,
-                width: element.offsetWidth,
-                height: element.offsetHeight
-            }
 
             this.flipAnimation.delta = {
-                x: this.flipAnimation.before.x - this.flipAnimation.after.x,
-                y: this.flipAnimation.before.y - this.flipAnimation.after.y,
-                scaleX: scale ? this.flipAnimation.before.width / this.flipAnimation.after.width : 1,
-                scaleY: scale ? this.flipAnimation.before.height / this.flipAnimation.after.height : 1
+                x: position ? this.flipAnimation.before[id].x - element.offsetLeft : 0,
+                y: position ? this.flipAnimation.before[id].y - element.offsetTop : 0,
+                scaleX: scale ? this.flipAnimation.before[id].width / element.offsetWidth : 1,
+                scaleY: scale ? this.flipAnimation.before[id].height / element.offsetHeight : 1
             }
 
             TweenLite.fromTo(element, transitionDuration,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: ease })
