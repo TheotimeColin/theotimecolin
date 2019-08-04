@@ -1,15 +1,21 @@
 <template>
-  <BaseContent class="App">
-    <BaseCorners />
+    <div>
+        <BaseContent class="App">
+            <BaseCorners />
 
-    <div class="App_content" :class="{ 'is-left': isLeft }">
-        <BaseNavigation />
-        <router-view/>
+            <div class="App_content" :class="{ 'is-left': isLeft }">
+                <BaseNavigation />
+                
+                <router-view/>
+
+                <PanelValues :is-static="true" v-if="isHome" />
+            </div>
+
+            <PanelSwitch class="App_panel" :isLeft="isLeft" />
+        </BaseContent>
+    
         <PanelValues :is-loaded="state.loaded" :is-home="isHome" />
     </div>
-
-    <PanelSwitch class="App_panel" :isLeft="isLeft" />
-  </BaseContent>
 </template>
 
 <script>
@@ -32,6 +38,8 @@ export default {
     created () {
         this.$router.beforeEach((to, from, next) => {
             this.isLeft = to.meta.isLeft
+            this.isHome = to.name === 'Homepage' ? true : false
+
             next()
         })
     },

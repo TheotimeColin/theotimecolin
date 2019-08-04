@@ -36,10 +36,8 @@ export default {
                 }
             }
 
-            this.$nextTick(() => {
-                if (onAfter) onAfter()
-                this.flipAnimateAfter({ id, element, scale, transitionDuration, ease })
-            })
+            if (onAfter) onAfter()
+            this.flipAnimateAfter({ id, element, scale, transitionDuration, ease })
         },
         flipAnimateBefore ({ id = 1, element = null, scale = false, position = true }) {
             if (!element) return

@@ -17,6 +17,7 @@ export default {
 <style lang="scss" scoped>
 .Navigation_item {
     position: absolute;
+    z-index: 20;
     left: 40px;
     font-weight: bold;
 }

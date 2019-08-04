@@ -1,12 +1,6 @@
 <template>
-    <div class="PanelSwitch" :class="{ ...modifiers }">
-        <div class="PanelSwitch_clip" ref="clip">
-            <BaseNavigation :modifiers="{ 'is-yellow': true }" />
-        </div>
-
-        <div class="PanelSwitch_content" ref="content">
-            <PanelSlider ref="panelSlider" :isLeft="state.isLeft" />
-        </div>
+    <div class="PanelSwitch" :class="{ ...modifiers }" ref="content">
+        <PanelSlider class="PanelSwitch_slider" ref="panelSlider" :isLeft="state.isLeft" />
     </div>
 </template>
 
@@ -53,12 +47,7 @@ export default {
             this.state.isLeft = true
 
             await this.delay(350)
-
-            TweenLite.to(this.$refs.clip, 1, {
-                clipPath: `polygon(${this.state.isLeft ? 0 : 55}% 0%, 100% 0%, 100% 100%, ${this.state.isLeft ? 0 : 55}% 100%)`,
-                ease: Power4.easeOut
-            })
-
+            
             this.flipAnimate({
                 element: this.$refs.content,
                 modifier: 'is-center',
@@ -104,11 +93,6 @@ export default {
 
             this.state.isLeft = false
 
-            TweenLite.to(this.$refs.clip, 1.25, {
-                clipPath: `polygon(55% 0%, 100% 0%, 100% 100%, 55% 100%)`,
-                ease: Power4.easeInOut
-            })
-
             this.flipAnimate({
                 element: this.$refs.content,
                 modifier: 'is-left',
@@ -134,42 +118,30 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.PanelSwitch_content {
-    position: absolute;
-    top: 0;
-    right: 0;
     width: 55%;
     height: 100%;
+    z-index: 5;
     will-change: transform;
 }
 
-.PanelSwitch_clip {
+.PanelSwitch_slider {
+    position: absolute;
+    top: 0;
     height: 100%;
-    position: relative;
-    z-index: 6;
-    clip-path: polygon(55% 0%, 100% 0%, 100% 100%, 55% 100%);
-    pointer-events: none;
+    width: 100%;
 }
 
-.PanelSwitch_content.is-center {
+.PanelSwitch.is-center {
     right: auto;
     left: 0;
     width: 100%;
 }
 
-.PanelSwitch.is-left .PanelSwitch_content,
-.PanelSwitch_content.is-left {
+.PanelSwitch.is-left {
     right: auto;
     left: 0;
     width: 45%;
 }
 
-.PanelSwitch.is-left .PanelSwitch_clip {
-    clip-path: polygon(0% 0%, 100% 0%, 1000% 100%, 0% 100%);
-}
 </style>
 

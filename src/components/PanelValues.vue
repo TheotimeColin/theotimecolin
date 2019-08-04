@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelValues" :class="{ 'is-home': !isHome, 'is-out': state.out, 'is-hidden': state.hidden }" ref="panel">
+    <div class="PanelValues" :class="{ 'is-home': !isHome, 'is-out': state.out, 'is-hidden': state.hidden, 'is-static': isStatic }" ref="panel">
         <div class="PanelValues_background" ref="background"></div>
 
         <div class="PanelValues_titles">
@@ -28,7 +28,8 @@ export default {
     mixins: [ FlipAnimation ],
     props: {
         isLoaded: { type: Boolean, default: false },
-        isHome: { type: Boolean, default: false }
+        isHome: { type: Boolean, default: false },
+        isStatic: { type: Boolean, default: false }
     },
     data: () => ({
         state: {
@@ -88,18 +89,23 @@ export default {
                             ease: Power4.easeInOut
                         })
                     })
+
+                    setTimeout(() => {
+                        this.state.hidden = true
+                    }, 1200)
                 }
             })
         },
         animateOut () {
+            this.state.appear = false
+
             setTimeout(() => {
-                this.state.appear = false
                 this.state.out = true
 
                 setTimeout(() => {
                     this.state.hidden = true
-                }, 300)
-            }, 1000)
+                }, 500)
+            }, 500)
         }
     }
 }
@@ -110,14 +116,13 @@ export default {
     position: absolute;
     width: calc(100vw - 40px);
     height: calc(100vh - 40px);
-    left: 0;
-    top: 0;
+    left: 20px;
+    top: 20px;
     padding: 40px;
     z-index: 15;
     display: flex;
     align-items: center;
     justify-content: center;
-    // text-align: center;
 }
 
 .PanelValues_background {
@@ -134,14 +139,20 @@ export default {
     margin: 8px 0;
 }
 
-.PanelValues.is-loaded {
-    position: absolute;
+.PanelValues.is-static {
+    position: relative !important;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: 100%;
     justify-content: flex-start;
     text-align: left;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+}
+
+.PanelValues.is-loaded {
+    justify-content: flex-start;
+    text-align: left;
+    width: calc(45% - 20px);
 }
 
 .PanelValues.is-home {
@@ -152,7 +163,7 @@ export default {
 
     .PanelValues_background {
         transform: scaleX(0);
-        transition: all 300ms ease-in-out;
+        transition: all 500ms ease-in-out;
     }
 }
 

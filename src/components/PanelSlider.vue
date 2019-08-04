@@ -48,11 +48,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.PanelSlider {
-    height: 100%;
-    position: relative;
-}
-
 .PanelSlider_background {
     position: absolute;
     top: 0;
