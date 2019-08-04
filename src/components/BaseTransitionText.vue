@@ -38,6 +38,7 @@ export default {
     height: 110%;
     width: 110%;
     overflow: hidden;
+    text-align: left;
 }
 
 .TransitionText_letter {

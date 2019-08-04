@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelValues" ref="panel">
+    <div class="PanelValues" :class="{ 'is-home': !isHome, 'is-out': state.out, 'is-hidden': state.hidden }" ref="panel">
         <div class="PanelValues_background" ref="background"></div>
 
         <div class="PanelValues_titles">
@@ -27,12 +27,15 @@ export default {
     components: { BaseDisplayTitle },
     mixins: [ FlipAnimation ],
     props: {
-        isLoaded: { type: Boolean, default: false }
+        isLoaded: { type: Boolean, default: false },
+        isHome: { type: Boolean, default: false }
     },
     data: () => ({
         state: {
             appear: false,
-            appearFull: false
+            appearFull: false,
+            out: false,
+            hidden: false
         },
         titles: [
             { id: 0, baseline: "code with", highlight: "passion" },
@@ -47,6 +50,15 @@ export default {
     },
     watch: {
         isLoaded () {
+            if (this.isHome) {
+                this.animateLeft()
+            } else {
+                this.animateOut()
+            }
+        }
+    },
+    methods: {
+        animateLeft () {
             this.flipAnimate({
                 element: this.$refs.panel,
                 modifier: 'is-loaded',
@@ -62,24 +74,32 @@ export default {
                 onAfter: () => {
                     this.flipAnimateAfter({
                         element: this.$refs.background,
-                        transitionDuration: 1,
+                        transitionDuration: 1.2,
                         position: false,
                         scale: true,
-                        ease: Power4.easeOut
+                        ease: Power4.easeInOut
                     })
 
                     this.$refs.title.forEach((title, i) => {
                         this.flipAnimateAfter({
                             id: title._uid,
                             element: title.$el,
-                            transitionDuration: 1 + (0.2 * i),
-                            ease: Power4.easeOut
+                            transitionDuration: 1.2 + (0.05 * i),
+                            ease: Power4.easeInOut
                         })
                     })
                 }
             })
+        },
+        animateOut () {
+            setTimeout(() => {
+                this.state.appear = false
+                this.state.out = true
 
-            
+                setTimeout(() => {
+                    this.state.hidden = true
+                }, 300)
+            }, 1000)
         }
     }
 }
@@ -88,16 +108,16 @@ export default {
 <style lang="scss" scoped>
 .PanelValues {
     position: absolute;
-    width: 100vw;
-    height: 100vh;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 40px);
     left: 0;
     top: 0;
     padding: 40px;
-    z-index: 5;
+    z-index: 15;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    // text-align: center;
 }
 
 .PanelValues_background {
@@ -122,6 +142,22 @@ export default {
     left: 0;
     height: 100%;
     width: 100%;
+}
+
+.PanelValues.is-home {
+    position: fixed;
+}
+
+.PanelValues.is-out {
+
+    .PanelValues_background {
+        transform: scaleX(0);
+        transition: all 300ms ease-in-out;
+    }
+}
+
+.PanelValues.is-hidden {
+    display: none;
 }
 </style>
 
