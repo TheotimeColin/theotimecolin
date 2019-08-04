@@ -3,12 +3,12 @@
         <BaseContent class="App">
             <BaseCorners />
 
-            <div class="App_content" :class="{ 'is-left': isLeft }">
-                <BaseNavigation />
-                
-                <router-view/>
+            <BaseNavigation />
 
-                <PanelValues :is-static="true" v-if="isHome" />
+            <div class="App_content">
+                <transition name="router-transition" mode="in-out">
+                    <router-view/>
+                </transition>
             </div>
 
             <PanelSwitch class="App_panel" :isLeft="isLeft" />
@@ -59,13 +59,13 @@ export default {
 
     .App_content {
         height: 100%;
-        width: 45%;
         position: relative;
         z-index: 2;
-    }
-
-    .App_content.is-left {
         margin-left: 45%;
         width: 60%;
+    }
+
+    .router-transition-enter-active {
+        transition-duration: 1350ms;
     }
 </style>

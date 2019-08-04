@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelValues" :class="{ 'is-home': !isHome, 'is-out': state.out, 'is-hidden': state.hidden, 'is-static': isStatic }" ref="panel">
+    <div class="PanelValues" :class="{ 'is-home': !isHome, 'is-out': state.out, 'is-hidden': state.hidden && !isHome || state.done && !isHome, 'is-done': state.done }" ref="panel">
         <div class="PanelValues_background" ref="background"></div>
 
         <div class="PanelValues_titles">
@@ -8,7 +8,7 @@
                 v-for="title in titles"
                 :baseline="title.baseline"
                 :highlight="title.highlight"
-                :appear="state.appear"
+                :appear="state.appear || state.done"
                 :appear-full="state.appearFull"
                 :key="title.id"
                 ref="title"
@@ -28,15 +28,15 @@ export default {
     mixins: [ FlipAnimation ],
     props: {
         isLoaded: { type: Boolean, default: false },
-        isHome: { type: Boolean, default: false },
-        isStatic: { type: Boolean, default: false }
+        isHome: { type: Boolean, default: false }
     },
     data: () => ({
         state: {
             appear: false,
             appearFull: false,
             out: false,
-            hidden: false
+            hidden: false,
+            done: false
         },
         titles: [
             { id: 0, baseline: "code with", highlight: "passion" },
@@ -91,7 +91,7 @@ export default {
                     })
 
                     setTimeout(() => {
-                        this.state.hidden = true
+                        this.state.done = true
                     }, 1200)
                 }
             })
@@ -104,6 +104,7 @@ export default {
 
                 setTimeout(() => {
                     this.state.hidden = true
+                    this.state.done = true
                 }, 500)
             }, 500)
         }
@@ -139,20 +140,15 @@ export default {
     margin: 8px 0;
 }
 
-.PanelValues.is-static {
-    position: relative !important;
-    left: 0;
-    top: 0;
-    width: auto;
-    height: 100%;
-    justify-content: flex-start;
-    text-align: left;
-}
-
-.PanelValues.is-loaded {
+.PanelValues.is-loaded,
+.PanelValues.is-done {
     justify-content: flex-start;
     text-align: left;
     width: calc(45% - 20px);
+}
+
+.PanelValues.is-done {
+    z-index: 3;
 }
 
 .PanelValues.is-home {
