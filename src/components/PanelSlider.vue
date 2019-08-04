@@ -1,9 +1,18 @@
 <template>
     <div class="PanelSlider" :class="{ 'is-left': isLeft }">
-        <div class="PanelSlider_background" ref="background"></div>
-
         <div class="PanelSlider_rail">
-            <PanelItem :image="assets.tempProjectMain" ref="item" :isLeft="isLeft" />
+            <PanelItem
+                class="PanelSlider_item"
+                v-for="item in items"
+                :key="item.id"
+                :image="item.image"
+                :title="item.title"
+                :subtitle="item.subtitle"
+                :color="item.color"
+                :active="state.active === item.id"
+                :isLeft="isLeft"
+                ref="item"
+            />
         </div>
     </div>
 </template>
@@ -12,7 +21,7 @@
 import PanelItem from '@/components/PanelItem'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
-import tempProjectMain from '@/assets/img/temp/project-main.jpg'
+import tempProjectMain from '@/assets/img/temp/project-main-0.png'
 
 export default {
     name: 'PanelSlider',
@@ -22,47 +31,49 @@ export default {
         isLeft: { type: Boolean, default: false }
     },
     data: () => ({
-        assets: { tempProjectMain }
+        assets: { tempProjectMain },
+        state: {
+            active: 0
+        },
+        items: [
+            { id: 0, title: 'Kanarys', subtitle: 'Find workplaces where you belong', image: tempProjectMain, color: 'yellow' },
+            { id: 1, title: 'Projets WWF', subtitle: 'Ici et là, la WWF agit', image: tempProjectMain, color: 'blue' },
+            { id: 2, title: 'Agence Wandi', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain, color: 'yellow' },
+            { id: 3, title: 'Aru', subtitle: 'et le maître du Temps', image: tempProjectMain, color: 'blue' }
+        ]
     }),
+    mounted () {
+        setInterval(() => {
+            this.state.active = this.state.active < 3 ? this.state.active + 1 : 0
+        }, 6000)
+    },
     methods: {
         onTransitionBefore () {
-            this.flipAnimateBefore({
-                element: this.$refs.background,
-                scale: true
+            this.$refs.item.forEach(item => {
+                item.onTransitionBefore({ id: item._uid })
             })
-
-            this.$refs.item.onTransitionBefore()
         },
         onTransitionAfter ({ transitionDuration = 1, ease = null }) {
-            this.flipAnimateAfter({
-                element: this.$refs.background,
-                scale: true,
-                transitionDuration: transitionDuration,
-                ease
+            this.$refs.item.forEach(item => {
+                item.onTransitionAfter({ id: item._uid, transitionDuration, ease })
             })
-
-            this.$refs.item.onTransitionAfter({ transitionDuration, ease })
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.PanelSlider_background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--color-yellow-background);
-    transform-origin: top left;
-}
-
 .PanelSlider_rail {
     white-space: nowrap;
     height: 100%;
     position: relative;
     z-index: 2;
+}
+
+.PanelSlider_item {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 </style>
 

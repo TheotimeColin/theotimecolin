@@ -1,13 +1,15 @@
 <template>
-    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="{ 'is-left': isLeft }">
+    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ { 'is-active': active }, `is-${color}` ]">
+        <div class="PanelItem_background" ref="background"></div>
+
         <img class="PanelItem_image" :src="image" ref="image">
 
         <div class="PanelItem_titles">
             <div class="PanelItem_title">
-                <BaseTransitionText :appear="!isLeft" text="Kanarys" />
+                <BaseTransitionText :appear="!isLeft" :text="title" />
             </div>
             <div class="PanelItem_subtitle">
-                <BaseTransitionText :appear="!isLeft" text="Find workplaces where you belong" />
+                <BaseTransitionText :appear="!isLeft" :text="subtitle" />
             </div>
         </div>
     </router-link>
@@ -23,14 +25,31 @@ export default {
     components: { BaseTransitionText },
     mixins: [ FlipAnimation ],
     props: {
+        active: { type: Boolean, default: false },
         image: { type: String, required: true },
+        title: { type: String },
+        color: { type: String },
+        subtitle: { type: String },
         isLeft: { type: Boolean, default: false }
     },
     methods: {
-        onTransitionBefore () {
-            this.flipAnimateBefore({ element: this.$refs.image,  })
+        onTransitionBefore ({ id }) {
+            this.flipAnimateBefore({
+                id,
+                element: this.$refs.background
+            })
+
+            this.flipAnimateBefore({ element: this.$refs.image })
         },
-        onTransitionAfter ({ transitionDuration = 1, ease = null }) {
+        onTransitionAfter ({ id, transitionDuration = 1, ease = null }) {
+            this.flipAnimateAfter({
+                id,
+                element: this.$refs.background,
+                scale: true,
+                transitionDuration: transitionDuration,
+                ease
+            })
+
             this.flipAnimateAfter({ element: this.$refs.image, transitionDuration, ease })
         }
     }
@@ -46,6 +65,17 @@ export default {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
+    transition: clip-path 1000ms ease-in-out;
+}
+
+.PanelItem_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform-origin: top left;
 }
 
 .PanelItem_titles {
@@ -68,6 +98,25 @@ export default {
 
 .PanelItem_image {
     will-change: transform;
+}
+
+.PanelItem.is-active {
+    z-index: 5;
+    clip-path: polygon(0% 0%, 400% 0%, 400% 0%, 0% 0%);
+}
+
+.PanelItem.is-yellow {
+
+    .PanelItem_background {
+        background-color: var(--color-yellow-background);
+    }
+}
+
+.PanelItem.is-blue {
+
+    .PanelItem_background {
+        background-color: var(--color-blue-background);
+    }
 }
 </style>
 

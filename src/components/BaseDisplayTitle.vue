@@ -57,6 +57,7 @@ export default {
     font: var(--font-main-xxl);
     font-weight: bold;
     position: relative;
+    white-space: nowrap;
 }
 
 .DisplayTitle_baseline {

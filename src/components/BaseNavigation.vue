@@ -1,6 +1,6 @@
 <template>
     <nav class="Navigation" :class="[ ...modifiers ]">
-        <div class="Navigation_item Navigation_item--top">théotime</div>
+        <router-link :to="{ name: 'Homepage' }" class="Navigation_item Navigation_item--top">théotime</router-link>
         <div class="Navigation_item Navigation_item--bot">about</div>
     </nav>
 </template>
