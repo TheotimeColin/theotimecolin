@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ { 'is-active': active }, `is-${color}` ]">
+    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ { 'is-active': active, 'is-ready': ready }, `is-${color}` ]">
         <div class="PanelItem_background" ref="background"></div>
 
         <img class="PanelItem_image" :src="image" ref="image">
@@ -26,6 +26,7 @@ export default {
     mixins: [ FlipAnimation ],
     props: {
         active: { type: Boolean, default: false },
+        ready: { type: Boolean, default: false },
         image: { type: String, required: true },
         title: { type: String },
         color: { type: String },
@@ -66,7 +67,7 @@ export default {
     justify-content: center;
     cursor: pointer;
     clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
-    transition: clip-path 1000ms ease-in-out;
+    transition: clip-path 800ms ease-in-out;
 }
 
 .PanelItem_background {
@@ -87,12 +88,10 @@ export default {
 .PanelItem_title {
     font: var(--font-main-xxl);
     font-weight: bold;
-    color: var(--color-yellow-accent);
 }
 
 .PanelItem_subtitle {
     font: var(--font-title-xl);
-    color: var(--color-yellow-light);
     margin-top: 10px;
 }
 
@@ -105,18 +104,23 @@ export default {
     clip-path: polygon(0% 0%, 400% 0%, 400% 0%, 0% 0%);
 }
 
+.PanelItem.is-ready {
+    z-index: 4;
+    clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
+}
+
 .PanelItem.is-yellow {
 
-    .PanelItem_background {
-        background-color: var(--color-yellow-background);
-    }
+    .PanelItem_background { background-color: var(--color-yellow-background); }
+    .PanelItem_title { color: var(--color-yellow-accent); }
+    .PanelItem_subtitle { color: var(--color-yellow-light); }
 }
 
 .PanelItem.is-blue {
 
-    .PanelItem_background {
-        background-color: var(--color-blue-background);
-    }
+    .PanelItem_background { background-color: var(--color-blue-background); }
+    .PanelItem_title { color: var(--color-blue-accent); }
+    .PanelItem_subtitle { color: var(--color-blue-light); }
 }
 </style>
 

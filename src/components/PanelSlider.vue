@@ -3,13 +3,14 @@
         <div class="PanelSlider_rail">
             <PanelItem
                 class="PanelSlider_item"
-                v-for="item in items"
+                v-for="(item, i) in items"
                 :key="item.id"
                 :image="item.image"
                 :title="item.title"
                 :subtitle="item.subtitle"
                 :color="item.color"
-                :active="state.active === item.id"
+                :ready="state.next === i"
+                :active="state.active === i"
                 :isLeft="isLeft"
                 ref="item"
             />
@@ -21,7 +22,8 @@
 import PanelItem from '@/components/PanelItem'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
-import tempProjectMain from '@/assets/img/temp/project-main-0.png'
+import tempProjectMain0 from '@/assets/img/temp/project-main-0.png'
+import tempProjectMain1 from '@/assets/img/temp/project-main-1.png'
 
 export default {
     name: 'PanelSlider',
@@ -31,21 +33,23 @@ export default {
         isLeft: { type: Boolean, default: false }
     },
     data: () => ({
-        assets: { tempProjectMain },
+        assets: { tempProjectMain0, tempProjectMain1 },
         state: {
-            active: 0
+            active: 0,
+            next: 1
         },
         items: [
-            { id: 0, title: 'Kanarys', subtitle: 'Find workplaces where you belong', image: tempProjectMain, color: 'yellow' },
-            { id: 1, title: 'Projets WWF', subtitle: 'Ici et là, la WWF agit', image: tempProjectMain, color: 'blue' },
-            { id: 2, title: 'Agence Wandi', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain, color: 'yellow' },
-            { id: 3, title: 'Aru', subtitle: 'et le maître du Temps', image: tempProjectMain, color: 'blue' }
+            { id: 0, title: 'Kanarys', subtitle: 'Find workplaces where you belong', image: tempProjectMain0, color: 'yellow' },
+            { id: 1, title: 'Projets WWF', subtitle: 'Ici et là, la WWF agit', image: tempProjectMain1, color: 'blue' },
+            { id: 2, title: 'Agence Wandi', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
+            { id: 3, title: 'Aru', subtitle: 'et le maître du Temps', image: tempProjectMain1, color: 'blue' }
         ]
     }),
     mounted () {
         setInterval(() => {
             this.state.active = this.state.active < 3 ? this.state.active + 1 : 0
-        }, 6000)
+            this.state.next = this.state.active < 3 ? this.state.active + 1 : 0
+        }, 10000)
     },
     methods: {
         onTransitionBefore () {
