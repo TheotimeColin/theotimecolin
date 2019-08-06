@@ -6,9 +6,12 @@
             <BaseNavigation />
 
             <div class="App_content">
-                <transition name="router-transition" mode="in-out">
-                    <router-view/>
-                </transition>
+                <div class="App_contentLeft"></div>
+                <div class="App_contentRight">
+                    <transition name="router-transition" mode="in-out">
+                        <router-view/>
+                    </transition>
+                </div>
             </div>
 
             <PanelSwitch class="App_panel" :isLeft="isLeft" />
@@ -61,8 +64,12 @@ export default {
         height: 100%;
         position: relative;
         z-index: 2;
-        margin-left: 45%;
-        width: 60%;
+        display: flex;
+    }
+
+    .App_contentLeft {
+        width: 45%;
+        flex-shrink: 0;
     }
 
     .router-transition-enter-active {
