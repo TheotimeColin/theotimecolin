@@ -2,6 +2,10 @@
     <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ { 'is-active': active, 'is-ready': ready }, `is-${color}` ]">
         <div class="PanelItem_background" ref="background"></div>
 
+        <div class="PanelItem_placeholder">
+            <BaseMarquee :text="subtitle" />
+        </div>
+
         <img class="PanelItem_image" :src="image" ref="image">
 
         <div class="PanelItem_position">{{ ('0' + position).slice(-2) }}</div>
@@ -10,21 +14,19 @@
             <div class="PanelItem_title">
                 <BaseTransitionText :appear="!isLeft" :text="title" />
             </div>
-            <div class="PanelItem_subtitle">
-                <BaseTransitionText :appear="!isLeft" :text="subtitle" />
-            </div>
         </div>
     </router-link>
 </template>
 
 <script>
 import BaseTransitionText from '@/components/BaseTransitionText'
+import BaseMarquee from '@/components/BaseMarquee'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
 
 export default {
     name: 'PanelItem',
-    components: { BaseTransitionText },
+    components: { BaseTransitionText, BaseMarquee },
     mixins: [ FlipAnimation ],
     props: {
         active: { type: Boolean, default: false },
@@ -71,6 +73,7 @@ export default {
     cursor: pointer;
     clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
     transition: clip-path 800ms ease-in-out;
+    overflow: hidden;
 }
 
 .PanelItem_background {
@@ -98,6 +101,16 @@ export default {
     margin-top: 10px;
 }
 
+.PanelItem_placeholder {
+    font: var(--font-main-xxxl);
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+}
+
 .PanelItem_image {
     will-change: transform;
 }
@@ -106,7 +119,8 @@ export default {
     position: absolute;
     top: 40px;
     right: 40px;
-    font: var(--font-title-xxxl);
+    font: var(--font-main-xxl);
+    font-weight: bold;
 }
 
 .PanelItem.is-active {
@@ -122,15 +136,15 @@ export default {
 .PanelItem.is-yellow {
 
     .PanelItem_background { background-color: var(--color-yellow-background); }
-    .PanelItem_title { color: var(--color-yellow-accent); }
-    .PanelItem_subtitle, .PanelItem_position { color: var(--color-yellow-light); }
+    .PanelItem_title, .PanelItem_position { color: var(--color-yellow-accent); }
+    .PanelItem_subtitle, .PanelItem_placeholder { color: var(--color-yellow-light); }
 }
 
 .PanelItem.is-blue {
 
     .PanelItem_background { background-color: var(--color-blue-background); }
-    .PanelItem_title { color: var(--color-blue-accent); }
-    .PanelItem_subtitle, .PanelItem_position { color: var(--color-blue-light); }
+    .PanelItem_title, .PanelItem_position { color: var(--color-blue-accent); }
+    .PanelItem_subtitle,  .PanelItem_placeholder { color: var(--color-blue-light); }
 }
 </style>
 
