@@ -116,7 +116,7 @@ export default {
 .PanelItem_image {
     will-change: transform;
     transform-origin: top left;
-    max-width: 70%;
+    max-width: 65%;
 }
 
 .PanelItem_position {
