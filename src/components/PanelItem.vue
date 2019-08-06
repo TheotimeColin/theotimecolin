@@ -55,7 +55,7 @@ export default {
                 ease
             })
 
-            this.flipAnimateAfter({ id: 'image', element: this.$refs.image, transitionDuration, ease })
+            this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
             this.flipAnimateAfter({ id: 'position', element: this.$refs.position, transitionDuration, ease })
         }
     }
@@ -115,6 +115,8 @@ export default {
 
 .PanelItem_image {
     will-change: transform;
+    transform-origin: top left;
+    max-width: 70%;
 }
 
 .PanelItem_position {
