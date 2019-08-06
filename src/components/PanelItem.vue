@@ -4,6 +4,8 @@
 
         <img class="PanelItem_image" :src="image" ref="image">
 
+        <div class="PanelItem_position">{{ ('0' + position).slice(-2) }}</div>
+
         <div class="PanelItem_titles">
             <div class="PanelItem_title">
                 <BaseTransitionText :appear="!isLeft" :text="title" />
@@ -30,6 +32,7 @@ export default {
         image: { type: String, required: true },
         title: { type: String },
         color: { type: String },
+        position: { type: Number },
         subtitle: { type: String },
         isLeft: { type: Boolean, default: false }
     },
@@ -99,6 +102,13 @@ export default {
     will-change: transform;
 }
 
+.PanelItem_position {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font: var(--font-title-xxxl);
+}
+
 .PanelItem.is-active {
     z-index: 5;
     clip-path: polygon(0% 0%, 400% 0%, 400% 0%, 0% 0%);
@@ -113,14 +123,14 @@ export default {
 
     .PanelItem_background { background-color: var(--color-yellow-background); }
     .PanelItem_title { color: var(--color-yellow-accent); }
-    .PanelItem_subtitle { color: var(--color-yellow-light); }
+    .PanelItem_subtitle, .PanelItem_position { color: var(--color-yellow-light); }
 }
 
 .PanelItem.is-blue {
 
     .PanelItem_background { background-color: var(--color-blue-background); }
     .PanelItem_title { color: var(--color-blue-accent); }
-    .PanelItem_subtitle { color: var(--color-blue-light); }
+    .PanelItem_subtitle, .PanelItem_position { color: var(--color-blue-light); }
 }
 </style>
 

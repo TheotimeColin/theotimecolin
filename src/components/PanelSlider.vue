@@ -9,6 +9,7 @@
                 :title="item.title"
                 :subtitle="item.subtitle"
                 :color="item.color"
+                :position="i + 1"
                 :ready="state.next === i"
                 :active="state.active === i"
                 :isLeft="isLeft"
