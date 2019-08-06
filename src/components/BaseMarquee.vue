@@ -1,5 +1,6 @@
 <template>
-    <div class="Marquee" :style="{ '--animation-speed': `${text.length * 1}s` }">
+    <div class="Marquee" :class="{ 'is-animated': isAnimated }" :style="{ '--animation-speed': `${text.length * 1}s` }">
+        <div class="Marquee_placeholder">{{ text }}</div>
         <div class="Marquee_content" :data-text="text">{{ text }}</div>
     </div>
 </template>
@@ -8,21 +9,26 @@
 export default {
     name: 'BaseMarquee',
     props: {
-        text: { type: String, default: '' }
+        text: { type: String, default: '' },
+        isAnimated: { type: Boolean, default: false }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .Marquee {
-    position: relative;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.Marquee_placeholder {
+    opacity: 0;
 }
 
 .Marquee_content {
     position: absolute;
     left: 0;
-    transform: translate3d(0, -50%, 0);
-    animation: marquee var(--animation-speed) linear infinite;
+    top: 0;
     margin: 0 20px;
 
     &::after {
@@ -31,13 +37,17 @@ export default {
     }
 }
 
+.Marquee.is-animated .Marquee_content {
+    animation: marquee var(--animation-speed) linear infinite;
+}
+
 @keyframes marquee {
     0% {
-        transform: translate3d(0, -50%, 0);
+        transform: translateX(0)
     }
 
     100% {
-        transform: translate3d(-50%, -50%, 0);
+        transform: translateX(-50%);
     }
 }
 </style>

@@ -50,7 +50,7 @@ export default {
         setInterval(() => {
             this.state.active = this.state.active < 3 ? this.state.active + 1 : 0
             this.state.next = this.state.active < 3 ? this.state.active + 1 : 0
-        }, 10000)
+        }, 100000)
     },
     methods: {
         onTransitionBefore () {

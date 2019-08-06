@@ -60,7 +60,7 @@ export default {
                 })
             })
 
-            await this.delay(500)
+            await this.delay(1000)
 
             this.flipAnimate({
                 element: this.$refs.content,

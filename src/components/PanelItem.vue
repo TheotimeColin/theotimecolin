@@ -2,13 +2,11 @@
     <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ { 'is-active': active, 'is-ready': ready }, `is-${color}` ]">
         <div class="PanelItem_background" ref="background"></div>
 
-        <div class="PanelItem_placeholder">
-            <BaseMarquee :text="subtitle" />
-        </div>
+        <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="active" />
 
         <img class="PanelItem_image" :src="image" ref="image">
 
-        <div class="PanelItem_position">{{ ('0' + position).slice(-2) }}</div>
+        <div class="PanelItem_position" ref="position">{{ ('0' + position).slice(-2) }}</div>
 
         <div class="PanelItem_titles">
             <div class="PanelItem_title">
@@ -45,7 +43,8 @@ export default {
                 element: this.$refs.background
             })
 
-            this.flipAnimateBefore({ element: this.$refs.image })
+            this.flipAnimateBefore({ id: 'image', element: this.$refs.image })
+            this.flipAnimateBefore({ id: 'position', element: this.$refs.position })
         },
         onTransitionAfter ({ id, transitionDuration = 1, ease = null }) {
             this.flipAnimateAfter({
@@ -56,7 +55,8 @@ export default {
                 ease
             })
 
-            this.flipAnimateAfter({ element: this.$refs.image, transitionDuration, ease })
+            this.flipAnimateAfter({ id: 'image', element: this.$refs.image, transitionDuration, ease })
+            this.flipAnimateAfter({ id: 'position', element: this.$refs.position, transitionDuration, ease })
         }
     }
 }
@@ -73,7 +73,6 @@ export default {
     cursor: pointer;
     clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
     transition: clip-path 800ms ease-in-out;
-    overflow: hidden;
 }
 
 .PanelItem_background {
@@ -125,12 +124,12 @@ export default {
 
 .PanelItem.is-active {
     z-index: 5;
-    clip-path: polygon(0% 0%, 400% 0%, 400% 0%, 0% 0%);
+    clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
 }
 
 .PanelItem.is-ready {
     z-index: 4;
-    clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 400% 0%, 400% 0%, 0% 0%);
 }
 
 .PanelItem.is-yellow {
