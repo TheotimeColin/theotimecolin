@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ { 'is-active': active, 'is-ready': ready }, `is-${color}` ]">
+    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ { 'is-active': active, 'is-ready': ready, 'is-left': isLeft }, `is-${color}` ]">
         <div class="PanelItem_background" ref="background"></div>
 
         <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="active" />
@@ -108,6 +108,9 @@ export default {
     top: 50%;
     width: 100%;
     transform: translateY(-50%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    transition: clip-path 150ms ease-in;
+    transition-delay: 900ms;
 }
 
 .PanelItem_image {
@@ -130,6 +133,13 @@ export default {
 .PanelItem.is-ready {
     z-index: 4;
     clip-path: polygon(0% 0%, 400% 0%, 400% 0%, 0% 0%);
+}
+
+.PanelItem.is-left {
+
+    .PanelItem_placeholder {
+        clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%);
+    }
 }
 
 .PanelItem.is-yellow {
