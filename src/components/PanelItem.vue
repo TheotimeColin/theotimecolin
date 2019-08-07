@@ -6,7 +6,7 @@
 
         <img class="PanelItem_image" :src="image" ref="image">
 
-        <BaseTransitionText class="PanelItem_position" :appear="!isLeft" :text="('0' + position).slice(-2)" ref="position" />
+        <!--<BaseTransitionText class="PanelItem_position" :appear="!isLeft" :text="('0' + position).slice(-2)" ref="position" />-->
 
         <div class="PanelItem_titles">
             <div class="PanelItem_title">
@@ -109,8 +109,8 @@ export default {
     width: 100%;
     transform: translateY(-50%);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    transition: clip-path 150ms ease-in;
-    transition-delay: 900ms;
+    transition: opacity 400ms ease-in;
+    transition-delay: 800ms;
 }
 
 .PanelItem_image {
@@ -140,7 +140,8 @@ export default {
 .PanelItem.is-left {
 
     .PanelItem_placeholder {
-        clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%);
+        // clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%);
+        opacity: 0;
     }
 }
 
