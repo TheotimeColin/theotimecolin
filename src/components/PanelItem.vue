@@ -6,7 +6,7 @@
 
         <img class="PanelItem_image" :src="image" ref="image">
 
-        <div class="PanelItem_position" ref="position">{{ ('0' + position).slice(-2) }}</div>
+        <BaseTransitionText class="PanelItem_position" :appear="!isLeft" :text="('0' + position).slice(-2)" ref="position" />
 
         <div class="PanelItem_titles">
             <div class="PanelItem_title">
@@ -116,11 +116,11 @@ export default {
 .PanelItem_image {
     will-change: transform;
     transform-origin: top left;
-    max-width: 65%;
+    max-width: 75%;
 }
 
 .PanelItem_position {
-    position: absolute;
+    position: absolute !important;
     top: 40px;
     right: 40px;
     font: var(--font-main-xxl);

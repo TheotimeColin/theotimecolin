@@ -69,7 +69,7 @@ export default {
 
     .App_contentLeft {
         width: 45%;
-        max-width: 500px;
+        max-width: 400px;
         flex-shrink: 0;
     }
 

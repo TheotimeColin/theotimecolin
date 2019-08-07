@@ -141,7 +141,7 @@ export default {
     right: auto;
     left: 0;
     width: 45%;
-    max-width: 500px;
+    max-width: 400px;
 }
 
 </style>
