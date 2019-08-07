@@ -13,6 +13,7 @@
                 :ready="state.next === i"
                 :active="state.active === i"
                 :isLeft="isLeft"
+                :items="items"
                 ref="item"
             />
         </div>

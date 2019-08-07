@@ -13,6 +13,12 @@
                 <BaseTransitionText :appear="!isLeft" :text="title" />
             </div>
         </div>
+
+        <div @mouseenter="onMouseEnter()" @mouseleave="onMouseLeave()">
+            <transition-group name="test" tag="ul" class="PanelItem_nav">
+                <li class="PanelItem_navItem" v-for="item in shownItems" :key="item.id">{{ item.title }}</li>
+            </transition-group>
+        </div>
     </router-link>
 </template>
 
@@ -34,8 +40,12 @@ export default {
         color: { type: String },
         position: { type: Number },
         subtitle: { type: String },
-        isLeft: { type: Boolean, default: false }
+        isLeft: { type: Boolean, default: false },
+        items: { type: Array, default: () => [] }
     },
+    data: () => ({
+        shownItems: []
+    }),
     methods: {
         onTransitionBefore ({ id }) {
             this.flipAnimateBefore({
@@ -57,6 +67,14 @@ export default {
 
             this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
             this.flipAnimateAfter({ id: 'position', element: this.$refs.position, transitionDuration, ease })
+        },
+        onMouseEnter () {
+            this.shownItems = this.items
+        },
+        onMouseLeave () {
+            this.shownItems = [
+                { id: 0, title: 'Kanarys' }
+            ]
         }
     }
 }
@@ -73,6 +91,7 @@ export default {
     cursor: pointer;
     clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
     transition: clip-path 800ms ease-in-out;
+    position: relative;
 }
 
 .PanelItem_background {
@@ -125,6 +144,42 @@ export default {
     right: 40px;
     font: var(--font-main-xxl);
     font-weight: bold;
+}
+
+.PanelItem_nav {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.PanelItem_navItem {
+    display: block;
+    transition: all 500ms ease-out;
+    font: var(--font-main-xl);
+    font-weight: bold;
+    margin: 10px 0;
+
+    @for $i from 0 through 6 {
+        &:nth-child(#{$i}) {
+            // transition-delay: #{$i * 50}ms;
+        }
+    }
+}
+
+.test-enter, .test-leave-to {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.test-leave-active {
+    position: absolute;
 }
 
 .PanelItem.is-active {
