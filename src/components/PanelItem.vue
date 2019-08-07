@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ { 'is-active': active, 'is-ready': ready, 'is-left': isLeft }, `is-${color}` ]">
+    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ classes, `is-${color}` ]">
         <div class="PanelItem_background" ref="background"></div>
 
         <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="active" />
@@ -14,11 +14,9 @@
             </div>
         </div>
 
-        <div @mouseenter="onMouseEnter()" @mouseleave="onMouseLeave()">
-            <transition-group name="test" tag="ul" class="PanelItem_nav">
-                <li class="PanelItem_navItem" v-for="item in shownItems" :key="item.id">{{ item.title }}</li>
-            </transition-group>
-        </div>
+        <ul class="PanelItem_nav">
+            <li class="PanelItem_navItem" v-for="item in items" :key="item.id">{{ item.title }}</li>
+        </ul>
     </router-link>
 </template>
 
@@ -33,6 +31,7 @@ export default {
     components: { BaseTransitionText, BaseMarquee },
     mixins: [ FlipAnimation ],
     props: {
+        id: { type: Number },
         active: { type: Boolean, default: false },
         ready: { type: Boolean, default: false },
         image: { type: String, required: true },
@@ -41,11 +40,19 @@ export default {
         position: { type: Number },
         subtitle: { type: String },
         isLeft: { type: Boolean, default: false },
+        isAnimating: { type: Boolean, default: false },
         items: { type: Array, default: () => [] }
     },
-    data: () => ({
-        shownItems: []
-    }),
+    computed: {
+        classes () {
+            return {
+                'is-active': this.active,
+                'is-ready': this.ready,
+                'is-left': this.isLeft,
+                'is-animating': this.isAnimating
+            }
+        }
+    },
     methods: {
         onTransitionBefore ({ id }) {
             this.flipAnimateBefore({
@@ -67,14 +74,6 @@ export default {
 
             this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
             this.flipAnimateAfter({ id: 'position', element: this.$refs.position, transitionDuration, ease })
-        },
-        onMouseEnter () {
-            this.shownItems = this.items
-        },
-        onMouseLeave () {
-            this.shownItems = [
-                { id: 0, title: 'Kanarys' }
-            ]
         }
     }
 }
@@ -152,11 +151,17 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
+
+    &:hover {
+        .PanelItem_navItem {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
 }
 
 .PanelItem_navItem {
@@ -165,21 +170,15 @@ export default {
     font: var(--font-main-xl);
     font-weight: bold;
     margin: 10px 0;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 250ms ease;
 
     @for $i from 0 through 6 {
         &:nth-child(#{$i}) {
-            // transition-delay: #{$i * 50}ms;
+            transition-delay: #{$i * 50}ms;
         }
     }
-}
-
-.test-enter, .test-leave-to {
-    opacity: 0;
-    transform: translateX(-30px);
-}
-
-.test-leave-active {
-    position: absolute;
 }
 
 .PanelItem.is-active {
@@ -197,6 +196,10 @@ export default {
     .PanelItem_placeholder {
         // clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%);
         opacity: 0;
+    }
+
+    &:not(.is-animating) .PanelItem_nav {
+        display: flex;
     }
 }
 

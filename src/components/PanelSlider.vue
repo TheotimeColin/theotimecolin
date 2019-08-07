@@ -4,6 +4,7 @@
             <PanelItem
                 class="PanelSlider_item"
                 v-for="(item, i) in items"
+                :id="item.id"
                 :key="item.id"
                 :image="item.image"
                 :title="item.title"
@@ -12,7 +13,8 @@
                 :position="i + 1"
                 :ready="state.next === i"
                 :active="state.active === i"
-                :isLeft="isLeft"
+                :is-left="isLeft"
+                :is-animating="isAnimating"
                 :items="items"
                 ref="item"
             />
@@ -32,7 +34,8 @@ export default {
     mixins: [ FlipAnimation ],
     components: { PanelItem },
     props: {
-        isLeft: { type: Boolean, default: false }
+        isLeft: { type: Boolean, default: false },
+        isAnimating: { type: Boolean, default: false }
     },
     data: () => ({
         assets: { tempProjectMain0, tempProjectMain1 },
@@ -44,7 +47,8 @@ export default {
             { id: 0, title: 'Kanarys', subtitle: 'Find workplaces where you belong', image: tempProjectMain0, color: 'yellow' },
             { id: 1, title: 'Projets WWF', subtitle: 'Ici et là, la WWF agit', image: tempProjectMain1, color: 'blue' },
             { id: 2, title: 'Agence Wandi', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
-            { id: 3, title: 'Aru', subtitle: 'et le maître du Temps', image: tempProjectMain1, color: 'blue' }
+            { id: 3, title: 'Aru', subtitle: 'et le maître du Temps', image: tempProjectMain1, color: 'blue' },
+            { id: 4, title: 'Emergence', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
         ]
     }),
     mounted () {

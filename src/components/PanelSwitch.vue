@@ -1,6 +1,6 @@
 <template>
     <div class="PanelSwitch" :class="{ ...modifiers }" ref="content">
-        <PanelSlider class="PanelSwitch_slider" ref="panelSlider" :isLeft="state.isLeft" />
+        <PanelSlider class="PanelSwitch_slider" ref="panelSlider" :isLeft="state.isLeft" :is-animating="state.animating" />
     </div>
 </template>
 
@@ -21,7 +21,8 @@ export default {
     },
     data: () => ({
         state: {
-            isLeft: false
+            isLeft: false,
+            animating: false
         },
         modifiers: {
             'is-left': false
@@ -45,6 +46,7 @@ export default {
     methods: {
         async onGoLeft (v) {
             this.state.isLeft = true
+            this.state.animating = true
 
             await this.delay(350)
             
@@ -72,10 +74,15 @@ export default {
                 onAfter: () => this.$refs.panelSlider.onTransitionAfter({
                     ease: Power4.easeInOut,
                     transitionDuration: 1.25
-                })
+                }),
+                onEnd: () => {
+                    this.state.animating = false
+                }
             })
         },
         async onGoRight (v) {
+            this.state.animating = true
+
             this.flipAnimate({
                 element: this.$refs.content,
                 modifier: 'is-center',
@@ -103,7 +110,10 @@ export default {
                 onAfter: () => this.$refs.panelSlider.onTransitionAfter({
                     ease: Power4.easeInOut,
                     transitionDuration: 1.25
-                })
+                }),
+                onEnd: () => {
+                    this.state.animating = false
+                }
             })
         },
         delay (ms) {

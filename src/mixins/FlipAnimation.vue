@@ -19,6 +19,7 @@ export default {
             toggle = true,
             onBefore = null,
             onAfter = null,
+            onEnd = null,
             scale = false,
             transitionDuration = 1,
             ease = Power4.easeInOut
@@ -38,6 +39,10 @@ export default {
 
             if (onAfter) onAfter()
             this.flipAnimateAfter({ id, element, scale, transitionDuration, ease })
+
+            setTimeout(() => {
+                if (onEnd) onEnd()
+            })
         },
         flipAnimateBefore ({ id = 1, element = null, scale = false, position = true }) {
             if (!element) return
