@@ -19,6 +19,7 @@ export default {
 .Marquee {
     overflow: hidden;
     pointer-events: none;
+    padding: 5% 0;
 }
 
 .Marquee_placeholder {
@@ -28,7 +29,7 @@ export default {
 .Marquee_content {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%;
     margin: 0 20px;
 
     &::after {
@@ -43,11 +44,11 @@ export default {
 
 @keyframes marquee {
     0% {
-        transform: translateX(0)
+        transform: translate3d(0, -50%, 0);
     }
 
     100% {
-        transform: translateX(-50%);
+        transform: translate3d(-50%, -50%, 0);
     }
 }
 </style>
