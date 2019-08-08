@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelValues" :class="{ 'is-home': !isHome, 'is-out': state.out, 'is-hidden': state.hidden && !isHome || state.done && !isHome, 'is-done': state.done }" ref="panel">
+    <div class="PanelValues" :class="{ 'is-home': !isHome, 'is-out': state.out, 'is-hidden': isCenter || isLeft, 'is-done': state.done }" ref="panel">
         <div class="PanelValues_background" ref="background"></div>
 
         <div class="PanelValues_titles">
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import BaseDisplayTitle from '@/components/BaseDisplayTitle'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
@@ -44,6 +46,14 @@ export default {
             { id: 2, baseline: "work with", highlight: "creativity" }
         ]
     }),
+    computed: {
+        ...mapState('sliderAnimation', {
+            isLeft: state => state.steps['is-left'].active,
+            isCenter: state => state.steps['is-center'].active && state.steps['is-center'].transitionEnd,
+            isRight: state => state.steps['is-right'].active,
+            isAnimating: state => state.animating
+        })
+    },
     mounted () {
         setTimeout(() => {
             this.state.appear = true

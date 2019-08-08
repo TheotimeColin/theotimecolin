@@ -38,11 +38,7 @@ export default {
             }
 
             if (onAfter) onAfter()
-            this.flipAnimateAfter({ id, element, scale, transitionDuration, ease })
-
-            setTimeout(() => {
-                if (onEnd) onEnd()
-            })
+            this.flipAnimateAfter({ id, element, scale, transitionDuration, ease, onEnd })
         },
         flipAnimateBefore ({ id = 1, element = null, scale = false, position = true }) {
             if (!element) return
@@ -54,7 +50,7 @@ export default {
                 height: element.offsetHeight
             }
         },
-        flipAnimateAfter ({ id = 1, element = null, scale = false, position = true, transitionDuration = 1, ease = Power4.easeInOut }) {
+        flipAnimateAfter ({ id = 1, element = null, scale = false, position = true, transitionDuration = 1, ease = Power4.easeInOut, onEnd = null }) {
             if (!element) return
 
             this.flipAnimation.delta = {
@@ -63,8 +59,10 @@ export default {
                 scaleX: scale ? this.flipAnimation.before[id].width / element.offsetWidth : 1,
                 scaleY: scale ? this.flipAnimation.before[id].height / element.offsetHeight : 1
             }
-
-            TweenLite.fromTo(element, transitionDuration,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: ease })
+            
+            TweenLite.fromTo(element, transitionDuration,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: ease, onComplete: () => {
+                if (onEnd) onEnd()
+            } })
         }
     }
 }

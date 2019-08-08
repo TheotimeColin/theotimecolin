@@ -79,13 +79,13 @@ export default {
 
             this.flipAnimate({
                 element: this.$refs.content,
-                modifier: 'is-center',
+                modifier: 'is-left',
                 toggle: false,
                 transitionDuration: 1,
-                ease: Power4.easeOut,
+                ease: Power4.easeInOut,
                 onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
                 onAfter: () => this.$refs.panelSlider.onTransitionAfter({
-                    ease: Power4.easeOut,
+                    ease: Power4.easeInOut,
                     transitionDuration: 1
                 }),
                 onEnd: () => {
@@ -93,13 +93,13 @@ export default {
                 }
             })
 
-            await this.delay(500)
+            await this.delay(1500)
 
             this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-right')
 
             this.flipAnimate({
                 element: this.$refs.content,
-                modifier: 'is-left',
+                modifier: 'is-center',
                 toggle: false,
                 transitionDuration: 1.25,
                 ease: Power4.easeInOut,

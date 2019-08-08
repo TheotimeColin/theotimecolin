@@ -44,6 +44,7 @@ export default {
     computed: {
         ...mapState('sliderAnimation', {
             isLeft: state => state.steps['is-left'].active,
+            isRight: state => state.steps['is-right'].active,
             isAnimating: state => state.animating
         }),
         classes () {
@@ -51,6 +52,7 @@ export default {
                 'is-active': this.active,
                 'is-ready': this.ready,
                 'is-left': this.isLeft,
+                'is-right': this.isRight,
                 'is-animating': this.isAnimating
             }
         }
@@ -129,8 +131,8 @@ export default {
     width: 100%;
     transform: translateY(-50%);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    opacity: 0;
     transition: opacity 400ms ease-in;
-    transition-delay: 800ms;
 }
 
 .PanelItem_image {
@@ -193,12 +195,15 @@ export default {
     clip-path: polygon(0% 0%, 400% 0%, 400% 0%, 0% 0%);
 }
 
-.PanelItem.is-left {
-
+.PanelItem.is-right {
+    
     .PanelItem_placeholder {
-        // clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%);
-        opacity: 0;
+        opacity: 1;
+        transition-delay: 800ms;
     }
+}
+
+.PanelItem.is-left {
 
     &:not(.is-animating) .PanelItem_nav {
         display: flex;
