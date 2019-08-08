@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import animation from '@/store/modules/animation'
+import sliderAnimation from '@/store/modules/sliderAnimation'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	modules: {
-        animation
+        sliderAnimation
 	}
 })

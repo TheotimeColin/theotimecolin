@@ -6,8 +6,6 @@
 
         <img class="PanelItem_image" :src="image" ref="image">
 
-        <!--<BaseTransitionText class="PanelItem_position" :appear="!isLeft" :text="('0' + position).slice(-2)" ref="position" />-->
-
         <div class="PanelItem_titles">
             <div class="PanelItem_title">
                 <BaseTransitionText :appear="!isLeft" :text="title" />
@@ -21,6 +19,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import BaseTransitionText from '@/components/BaseTransitionText'
 import BaseMarquee from '@/components/BaseMarquee'
 
@@ -39,11 +39,13 @@ export default {
         color: { type: String },
         position: { type: Number },
         subtitle: { type: String },
-        isLeft: { type: Boolean, default: false },
-        isAnimating: { type: Boolean, default: false },
         items: { type: Array, default: () => [] }
     },
     computed: {
+        ...mapState('sliderAnimation', {
+            isLeft: state => state.steps['is-left'].active,
+            isAnimating: state => state.animating
+        }),
         classes () {
             return {
                 'is-active': this.active,

@@ -1,11 +1,13 @@
 <template>
-    <div class="PanelSwitch" :class="{ ...modifiers }" ref="content">
-        <PanelSlider class="PanelSwitch_slider" ref="panelSlider" :isLeft="state.isLeft" :is-animating="state.animating" />
+    <div class="PanelSwitch" ref="content">
+        <PanelSlider class="PanelSwitch_slider" ref="panelSlider" />
     </div>
 </template>
 
 <script>
 import { TweenLite, CSSPlugin, EasePack } from 'gsap/all'
+import { mapState } from 'vuex'
+import { ANIMATION_START, ANIMATION_END } from '@/store/types/mutation-types'
 
 import PanelSlider from '@/components/PanelSlider'
 import BaseNavigation from '@/components/BaseNavigation'
@@ -17,25 +19,16 @@ export default {
     components: { PanelSlider, BaseNavigation },
     mixins: [ FlipAnimation ],
     props: {
-        isLeft: { type: Boolean, default: false }
+        transitionLeft: { type: Boolean, default: false }
     },
-    data: () => ({
-        state: {
-            isLeft: false,
-            animating: false
-        },
-        modifiers: {
-            'is-left': false
-        }
-    }),
-    mounted () {
-        if (this.isLeft) {
-            this.state.isLeft = true
-            this.modifiers['is-left'] = true
-        }
+    computed: {
+        ...mapState('sliderAnimation', {
+            isAnimating: state => state.animating,
+            isLeft: state => state.steps['is-left'].active
+        })
     },
     watch: {
-        isLeft (v) {
+        transitionLeft (v) {
             if (v) {
                 this.onGoLeft()
             } else {
@@ -45,10 +38,9 @@ export default {
     },
     methods: {
         async onGoLeft (v) {
-            this.state.isLeft = true
-            this.state.animating = true
-
             await this.delay(350)
+            
+            this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-center')
             
             this.flipAnimate({
                 element: this.$refs.content,
@@ -59,15 +51,17 @@ export default {
                 onAfter: () => this.$refs.panelSlider.onTransitionAfter({
                     ease: Power4.easeOut,
                     transitionDuration: 1
-                })
+                }),
+                onEnd: () => this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-center')
             })
 
             await this.delay(1000)
 
+            this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-left')
+
             this.flipAnimate({
                 element: this.$refs.content,
                 modifier: 'is-left',
-                toggle: this.state.isLeft,
                 transitionDuration: 1.25,
                 ease: Power4.easeInOut,
                 onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
@@ -76,12 +70,12 @@ export default {
                     transitionDuration: 1.25
                 }),
                 onEnd: () => {
-                    this.state.animating = false
+                    this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-left')
                 }
             })
         },
         async onGoRight (v) {
-            this.state.animating = true
+            this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-center')
 
             this.flipAnimate({
                 element: this.$refs.content,
@@ -93,17 +87,20 @@ export default {
                 onAfter: () => this.$refs.panelSlider.onTransitionAfter({
                     ease: Power4.easeOut,
                     transitionDuration: 1
-                })
+                }),
+                onEnd: () => {
+                    this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-center')
+                }
             })
 
             await this.delay(500)
 
-            this.state.isLeft = false
+            this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-right')
 
             this.flipAnimate({
                 element: this.$refs.content,
                 modifier: 'is-left',
-                toggle: this.state.isLeft,
+                toggle: false,
                 transitionDuration: 1.25,
                 ease: Power4.easeInOut,
                 onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
@@ -112,7 +109,7 @@ export default {
                     transitionDuration: 1.25
                 }),
                 onEnd: () => {
-                    this.state.animating = false
+                    this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-right')
                 }
             })
         },
@@ -153,6 +150,5 @@ export default {
     width: 45%;
     max-width: 400px;
 }
-
 </style>
 

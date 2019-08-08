@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <PanelSwitch class="App_panel" :isLeft="isLeft" />
+            <PanelSwitch class="App_panel" :transitionLeft="transitionLeft" />
         </BaseContent>
     
         <PanelValues :is-loaded="state.loaded" :is-home="isHome" />
@@ -32,7 +32,7 @@ export default {
     name: 'App',
     components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues },
     data: () => ({
-        isLeft: false,
+        transitionLeft: false,
         isHome:false,
         state: {
             loaded: false
@@ -40,14 +40,14 @@ export default {
     }),
     created () {
         this.$router.beforeEach((to, from, next) => {
-            this.isLeft = to.meta.isLeft
+            this.transitionLeft = to.meta.isLeft
             this.isHome = to.name === 'Homepage' ? true : false
 
             next()
         })
     },
     mounted () {
-        this.isLeft = this.$route.meta.isLeft ? this.$route.meta.isLeft : false
+        this.transitionLeft = this.$route.meta.isLeft ? this.$route.meta.isLeft : false
         this.isHome = this.$route.name === 'Homepage' ? true : false
 
         setTimeout(() => {

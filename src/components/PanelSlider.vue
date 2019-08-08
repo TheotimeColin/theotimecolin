@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelSlider" :class="{ 'is-left': isLeft }">
+    <div class="PanelSlider">
         <div class="PanelSlider_rail">
             <PanelItem
                 class="PanelSlider_item"
@@ -13,8 +13,6 @@
                 :position="i + 1"
                 :ready="state.next === i"
                 :active="state.active === i"
-                :is-left="isLeft"
-                :is-animating="isAnimating"
                 :items="items"
                 ref="item"
             />
@@ -23,8 +21,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 import PanelItem from '@/components/PanelItem'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
@@ -36,12 +32,8 @@ export default {
     mixins: [ FlipAnimation ],
     components: { PanelItem },
     props: {
-        isLeft: { type: Boolean, default: false },
         isAnimating: { type: Boolean, default: false }
     },
-    computed: mapState({
-        test: state => state.animation.test
-    }),
     data: () => ({
         assets: { tempProjectMain0, tempProjectMain1 },
         state: {
@@ -57,12 +49,7 @@ export default {
         ]
     }),
     mounted () {
-        console.log(this.test)
         
-        setInterval(() => {
-            this.state.active = this.state.active < 3 ? this.state.active + 1 : 0
-            this.state.next = this.state.active < 3 ? this.state.active + 1 : 0
-        }, 100000)
     },
     methods: {
         onTransitionBefore () {
