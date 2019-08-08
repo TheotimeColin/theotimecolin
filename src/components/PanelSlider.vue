@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import PanelItem from '@/components/PanelItem'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
@@ -37,6 +39,9 @@ export default {
         isLeft: { type: Boolean, default: false },
         isAnimating: { type: Boolean, default: false }
     },
+    computed: mapState({
+        test: state => state.animation.test
+    }),
     data: () => ({
         assets: { tempProjectMain0, tempProjectMain1 },
         state: {
@@ -52,6 +57,8 @@ export default {
         ]
     }),
     mounted () {
+        console.log(this.test)
+        
         setInterval(() => {
             this.state.active = this.state.active < 3 ? this.state.active + 1 : 0
             this.state.next = this.state.active < 3 ? this.state.active + 1 : 0
