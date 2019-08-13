@@ -81,19 +81,19 @@ export default {
                 element: this.$refs.content,
                 modifier: 'is-left',
                 toggle: false,
-                transitionDuration: 1,
-                ease: Power4.easeInOut,
+                transitionDuration: 0.75,
+                ease: Power4.easeOut,
                 onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
                 onAfter: () => this.$refs.panelSlider.onTransitionAfter({
-                    ease: Power4.easeInOut,
-                    transitionDuration: 1
+                    ease: Power4.easeOut,
+                    transitionDuration: 0.75
                 }),
                 onEnd: () => {
                     this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-center')
                 }
             })
 
-            await this.delay(1500)
+            await this.delay(750)
 
             this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-right')
 
@@ -101,12 +101,12 @@ export default {
                 element: this.$refs.content,
                 modifier: 'is-center',
                 toggle: false,
-                transitionDuration: 1.25,
-                ease: Power4.easeInOut,
+                transitionDuration: 1,
+                ease: Power4.easeOut,
                 onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
                 onAfter: () => this.$refs.panelSlider.onTransitionAfter({
-                    ease: Power4.easeInOut,
-                    transitionDuration: 1.25
+                    ease: Power4.easeOut,
+                    transitionDuration: 1
                 }),
                 onEnd: () => {
                     this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-right')

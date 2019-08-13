@@ -62,6 +62,8 @@ export default {
             
             TweenLite.fromTo(element, transitionDuration,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: ease, onComplete: () => {
                 if (onEnd) onEnd()
+            }, onOverwrite: () => {
+                if (onEnd) onEnd()
             } })
         }
     }

@@ -47,8 +47,6 @@ export default {
                 transitionStart: false,
                 transitionEnd: true
             }
-
-            console.log(id)
         },
         [RESET_STEPS] (state) {
             Object.keys(state.steps).map(id => {
