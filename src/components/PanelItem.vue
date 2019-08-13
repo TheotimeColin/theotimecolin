@@ -8,7 +8,7 @@
 
         <div class="PanelItem_titles">
             <div class="PanelItem_title">
-                <BaseTransitionText :appear="!isLeft" :text="title" />
+                <BaseTransitionText :appear="!isCenter && !isLeft" :text="title" />
             </div>
         </div>
 
@@ -45,6 +45,7 @@ export default {
         ...mapState('sliderAnimation', {
             isLeft: state => state.steps['is-left'].active,
             isRight: state => state.steps['is-right'].active,
+            isCenter: state => state.steps['is-center'].active,
             isAnimating: state => state.animating
         }),
         classes () {
@@ -159,13 +160,6 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    &:hover {
-        .PanelItem_navItem {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
 }
 
 .PanelItem_navItem {
@@ -205,8 +199,27 @@ export default {
 
 .PanelItem.is-left {
 
-    &:not(.is-animating) .PanelItem_nav {
-        display: flex;
+    &:not(.is-animating) {
+
+        .PanelItem_nav {
+            display: flex;
+        }
+
+        .PanelItem_image {
+            transition: opacity 400ms ease-in-out;
+        }
+
+        &:hover {
+
+            .PanelItem_image {
+                opacity: 0.2;
+            }
+
+            .PanelItem_navItem {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
     }
 }
 
