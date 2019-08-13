@@ -18,26 +18,15 @@ export default {
     name: 'PanelSwitch',
     components: { PanelSlider, BaseNavigation },
     mixins: [ FlipAnimation ],
-    props: {
-        transitionLeft: { type: Boolean, default: false }
-    },
     computed: {
         ...mapState('sliderAnimation', {
             isAnimating: state => state.animating,
-            isLeft: state => state.steps['is-left'].active
+            isLeft: state => state.steps['is-left'].active,
+            isRight: state => state.steps['is-right'].active
         })
     },
-    watch: {
-        transitionLeft (v) {
-            if (v) {
-                this.onGoLeft()
-            } else {
-                this.onGoRight()
-            }
-        }
-    },
     methods: {
-        async onGoLeft (v) {
+        async goLeft (v) {
             await this.delay(350)
             
             this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-center')
@@ -74,7 +63,7 @@ export default {
                 }
             })
         },
-        async onGoRight (v) {
+        async goRight (v) {
             this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-center')
 
             this.flipAnimate({
@@ -147,8 +136,7 @@ export default {
 .PanelSwitch.is-left {
     right: auto;
     left: 0;
-    width: 45%;
-    max-width: 400px;
+    width: 400px;
 }
 </style>
 

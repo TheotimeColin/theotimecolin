@@ -1,12 +1,14 @@
 <template>
     <div>
-        <BaseContent class="App">
+        <BaseContent class="App" :class="{ 'is-left': isLeft, 'is-center': isCenter, 'is-right': isRight }">
             <BaseCorners />
 
             <BaseNavigation />
 
             <div class="App_content">
-                <div class="App_contentLeft"></div>
+                <div class="App_contentLeft">
+                    <PanelValues :is-static="true" />
+                </div>
                 <div class="App_contentRight">
                     <transition name="router-transition" mode="in-out">
                         <router-view/>
@@ -14,14 +16,18 @@
                 </div>
             </div>
 
-            <PanelSwitch class="App_panel" :transitionLeft="transitionLeft" />
+            <PanelSwitch class="App_panel" ref="panelSwitch" />
         </BaseContent>
     
-        <PanelValues :is-loaded="state.loaded" :is-home="isHome" />
+        <PanelValues :is-loaded="state.loaded" />
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+import { UPDATE_STEP } from '@/store/types/mutation-types'
+
 import BaseContent from '@/components/BaseContent'
 import BaseCorners from '@/components/BaseCorners'
 import PanelSwitch from '@/components/PanelSwitch'
@@ -33,22 +39,36 @@ export default {
     components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues },
     data: () => ({
         transitionLeft: false,
-        isHome:false,
         state: {
             loaded: false
         }
     }),
+    computed: {
+        ...mapState('sliderAnimation', {
+            isLeft: state => state.steps['is-left'].active,
+            isRight: state => state.steps['is-right'].active,
+            isCenter: state => state.steps['is-center'].active,
+            isAnimating: state => state.animating
+        })
+    },
     created () {
         this.$router.beforeEach((to, from, next) => {
             this.transitionLeft = to.meta.isLeft
-            this.isHome = to.name === 'Homepage' ? true : false
 
             next()
         })
     },
+    watch: {
+        transitionLeft (v) {
+            if (v) {
+                this.$refs.panelSwitch.goLeft()
+            } else {
+                this.$refs.panelSwitch.goRight()
+            }
+        }
+    },
     mounted () {
-        this.transitionLeft = this.$route.meta.isLeft ? this.$route.meta.isLeft : false
-        this.isHome = this.$route.name === 'Homepage' ? true : false
+        this.transitionLeft = this.$route.meta.isLeft
 
         setTimeout(() => {
             this.state.loaded = true
@@ -67,9 +87,16 @@ export default {
         display: flex;
     }
 
+    .App.is-left {
+
+        .App_contentLeft {
+            width: 400px;
+            overflow: hidden;
+        }
+    }
+
     .App_contentLeft {
         width: 45%;
-        max-width: 400px;
         flex-shrink: 0;
     }
 
