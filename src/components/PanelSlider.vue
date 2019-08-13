@@ -6,6 +6,7 @@
                 v-for="(item, i) in items"
                 :id="item.id"
                 :key="item.id"
+                :slug="item.slug"
                 :image="item.image"
                 :title="item.title"
                 :subtitle="item.subtitle"
@@ -41,11 +42,11 @@ export default {
             next: 1
         },
         items: [
-            { id: 0, title: 'Kanarys', subtitle: 'Find workplaces where you belong', image: tempProjectMain0, color: 'yellow' },
-            { id: 1, title: 'Projets WWF', subtitle: 'Ici et là, la WWF agit', image: tempProjectMain1, color: 'blue' },
-            { id: 2, title: 'Agence Wandi', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
-            { id: 3, title: 'Aru', subtitle: 'et le maître du Temps', image: tempProjectMain1, color: 'blue' },
-            { id: 4, title: 'Emergence', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
+            { id: 0, slug: 'kanarys', title: 'Kanarys', subtitle: 'Find workplaces where you belong', image: tempProjectMain0, color: 'yellow' },
+            { id: 1, slug: 'projets-wwf', title: 'Projets WWF', subtitle: 'Ici et là, la WWF agit', image: tempProjectMain1, color: 'blue' },
+            { id: 2, slug: 'agence-wandi', title: 'Agence Wandi', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
+            { id: 3, slug: 'aru', title: 'Aru', subtitle: 'et le maître du Temps', image: tempProjectMain1, color: 'blue' },
+            { id: 4, slug: 'emergence', title: 'Emergence', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
         ]
     }),
     mounted () {

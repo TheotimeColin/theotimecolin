@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'Project', params: { id: 'test' }}" class="PanelItem" :class="[ classes, `is-${color}` ]">
+    <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem" :class="[ classes, `is-${color}` ]">
         <div class="PanelItem_background" ref="background"></div>
 
         <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="active" />
@@ -13,7 +13,9 @@
         </div>
 
         <ul class="PanelItem_nav">
-            <li class="PanelItem_navItem" v-for="item in items" :key="item.id">{{ item.title }}</li>
+            <li class="PanelItem_navItem" v-for="item in items" :key="item.id">
+                <router-link :to="{ name: 'Project', params: { id: item.slug }}">{{ item.title }}</router-link>
+            </li>
         </ul>
     </router-link>
 </template>
@@ -34,6 +36,7 @@ export default {
         id: { type: Number },
         active: { type: Boolean, default: false },
         ready: { type: Boolean, default: false },
+        slug: { type: String },
         image: { type: String, required: true },
         title: { type: String },
         color: { type: String },
