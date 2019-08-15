@@ -13,7 +13,7 @@
         </div>
 
         <ul class="PanelItem_nav">
-            <li class="PanelItem_navItem" v-for="item in items" :key="item.id">
+            <li class="PanelItem_navItem" :class="{ 'is-active': item.id == id }" v-for="item in items" :key="item.id">
                 <router-link :to="{ name: 'Project', params: { id: item.slug }}">{{ item.title }}</router-link>
             </li>
         </ul>
@@ -215,7 +215,7 @@ export default {
         &:hover {
 
             .PanelItem_image {
-                opacity: 0.2;
+                opacity: 0.1;
             }
 
             .PanelItem_navItem {
@@ -229,14 +229,14 @@ export default {
 .PanelItem.is-yellow {
 
     .PanelItem_background { background-color: var(--color-yellow-background); }
-    .PanelItem_title, .PanelItem_position { color: var(--color-yellow-accent); }
+    .PanelItem_title, .PanelItem_position, .PanelItem_navItem.is-active { color: var(--color-yellow-accent); }
     .PanelItem_subtitle, .PanelItem_placeholder { color: var(--color-yellow-light); }
 }
 
 .PanelItem.is-blue {
 
     .PanelItem_background { background-color: var(--color-blue-background); }
-    .PanelItem_title, .PanelItem_position { color: var(--color-blue-accent); }
+    .PanelItem_title, .PanelItem_position, .PanelItem_navItem.is-active { color: var(--color-blue-accent); }
     .PanelItem_subtitle,  .PanelItem_placeholder { color: var(--color-blue-light); }
 }
 </style>
