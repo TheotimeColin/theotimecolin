@@ -22,11 +22,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import PanelItem from '@/components/PanelItem'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
-import tempProjectMain0 from '@/assets/img/temp/project-main-0.png'
-import tempProjectMain1 from '@/assets/img/temp/project-main-1.png'
 
 export default {
     name: 'PanelSlider',
@@ -36,19 +36,16 @@ export default {
         isAnimating: { type: Boolean, default: false }
     },
     data: () => ({
-        assets: { tempProjectMain0, tempProjectMain1 },
         state: {
             active: 0,
             next: 1
-        },
-        items: [
-            { id: 0, slug: 'kanarys', title: 'Kanarys', subtitle: 'Find workplaces where you belong', image: tempProjectMain0, color: 'yellow' },
-            { id: 1, slug: 'projets-wwf', title: 'Projets WWF', subtitle: 'Ici et là, la WWF agit', image: tempProjectMain1, color: 'blue' },
-            { id: 2, slug: 'agence-wandi', title: 'Agence Wandi', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
-            { id: 3, slug: 'aru', title: 'Aru', subtitle: 'et le maître du Temps', image: tempProjectMain1, color: 'blue' },
-            { id: 4, slug: 'emergence', title: 'Emergence', subtitle: 'Sérieux sans se prendre au sérieux', image: tempProjectMain0, color: 'yellow' },
-        ]
+        }
     }),
+    computed: {
+        ...mapState('projects', {
+            items: (state) => state.items
+        })
+    },
     mounted () {
         
     },

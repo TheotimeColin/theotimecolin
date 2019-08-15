@@ -27,6 +27,7 @@
 import { mapState } from 'vuex'
 
 import { UPDATE_STEP } from '@/store/types/mutation-types'
+import { LOAD_PROJECTS } from '@/store/types/action-types'
 
 import BaseContent from '@/components/BaseContent'
 import BaseCorners from '@/components/BaseCorners'
@@ -67,9 +68,11 @@ export default {
             }
         }
     },
-    mounted () {
+    async mounted () {
         this.transitionLeft = this.$route.meta.isLeft
 
+        await this.$store.dispatch(`projects/${LOAD_PROJECTS}`)
+        
         setTimeout(() => {
             this.state.loaded = true
         }, 2500)
