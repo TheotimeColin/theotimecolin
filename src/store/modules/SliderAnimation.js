@@ -1,4 +1,4 @@
-import { UPDATE_STEP, ANIMATION_START, ANIMATION_END, RESET_STEPS } from '@/store/types/mutation-types'
+import { UPDATE_STEP, ANIMATION_START, ANIMATION_END, RESET_STEPS, CHECK_ACTIVE_ANIMATIONS } from '@/store/types/mutation-types'
 
 export default {
     namespaced: true,
@@ -47,6 +47,8 @@ export default {
                 transitionStart: false,
                 transitionEnd: true
             }
+
+            this.commit('sliderAnimation/' + CHECK_ACTIVE_ANIMATIONS)
         },
         [RESET_STEPS] (state) {
             Object.keys(state.steps).map(id => {
@@ -63,6 +65,15 @@ export default {
                 ...state.steps[id],
                 ...options
             }
+        },
+        [CHECK_ACTIVE_ANIMATIONS] (state) {
+            let animating = false
+
+            Object.keys(state.steps).map(id => {
+                if (state.steps[id].animating) animating = true
+            })
+
+            state.animating = animating
         }
     }
 }
