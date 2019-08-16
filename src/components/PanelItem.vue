@@ -209,13 +209,13 @@ export default {
         }
 
         .PanelItem_image {
-            transition: opacity 400ms ease-in-out;
+            transition: opacity 400ms ease;
         }
 
         &:hover {
 
             .PanelItem_image {
-                opacity: 0.1;
+                opacity: 0.05;
             }
 
             .PanelItem_navItem {

@@ -9,7 +9,7 @@
                 :slug="item.slug"
                 :image="item.image"
                 :title="item.title"
-                :subtitle="item.subtitle"
+                :subtitle="item.baseline"
                 :color="item.color"
                 :position="i + 1"
                 :ready="state.next === i"

@@ -1,13 +1,26 @@
 <template>
     <div class="Project">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem fugit voluptatem ut repellendus minus officiis, soluta veniam facilis reprehenderit quaerat at, sit sequi quisquam aspernatur. Nostrum omnis cupiditate nemo doloribus.
+        {{ project.title }}
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+
 export default {
     name: 'Project',
-    components: { }   
+    components: { },
+    computed: {
+        ...mapState('projects', {
+            project (state) {
+                return state.items.filter(item => item.slug = this.$route.params.id)[0]
+            }
+        })
+    },
+    mounted () {
+        console.log(this.project)
+    }
 }
 </script>
 
