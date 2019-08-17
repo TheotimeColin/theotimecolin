@@ -1,16 +1,23 @@
 <template>
     <div class="Project">
-        {{ project.title }}
+        <h1 class="Project_title" :style="{ 'color': project.highlightColor }">{{ project.title }}</h1>
+
+        <template v-for="item in project.content">
+            <BaseLeftImageContainer class="Project_container" :image="item.image" :title="item.title" :key="item.id" v-if="item.layout == 'image-left'">
+                <div v-html="item.text"></div>
+            </BaseLeftImageContainer>
+        </template>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
+import BaseLeftImageContainer from '@/components/BaseLeftImageContainer'
 
 export default {
     name: 'Project',
-    components: { },
+    components: { BaseLeftImageContainer },
     computed: {
         ...mapState('projects', {
             project (state) {
@@ -27,5 +34,14 @@ export default {
 <style lang="scss" scoped>
 .Project {
     padding: 40px;
+}
+
+.Project_container {
+    margin: 40px 0;
+}
+
+.Project_title {
+    font: var(--font-main-xxl);
+    font-weight: bold;
 }
 </style>
