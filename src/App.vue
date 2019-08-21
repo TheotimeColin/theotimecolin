@@ -103,6 +103,10 @@ export default {
         flex-shrink: 0;
     }
 
+    .App_contentRight {
+        overflow: auto;
+    }
+
     .router-transition-enter-active {
         transition-duration: 1350ms;
     }

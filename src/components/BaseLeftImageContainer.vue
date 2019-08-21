@@ -1,5 +1,5 @@
 <template>
-    <div class="LeftContainer" :style="{ 'backgroundColor': baseColor }">
+    <div class="LeftContainer" :style="{ 'backgroundColor': bgColor, 'color': textColor }">
         <div class="LeftContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
         <div class="LeftContainer_content">
             <h2 class="LeftContainer_title" v-if="title">{{ title }}</h2>
@@ -12,7 +12,8 @@
 export default {
     name: 'LeftImageContainer',
     props: {
-        baseColor: { type: String, default: '#e6e6e6' },
+        bgColor: { type: String, default: '#e6e6e6' },
+        textColor: { type: String, default: false },
         title: { type: String, default: false },
         content: { type: String, default: false },
         image: { type: String, default: false }
@@ -46,7 +47,7 @@ export default {
 }
 
 .LeftContainer_title {
-    font: var(--font-main-xxl);
+    font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 20px;
 }

@@ -3,13 +3,17 @@
         <h1 class="Project_title" :style="{ 'color': project.highlightColor }">{{ project.title }}</h1>
 
         <template v-for="item in project.content">
-            <BaseLeftImageContainer class="Project_container" :image="item.image" :title="item.title" :key="item.id" v-if="item.layout == 'image-left'">
+            <BaseLeftImageContainer class="Project_container" :image="item.image" :title="item.title" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-left'">
                 <div v-html="item.text"></div>
             </BaseLeftImageContainer>
 
-            <BaseColumnTextContainer class="Project_container" :title="item.title" :key="item.id" v-if="item.layout == 'text-column'">
+            <BaseColumnTextContainer class="Project_container" :title="item.title" :key="item.id" :bg-color="item.bgColor" :text-color="item.textColor" v-if="item.layout == 'text-column'">
                 <div v-html="item.text"></div>
             </BaseColumnTextContainer>
+
+            <BaseCenterImageContainer class="Project_container" :image="item.image" :title="item.title" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-center'">
+                <div v-html="item.text"></div>
+            </BaseCenterImageContainer>
         </template>
     </div>
 </template>
@@ -19,10 +23,11 @@ import { mapState } from 'vuex'
 
 import BaseLeftImageContainer from '@/components/BaseLeftImageContainer'
 import BaseColumnTextContainer from '@/components/BaseColumnTextContainer'
+import BaseCenterImageContainer from '@/components/BaseCenterImageContainer'
 
 export default {
     name: 'Project',
-    components: { BaseLeftImageContainer, BaseColumnTextContainer },
+    components: { BaseLeftImageContainer, BaseColumnTextContainer, BaseCenterImageContainer },
     computed: {
         ...mapState('projects', {
             project (state) {
@@ -43,7 +48,7 @@ export default {
 }
 
 .Project_container {
-    margin: 40px 0;
+    margin: 60px 0;
 }
 
 .Project_title {
