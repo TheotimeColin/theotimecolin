@@ -6,6 +6,10 @@
             <BaseLeftImageContainer class="Project_container" :image="item.image" :title="item.title" :key="item.id" v-if="item.layout == 'image-left'">
                 <div v-html="item.text"></div>
             </BaseLeftImageContainer>
+
+            <BaseColumnTextContainer class="Project_container" :title="item.title" :key="item.id" v-if="item.layout == 'text-column'">
+                <div v-html="item.text"></div>
+            </BaseColumnTextContainer>
         </template>
     </div>
 </template>
@@ -14,10 +18,11 @@
 import { mapState } from 'vuex'
 
 import BaseLeftImageContainer from '@/components/BaseLeftImageContainer'
+import BaseColumnTextContainer from '@/components/BaseColumnTextContainer'
 
 export default {
     name: 'Project',
-    components: { BaseLeftImageContainer },
+    components: { BaseLeftImageContainer, BaseColumnTextContainer },
     computed: {
         ...mapState('projects', {
             project (state) {
@@ -34,6 +39,7 @@ export default {
 <style lang="scss" scoped>
 .Project {
     padding: 40px;
+    max-width: 950px;
 }
 
 .Project_container {

@@ -16,7 +16,7 @@ export default [
         content: [
             {
                 id: 0,
-                layout: 'center',
+                layout: 'text-column',
                 title: 'Une navigation dynamique',
                 image: null,
                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.'
