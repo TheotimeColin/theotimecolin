@@ -88,6 +88,7 @@ export default {
         position: relative;
         z-index: 2;
         display: flex;
+        overflow: auto;
     }
 
     .App.is-left {
@@ -104,7 +105,6 @@ export default {
     }
 
     .App_contentRight {
-        overflow: auto;
     }
 
     .router-transition-enter-active {
