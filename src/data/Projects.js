@@ -38,5 +38,39 @@ export default [
                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.'
             },
         ]
+    },
+    {
+        id: 1,
+        slug: 'projets-wwf',
+        title: 'Projets WWF',
+        baseline: 'Here and there, the WWF acts',
+        image: tempProjectMain0,
+        color: 'yellow',
+        baseColor: '#ffe3bc',
+        highlightColor: '#ffc551',
+        content: [
+            {
+                id: 0,
+                layout: 'image-left',
+                image: imageLeft0,
+                title: 'VueJs + ES6',
+                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.'
+            },
+            {
+                id: 1,
+                layout: 'text-column',
+                title: 'Une navigation dynamique',
+                image: null,
+                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.'
+            },
+            {
+                id: 2,
+                layout: 'image-center',
+                image: imageCenter0,
+                bgColor: '#356dff',
+                textColor: '#ffffff',
+                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.'
+            },
+        ]
     }
 ]

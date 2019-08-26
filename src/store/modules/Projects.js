@@ -14,7 +14,7 @@ export default {
         }
     },
     actions: {
-        async [LOAD_PROJECTS] ({ state, commit}) {
+        async [LOAD_PROJECTS] ({ state, commit }) {
             try {
                 commit(SET_PROJECTS, tmpData)
             } catch (e) {

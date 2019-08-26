@@ -11,7 +11,7 @@
 export default {
     name: 'ColumnTextContainer',
     props: {
-        title: { type: String, default: false }
+        title: { type: String, default: null }
     }
 }
 </script>

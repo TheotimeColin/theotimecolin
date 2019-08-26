@@ -1,5 +1,5 @@
 <template>
-    <div class="Project">
+    <div class="Project" v-if="project">
         <h1 class="Project_title" :style="{ 'color': project.highlightColor }">{{ project.title }}</h1>
 
         <template v-for="item in project.content">
@@ -31,12 +31,9 @@ export default {
     computed: {
         ...mapState('projects', {
             project (state) {
-                return state.items.filter(item => item.slug = this.$route.params.id)[0]
+                return state.items.filter(item => item.slug == this.$route.params.id)[0]
             }
         })
-    },
-    mounted () {
-        console.log(this.project)
     }
 }
 </script>

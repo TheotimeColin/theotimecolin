@@ -13,11 +13,11 @@
 export default {
     name: 'CenterImageContainer',
     props: {
-        title: { type: String, default: false },
-        content: { type: String, default: false },
-        image: { type: String, default: false },
+        title: { type: String, default: null },
+        content: { type: String, default: null },
+        image: { type: String, default: null },
         bgColor: { type: String, default: '#e6e6e6' },
-        textColor: { type: String, default: false }
+        textColor: { type: String, default: null }
     }
 }
 </script>
