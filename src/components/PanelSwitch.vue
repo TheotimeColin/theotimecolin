@@ -42,7 +42,8 @@ export default {
 
                 this.flipAnimate({
                     element: this.$refs.content,
-                    modifier: 'is-go-left',
+                    transitionClass: 'is-go-left',
+                    modifier: 'is-left',
                     transitionDuration: 1.25,
                     ease: Power4.easeInOut,
                     onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
@@ -54,9 +55,6 @@ export default {
                         this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-left')
                         this.$refs.content.classList.remove('is-right')
                         this.$refs.content.classList.remove('is-center')
-
-                        this.$refs.content.classList.add('is-left')
-                        this.$refs.content.classList.remove('is-go-left')
                         resolve()
                     }
                 })
@@ -70,7 +68,8 @@ export default {
 
                 this.flipAnimate({
                     element: this.$refs.content,
-                    modifier: 'is-go-right',
+                    transitionClass: 'is-go-right',
+                    modifier: 'is-right',
                     toggle: true,
                     transitionDuration: 1,
                     ease: Power4.easeOut,
@@ -83,9 +82,6 @@ export default {
                         this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-right')
                         this.$refs.content.classList.remove('is-left')
                         this.$refs.content.classList.remove('is-center')
-
-                        this.$refs.content.classList.add('is-right')
-                        this.$refs.content.classList.remove('is-go-right')
                         resolve()
                     }
                 })
@@ -99,7 +95,8 @@ export default {
                 
                 this.flipAnimate({
                     element: this.$refs.content,
-                    modifier: 'is-go-center',
+                    transitionClass: 'is-go-center',
+                    modifier: 'is-center',
                     transitionDuration: 1,
                     ease: Power4.easeOut,
                     onBefore: () => {
@@ -110,9 +107,6 @@ export default {
                         transitionDuration: 1
                     }),
                     onEnd: () => {
-                        this.$refs.content.classList.remove('is-go-center')
-                        this.$refs.content.classList.add('is-center')
-
                         this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-center')
                         resolve()
                     }

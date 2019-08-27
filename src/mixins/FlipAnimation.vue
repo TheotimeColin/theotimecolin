@@ -15,6 +15,7 @@ export default {
         flipAnimate ({
             id = Math.random().toString(36).substr(2, 9),
             element = null,
+            transitionClass = null,
             modifier = null,
             toggle = true,
             onBefore = null,
@@ -30,16 +31,16 @@ export default {
             if (onBefore) onBefore()
             this.flipAnimateBefore({ id, element, scale, position })
 
-            if (modifier) {
-                if (toggle) {
-                    element.classList.add(modifier)
-                } else {
-                    element.classList.remove(modifier)
-                }
+            let modifierClass = transitionClass ? transitionClass : modifier
+
+            if (toggle) {
+                element.classList.add(modifierClass)
+            } else {
+                element.classList.remove(modifierClass)
             }
 
             if (onAfter) onAfter()
-            this.flipAnimateAfter({ id, element, scale, transitionDuration, ease, onEnd, position })
+            this.flipAnimateAfter({ id, element, scale, transitionDuration, ease, onEnd, position, modifier, transitionClass })
         },
         flipAnimateBefore ({ id = 1, element = null, scale = false, position = true }) {
             if (!element) return
@@ -51,7 +52,7 @@ export default {
                 height: element.offsetHeight
             }
         },
-        flipAnimateAfter ({ id = 1, element = null, scale = false, position = true, transitionDuration = 1, ease = Power4.easeInOut, onEnd = null }) {
+        flipAnimateAfter ({ id = 1, element = null, scale = false, position = true, transitionDuration = 1, ease = Power4.easeInOut, onEnd = null, modifier = null, transitionClass = null }) {
             if (!element) return
 
             this.flipAnimation.delta = {
@@ -63,7 +64,13 @@ export default {
             
             TweenLite.fromTo(element, transitionDuration,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: ease, onComplete: () => {
                 if (onEnd) onEnd()
+
                 element.style.transform = ''
+
+                if (transitionClass) {
+                    element.classList.remove(transitionClass)
+                    element.classList.add(modifier)
+                }
             }, onOverwrite: () => {
                 if (onEnd) onEnd()
             } })
