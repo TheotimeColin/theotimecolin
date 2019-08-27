@@ -24,8 +24,9 @@ export default {
 <style lang="scss" scoped>
 .LeftContainer {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     padding: 40px 40px 0 0;
+    min-height: 300px;
 }
 
 .LeftContainer_image {
@@ -33,17 +34,12 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top right;
-
-    &::after {
-        content: "";
-        display: block;
-        padding-bottom: 100%;
-    }
 }
 
 .LeftContainer_content {
     width: 60%;
-    padding-left: 40px;
+    align-self: center;
+    padding: 0 0 40px 40px;
 }
 
 .LeftContainer_title {
