@@ -21,13 +21,14 @@ export default {
             onAfter = null,
             onEnd = null,
             scale = false,
+            position = true,
             transitionDuration = 1,
             ease = Power4.easeInOut
         }) {
             if (!element) return
             
             if (onBefore) onBefore()
-            this.flipAnimateBefore({ id, element, scale })
+            this.flipAnimateBefore({ id, element, scale, position })
 
             if (modifier) {
                 if (toggle) {
@@ -38,7 +39,7 @@ export default {
             }
 
             if (onAfter) onAfter()
-            this.flipAnimateAfter({ id, element, scale, transitionDuration, ease, onEnd })
+            this.flipAnimateAfter({ id, element, scale, transitionDuration, ease, onEnd, position })
         },
         flipAnimateBefore ({ id = 1, element = null, scale = false, position = true }) {
             if (!element) return

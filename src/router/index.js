@@ -13,7 +13,7 @@ export default new Router({
       name: 'Homepage',
       component: Homepage,
       meta: {
-        isLeft: false
+        position: 'right'
       }
     },
     {
@@ -21,7 +21,7 @@ export default new Router({
       name: 'Project',
       component: Project,
       meta: {
-        isLeft: true
+        position: 'left'
       }
     }
   ]

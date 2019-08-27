@@ -51,12 +51,12 @@ export default {
     },
     methods: {
         onTransitionBefore () {
-            this.$refs.item.forEach(item => {
+            if (this.$refs.item) this.$refs.item.forEach(item => {
                 item.onTransitionBefore({ id: item._uid })
             })
         },
         onTransitionAfter ({ transitionDuration = 1, ease = null }) {
-            this.$refs.item.forEach(item => {
+            if (this.$refs.item) this.$refs.item.forEach(item => {
                 item.onTransitionAfter({ id: item._uid, transitionDuration, ease })
             })
         }

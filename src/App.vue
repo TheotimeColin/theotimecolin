@@ -39,7 +39,7 @@ export default {
     name: 'App',
     components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues },
     data: () => ({
-        transitionLeft: false,
+        position: '',
         state: {
             loaded: false
         }
@@ -54,22 +54,26 @@ export default {
     },
     created () {
         this.$router.beforeEach((to, from, next) => {
-            this.transitionLeft = to.meta.isLeft
+            this.position = {
+                from: from.meta.position,
+                to: to.meta.position
+            }
 
             next()
         })
     },
     watch: {
-        transitionLeft (v) {
-            if (v) {
-                this.$refs.panelSwitch.goLeft()
-            } else {
-                this.$refs.panelSwitch.goRight()
+        position: {
+            deep: true,
+            handler (v) {
+                this.$refs.panelSwitch.updatePosition(v)
             }
         }
     },
     async mounted () {
-        this.transitionLeft = this.$route.meta.isLeft
+        this.position = {
+            to: this.$route.meta.position
+        }
 
         await this.$store.dispatch(`projects/${LOAD_PROJECTS}`)
         

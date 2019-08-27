@@ -26,80 +26,97 @@ export default {
         })
     },
     methods: {
+        async updatePosition (position) {
+            if (position.from) await this.goCenter()
+
+            switch (position.to) {
+                case 'left': this.goLeft(); break;
+                case 'right': this.goRight(); break;
+            }
+        },
         async goLeft (v) {
-            await this.delay(350)
-            
-            this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-center')
-            
-            this.flipAnimate({
-                element: this.$refs.content,
-                modifier: 'is-center',
-                transitionDuration: 1,
-                ease: Power4.easeOut,
-                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
-                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
-                    ease: Power4.easeOut,
-                    transitionDuration: 1
-                }),
-                onEnd: () => this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-center')
-            })
+            return new Promise(resolve => {
+                console.log('go left !')
 
-            await this.delay(1000)
+                this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-left')
 
-            this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-left')
-
-            this.flipAnimate({
-                element: this.$refs.content,
-                modifier: 'is-left',
-                transitionDuration: 1.25,
-                ease: Power4.easeInOut,
-                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
-                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                this.flipAnimate({
+                    element: this.$refs.content,
+                    modifier: 'is-go-left',
+                    transitionDuration: 1.25,
                     ease: Power4.easeInOut,
-                    transitionDuration: 1.25
-                }),
-                onEnd: () => {
-                    this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-left')
-                }
+                    onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                    onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                        ease: Power4.easeInOut,
+                        transitionDuration: 1.25
+                    }),
+                    onEnd: () => {
+                        this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-left')
+                        this.$refs.content.classList.remove('is-right')
+                        this.$refs.content.classList.remove('is-center')
+
+                        this.$refs.content.classList.add('is-left')
+                        this.$refs.content.classList.remove('is-go-left')
+                        resolve()
+                    }
+                })
             })
         },
         async goRight (v) {
-            this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-center')
+            return new Promise(resolve => {
+                console.log('go right !')
 
-            this.flipAnimate({
-                element: this.$refs.content,
-                modifier: 'is-left',
-                toggle: false,
-                transitionDuration: 0.75,
-                ease: Power4.easeOut,
-                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
-                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-right')
+
+                this.flipAnimate({
+                    element: this.$refs.content,
+                    modifier: 'is-go-right',
+                    toggle: true,
+                    transitionDuration: 1,
                     ease: Power4.easeOut,
-                    transitionDuration: 0.75
-                }),
-                onEnd: () => {
-                    this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-center')
-                }
+                    onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
+                    onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                        ease: Power4.easeOut,
+                        transitionDuration: 1
+                    }),
+                    onEnd: () => {
+                        this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-right')
+                        this.$refs.content.classList.remove('is-left')
+                        this.$refs.content.classList.remove('is-center')
+
+                        this.$refs.content.classList.add('is-right')
+                        this.$refs.content.classList.remove('is-go-right')
+                        resolve()
+                    }
+                })
             })
-
-            await this.delay(750)
-
-            this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-right')
-
-            this.flipAnimate({
-                element: this.$refs.content,
-                modifier: 'is-center',
-                toggle: false,
-                transitionDuration: 1,
-                ease: Power4.easeOut,
-                onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
-                onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+        },
+        async goCenter (v) {
+            return new Promise(resolve => {
+                console.log('go center !')
+                
+                this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-center')
+                
+                this.flipAnimate({
+                    element: this.$refs.content,
+                    modifier: 'is-go-center',
+                    transitionDuration: 1,
                     ease: Power4.easeOut,
-                    transitionDuration: 1
-                }),
-                onEnd: () => {
-                    this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-right')
-                }
+                    onBefore: () => {
+                        this.$refs.panelSlider.onTransitionBefore()
+                    },
+                    onAfter: () => this.$refs.panelSlider.onTransitionAfter({
+                        ease: Power4.easeOut,
+                        transitionDuration: 1
+                    }),
+                    onEnd: () => {
+                        this.$refs.content.classList.remove('is-go-center')
+                        this.$refs.content.classList.add('is-center')
+
+                        this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-center')
+                        resolve()
+                    }
+                })
             })
         },
         delay (ms) {
@@ -114,7 +131,6 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    width: 55%;
     height: 100%;
     z-index: 5;
     will-change: transform;
@@ -127,16 +143,40 @@ export default {
     width: 100%;
 }
 
-.PanelSwitch.is-center {
-    right: auto;
-    left: 0;
-    width: 100%;
+.PanelSwitch.is-go-center {
+    width: 100% !important;
 }
 
 .PanelSwitch.is-left {
     right: auto;
     left: 0;
     width: 400px;
+
+    &.is-center {
+        width: 100%;
+    }
+}
+
+.PanelSwitch.is-right {
+    left: auto;
+    right: 0;
+    width: 55%;
+
+    &.is-center {
+        width: 100%;
+    }
+}
+
+.PanelSwitch.is-go-left {
+    right: auto !important;
+    left: 0 !important;
+    width: 400px !important;
+}
+
+.PanelSwitch.is-go-right {
+    left: auto !important;
+    right: 0 !important;
+    width: 55% !important;
 }
 </style>
 
