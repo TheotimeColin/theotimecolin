@@ -61,19 +61,17 @@ export default {
                 scaleX: scale ? this.flipAnimation.before[id].width / element.offsetWidth : 1,
                 scaleY: scale ? this.flipAnimation.before[id].height / element.offsetHeight : 1
             }
-            
-            TweenLite.fromTo(element, transitionDuration,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: ease, onComplete: () => {
+
+            const end = function () {
                 if (onEnd) onEnd()
 
                 element.style.transform = ''
+                element.classList.add(modifier)
 
-                if (transitionClass) {
-                    element.classList.remove(transitionClass)
-                    element.classList.add(modifier)
-                }
-            }, onOverwrite: () => {
-                if (onEnd) onEnd()
-            } })
+                if (transitionClass) element.classList.remove(transitionClass)
+            }
+            
+            TweenLite.fromTo(element, transitionDuration,  { ...this.flipAnimation.delta }, { x: 0, y: 0, scaleX: 1, scaleY: 1, ease: ease, onComplete: end, onOverwrite: end })
         }
     }
 }
