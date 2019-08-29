@@ -36,7 +36,7 @@ export default {
     data: () => ({
         sliderItems: [],
         state: {
-            activeItem: 0
+            activeItem: ''
         }
     }),
     computed: {
@@ -58,7 +58,7 @@ export default {
     methods: {
         updateActive () {
             this.items.forEach((item, i) => {
-                if (i == 0) this.state.activeItem = item.slug
+                if (i == 0 && this.state.activeItem == '') this.state.activeItem = item.slug
                 if (this.$route.params.id && this.$route.params.id == item.slug) this.state.activeItem = item.slug
             })
         },
