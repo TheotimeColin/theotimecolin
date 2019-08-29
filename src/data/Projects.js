@@ -44,7 +44,7 @@ export default [
         slug: 'projets-wwf',
         title: 'Projets WWF',
         baseline: 'Here and there, the WWF acts',
-        image: tempProjectMain0,
+        image: tempProjectMain1,
         color: 'yellow',
         baseColor: '#ffe3bc',
         highlightColor: '#ffc551',

@@ -13,7 +13,7 @@
         </div>
 
         <ul class="PanelItem_nav">
-            <li class="PanelItem_navItem" :class="{ 'is-active': item.id == id }" v-for="item in items" :key="item.id">
+            <li class="PanelItem_navItem" :class="{ 'is-active': item.active }" v-for="item in items" :key="item.id">
                 <router-link :to="{ name: 'Project', params: { id: item.slug }}">{{ item.title }}</router-link>
             </li>
         </ul>
@@ -35,12 +35,10 @@ export default {
     props: {
         id: { type: Number },
         active: { type: Boolean, default: false },
-        ready: { type: Boolean, default: false },
         slug: { type: String },
         image: { type: String, required: true },
         title: { type: String },
         color: { type: String },
-        position: { type: Number },
         subtitle: { type: String },
         items: { type: Array, default: () => [] }
     },
@@ -54,7 +52,6 @@ export default {
         classes () {
             return {
                 'is-active': this.active,
-                'is-ready': this.ready,
                 'is-left': this.isLeft,
                 'is-right': this.isRight,
                 'is-animating': this.isAnimating
@@ -99,6 +96,7 @@ export default {
     clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
     transition: clip-path 800ms ease-in-out;
     position: relative;
+    display: none;
 }
 
 .PanelItem_background {
@@ -183,13 +181,9 @@ export default {
 }
 
 .PanelItem.is-active {
+    display: flex;
     z-index: 5;
     clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
-}
-
-.PanelItem.is-ready {
-    z-index: 4;
-    clip-path: polygon(0% 0%, 400% 0%, 400% 0%, 0% 0%);
 }
 
 .PanelItem.is-right {

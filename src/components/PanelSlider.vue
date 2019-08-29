@@ -3,7 +3,8 @@
         <div class="PanelSlider_rail">
             <PanelItem
                 class="PanelSlider_item"
-                v-for="(item, i) in items"
+                v-for="item in items"
+                :active="state.activeItem == item.slug"
                 :id="item.id"
                 :key="item.id"
                 :slug="item.slug"
@@ -11,9 +12,6 @@
                 :title="item.title"
                 :subtitle="item.baseline"
                 :color="item.color"
-                :position="i + 1"
-                :ready="state.next === i"
-                :active="state.active === i"
                 :items="items"
                 ref="item"
             />
@@ -36,9 +34,9 @@ export default {
         isAnimating: { type: Boolean, default: false }
     },
     data: () => ({
+        sliderItems: [],
         state: {
-            active: 0,
-            next: 1
+            activeItem: 0
         }
     }),
     computed: {
@@ -46,10 +44,24 @@ export default {
             items: (state) => state.items
         })
     },
+    watch: {
+        items () {
+            this.updateActive()
+        },
+        $route (to, from) {
+            this.updateActive()
+        }
+    },
     mounted () {
-        
+       
     },
     methods: {
+        updateActive () {
+            this.items.forEach((item, i) => {
+                if (i == 0) this.state.activeItem = item.slug
+                if (this.$route.params.id && this.$route.params.id == item.slug) this.state.activeItem = item.slug
+            })
+        },
         onTransitionBefore () {
             if (this.$refs.item) this.$refs.item.forEach(item => {
                 item.onTransitionBefore({ id: item._uid })
