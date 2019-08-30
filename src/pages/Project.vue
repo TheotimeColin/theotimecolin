@@ -42,6 +42,7 @@ export default {
 .Project {
     padding: 40px;
     max-width: 950px;
+    margin: 0 auto;
 }
 
 .Project_container {

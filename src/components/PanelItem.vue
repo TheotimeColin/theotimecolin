@@ -93,7 +93,7 @@ export default {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 9999px 0%, 9999px 100%, 0% 100%);
     transition: clip-path 800ms ease-in-out;
     position: relative;
     display: none;
@@ -105,6 +105,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100%;
     transform-origin: top left;
 }
 
@@ -183,7 +184,7 @@ export default {
 .PanelItem.is-active {
     display: flex;
     z-index: 5;
-    clip-path: polygon(0% 0%, 400% 0%, 400% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 9999px 0%, 9999px 100%, 0% 100%);
 }
 
 .PanelItem.is-right {
