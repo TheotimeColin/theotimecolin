@@ -121,7 +121,7 @@ export default {
     height: calc(100vh - 40px);
     left: 20px;
     top: 20px;
-    padding: 40px;
+    padding: 4vw;
     z-index: 15;
     display: flex;
     align-items: center;
@@ -146,7 +146,7 @@ export default {
 .PanelValues.is-done {
     justify-content: flex-start;
     text-align: left;
-    width: calc(45% - 20px);
+    width: calc(45% - 4vw);
 }
 
 .PanelValues.is-done {
