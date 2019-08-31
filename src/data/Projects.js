@@ -46,8 +46,8 @@ export default [
         baseline: 'Here and there, the WWF acts',
         image: tempProjectMain1,
         color: 'yellow',
-        baseColor: '#ffe3bc',
-        highlightColor: '#ffc551',
+        baseColor: '#144fcd',
+        highlightColor: '#4a83ff',
         content: [
             {
                 id: 0,

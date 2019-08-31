@@ -11,7 +11,7 @@
                 </div>
                 <div class="App_contentRight">
                     <transition name="router-transition" mode="in-out">
-                        <router-view/>
+                        <router-view :key="$route.params.id" />
                     </transition>
                 </div>
             </div>
@@ -95,7 +95,8 @@ export default {
         overflow: auto;
     }
 
-    .App.is-left {
+    .App.is-left,
+    .App.is-center {
 
         .App_contentLeft {
             width: 400px;

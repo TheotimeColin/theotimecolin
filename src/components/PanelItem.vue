@@ -1,7 +1,5 @@
 <template>
-    <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem" :class="[ classes, `is-${color}` ]">
-        <div class="PanelItem_background" ref="background"></div>
-
+    <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem" :class="[ classes ]" :style="{ 'color': highlightColor }">
         <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="active" />
 
         <img class="PanelItem_image" :src="image" ref="image">
@@ -13,8 +11,8 @@
         </div>
 
         <ul class="PanelItem_nav">
-            <li class="PanelItem_navItem" :class="{ 'is-active': item.active }" v-for="item in items" :key="item.id">
-                <router-link :to="{ name: 'Project', params: { id: item.slug }}">{{ item.title }}</router-link>
+            <li class="PanelItem_navItem" v-for="item in items" :key="item.id">
+                <router-link :to="{ name: 'Project', params: { id: item.slug }}" :style="{ 'color': highlightColor }">{{ item.title }}</router-link>
             </li>
         </ul>
     </router-link>
@@ -38,8 +36,9 @@ export default {
         slug: { type: String },
         image: { type: String, required: true },
         title: { type: String },
-        color: { type: String },
         subtitle: { type: String },
+        baseColor: { type: String },
+        highlightColor: { type: String },
         items: { type: Array, default: () => [] }
     },
     computed: {
@@ -60,23 +59,10 @@ export default {
     },
     methods: {
         onTransitionBefore ({ id }) {
-            this.flipAnimateBefore({
-                id,
-                element: this.$refs.background
-            })
-
             this.flipAnimateBefore({ id: 'image', element: this.$refs.image })
             this.flipAnimateBefore({ id: 'position', element: this.$refs.position })
         },
         onTransitionAfter ({ id, transitionDuration = 1, ease = null }) {
-            this.flipAnimateAfter({
-                id,
-                element: this.$refs.background,
-                scale: true,
-                transitionDuration: transitionDuration,
-                ease
-            })
-
             this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
             this.flipAnimateAfter({ id: 'position', element: this.$refs.position, transitionDuration, ease })
         }
@@ -92,21 +78,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     clip-path: polygon(0% 0%, 9999px 0%, 9999px 100%, 0% 100%);
     transition: clip-path 800ms ease-in-out;
     position: relative;
     display: none;
-}
-
-.PanelItem_background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    transform-origin: top left;
 }
 
 .PanelItem_titles {
@@ -179,6 +154,15 @@ export default {
             transition-delay: #{$i * 50}ms;
         }
     }
+
+    a {
+        color: var(--color-font) !important;
+    }
+
+    a.router-link-active {
+        pointer-events: none;
+        color: inherit !important;
+    }
 }
 
 .PanelItem.is-active {
@@ -219,20 +203,6 @@ export default {
             }
         }
     }
-}
-
-.PanelItem.is-yellow {
-
-    .PanelItem_background { background-color: var(--color-yellow-background); }
-    .PanelItem_title, .PanelItem_position, .PanelItem_navItem.is-active { color: var(--color-yellow-accent); }
-    .PanelItem_subtitle, .PanelItem_placeholder { color: var(--color-yellow-light); }
-}
-
-.PanelItem.is-blue {
-
-    .PanelItem_background { background-color: var(--color-blue-background); }
-    .PanelItem_title, .PanelItem_position, .PanelItem_navItem.is-active { color: var(--color-blue-accent); }
-    .PanelItem_subtitle,  .PanelItem_placeholder { color: var(--color-blue-light); }
 }
 </style>
 
