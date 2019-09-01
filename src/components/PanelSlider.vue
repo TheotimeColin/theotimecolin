@@ -1,5 +1,16 @@
 <template>
     <div class="PanelSlider">
+        <div class="PanelSlider_backgrounds">
+            <div
+                class="PanelSlider_background"
+                v-for="item in items"
+                :key="item.id"
+                :class="{ 'is-active': state.activeItem == item.slug, 'is-leaving': state.previousItem == item.slug }"
+                :style="{ 'backgroundColor': item.baseColor }"
+                ref="background"
+            ></div>
+        </div>
+
         <div class="PanelSlider_rail">
             <PanelItem
                 class="PanelSlider_item"
@@ -37,7 +48,8 @@ export default {
     data: () => ({
         sliderItems: [],
         state: {
-            activeItem: ''
+            activeItem: '',
+            previousItem: ''
         }
     }),
     computed: {
@@ -58,6 +70,9 @@ export default {
     },
     methods: {
         updateActive () {
+            this.state.previousItem = this.state.activeItem
+            setTimeout(() => this.state.previousItem = '', 1400)
+
             this.items.forEach((item, i) => {
                 if (i == 0 && this.state.activeItem == '') this.state.activeItem = item.slug
                 if (this.$route.params.id && this.$route.params.id == item.slug) this.state.activeItem = item.slug
@@ -67,10 +82,24 @@ export default {
             if (this.$refs.item) this.$refs.item.forEach(item => {
                 item.onTransitionBefore({ id: item._uid })
             })
+
+            if (this.$refs.background) this.$refs.background.forEach((background, i) => {
+                this.flipAnimateBefore({ id: `background${i}`, element: background })
+            })
         },
         onTransitionAfter ({ transitionDuration = 1, ease = null }) {
             if (this.$refs.item) this.$refs.item.forEach(item => {
                 item.onTransitionAfter({ id: item._uid, transitionDuration, ease })
+            })
+
+            if (this.$refs.background) this.$refs.background.forEach((background, i) => {
+                this.flipAnimateAfter({
+                    id: `background${i}`,
+                    scale: true,
+                    element: background,
+                    transitionDuration,
+                    ease
+                })
             })
         }
     }
@@ -79,6 +108,7 @@ export default {
 
 <style lang="scss" scoped>
 .PanelSlider_rail {
+    white-space: nowrap;
     height: 100%;
     position: relative;
     z-index: 2;
@@ -88,6 +118,29 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.PanelSlider_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: top left;
+    opacity: 0;
+    transition: opacity 700ms ease;
+
+    &.is-active {
+        opacity: 1;
+        z-index: 2;
+        transition-delay: 700ms;
+    }
+
+    &.is-leaving {
+        opacity: 1;
+    }
 }
 </style>
 

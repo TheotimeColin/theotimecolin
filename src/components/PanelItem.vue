@@ -1,7 +1,5 @@
 <template>
     <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem" :class="[ classes ]" :style="{ 'color': highlightColor }">
-        <div class="PanelItem_background" :style="{ 'backgroundColor': baseColor }" ref="background"></div>
-        
         <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="active" />
 
         <img class="PanelItem_image" :src="image" ref="image">
@@ -69,18 +67,16 @@ export default {
         active (v) {
             if (!v) {
                 this.state.leaving = true
-                setTimeout(() => this.state.leaving = false, 1000)
+                setTimeout(() => this.state.leaving = false, 1200)
             }
         }
     },
     methods: {
         onTransitionBefore ({ id }) {
             this.flipAnimateBefore({ id: 'image', element: this.$refs.image })
-            this.flipAnimateBefore({ id: 'background', element: this.$refs.background })
         },
         onTransitionAfter ({ id, transitionDuration = 1, ease = null }) {
             this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
-            this.flipAnimateAfter({ id: 'background', element: this.$refs.background, scale: true, transitionDuration, ease })
         }
     }
 }
@@ -94,8 +90,7 @@ export default {
     align-items: center;
     justify-content: center;
     clip-path: polygon(0% 0%, 9999px 0%, 9999px 100%, 0% 100%);
-    transition: clip-path 800ms ease-in-out, transform 500ms ease;
-    transition-delay: 500ms;
+    transition: clip-path 800ms ease-in-out;
     transform: translateY(-100%);
 }
 
@@ -133,19 +128,7 @@ export default {
     max-width: 75%;
     will-change: transform;
     transform-origin: top left;
-}
-
-.PanelItem_background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform-origin: top left;
-    opacity: 0;
-    transition: opacity 500ms ease;
-    transition-delay: 500ms;
-}
+} 
 
 .PanelItem_nav {
     position: absolute;
@@ -188,6 +171,8 @@ export default {
 .PanelItem.is-leaving,
 .PanelItem.is-active {
     transform: translateY(0);
+    transition: clip-path 800ms ease-in-out, transform 800ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition-delay: 600ms;
 
     .PanelItem_background {
         opacity: 1;

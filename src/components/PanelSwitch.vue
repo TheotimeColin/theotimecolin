@@ -29,6 +29,8 @@ export default {
         async updatePosition (position) {
             if (position.from) await this.goCenter()
 
+            await this.delay(250)
+
             switch (position.to) {
                 case 'left': this.goLeft(); break;
                 case 'right': this.goRight(); break;
@@ -42,12 +44,12 @@ export default {
                     element: this.$refs.content,
                     transitionClass: 'is-go-left',
                     modifier: 'is-left',
-                    transitionDuration: 1.25,
+                    transitionDuration: 1.5,
                     ease: Power4.easeInOut,
                     onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
                     onAfter: () => this.$refs.panelSlider.onTransitionAfter({
                         ease: Power4.easeInOut,
-                        transitionDuration: 1.25
+                        transitionDuration: 1.5
                     }),
                     onEnd: () => {
                         this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-left')
@@ -67,12 +69,12 @@ export default {
                     transitionClass: 'is-go-right',
                     modifier: 'is-right',
                     toggle: true,
-                    transitionDuration: 1,
-                    ease: Power4.easeOut,
+                    transitionDuration: 1.25,
+                    ease: Power4.easeInOut,
                     onBefore: () => this.$refs.panelSlider.onTransitionBefore(),
                     onAfter: () => this.$refs.panelSlider.onTransitionAfter({
-                        ease: Power4.easeOut,
-                        transitionDuration: 1
+                        ease: Power4.easeInOut,
+                        transitionDuration: 1.25
                     }),
                     onEnd: () => {
                         this.$store.commit(`sliderAnimation/${ANIMATION_END}`, 'is-right')
