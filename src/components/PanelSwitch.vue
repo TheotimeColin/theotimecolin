@@ -140,7 +140,7 @@ export default {
 .PanelSwitch.is-left {
     right: auto;
     left: 0;
-    width: 400px;
+    width: 500px;
 
     &.is-center {
         width: 100%;
@@ -160,7 +160,7 @@ export default {
 .PanelSwitch.is-go-left {
     right: auto !important;
     left: 0 !important;
-    width: 400px !important;
+    width: 500px !important;
 }
 
 .PanelSwitch.is-go-right {

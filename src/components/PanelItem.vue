@@ -171,8 +171,8 @@ export default {
 .PanelItem.is-leaving,
 .PanelItem.is-active {
     transform: translateY(0);
-    transition: clip-path 800ms ease-in-out, transform 800ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    transition-delay: 600ms;
+    transition: clip-path 800ms ease-in-out, transform 1200ms cubic-bezier(0.77, 0, 0.175, 1);
+    transition-delay: 400ms;
 
     .PanelItem_background {
         opacity: 1;
@@ -191,7 +191,7 @@ export default {
     
     .PanelItem_placeholder {
         opacity: 1;
-        transition-delay: 1200ms;
+        transition-delay: 1400ms;
     }
 }
 

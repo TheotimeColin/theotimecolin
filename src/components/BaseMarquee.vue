@@ -1,7 +1,7 @@
 <template>
-    <div class="Marquee" :class="{ 'is-animated': isAnimated }" :style="{ '--animation-speed': `${text.length * 1}s` }">
+    <div class="Marquee" :class="{ 'is-animated': isAnimated }" :style="{ '--animation-speed': `${text.length * 0.9}s` }">
         <div class="Marquee_placeholder">{{ text }}</div>
-        <div class="Marquee_content" :data-text="text">{{ text }}</div>
+        <div class="Marquee_content" :data-text="`${text}  •`">{{ text }}  •</div>
     </div>
 </template>
 

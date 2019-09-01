@@ -99,7 +99,7 @@ export default {
     .App.is-center {
 
         .App_contentLeft {
-            width: 400px;
+            width: 500px;
             overflow: hidden;
         }
     }
