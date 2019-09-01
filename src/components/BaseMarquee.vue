@@ -6,8 +6,11 @@
 </template>
 
 <script>
+import BaseTransitionText from '@/components/BaseTransitionText'
+
 export default {
     name: 'BaseMarquee',
+    components: { BaseTransitionText },
     props: {
         text: { type: String, default: '' },
         isAnimated: { type: Boolean, default: false }

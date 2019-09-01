@@ -1,12 +1,12 @@
 <template>
     <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem" :class="[ classes ]" :style="{ 'color': highlightColor }">
-        <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="active" />
+        <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="true" />
 
         <img class="PanelItem_image" :src="image" ref="image">
 
         <div class="PanelItem_titles">
             <div class="PanelItem_title">
-                <BaseTransitionText :appear="!isCenter && !isLeft" :text="title" />
+                <BaseTransitionText :appear="!isCenter && !isLeft && active" :text="title" :appear-delay="1200" />
             </div>
         </div>
 
@@ -120,7 +120,7 @@ export default {
     transform: translateY(-50%);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     opacity: 0;
-    transition: opacity 400ms ease-in;
+    transition: opacity 600ms ease-in;
 }
 
 .PanelItem_image {
@@ -187,11 +187,11 @@ export default {
     transform: translateY(100%);
 }
 
-.PanelItem.is-right {
+.PanelItem.is-right.is-active {
     
     .PanelItem_placeholder {
         opacity: 1;
-        transition-delay: 800ms;
+        transition-delay: 1200ms;
     }
 }
 

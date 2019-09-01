@@ -1,5 +1,5 @@
 <template>
-    <div class="TransitionText" :class="{ 'is-appear': appear }">
+    <div class="TransitionText" :class="{ 'is-appear': appear }" :style="{ '--appear-delay': `${appearDelay}ms` }">
         <div class="TransitionText_placeholder">{{ text }}</div>
         <div class="TransitionText_animation">
             <span class="TransitionText_letter" v-for="letter in hash" :key="letter.id">{{ letter.value }}</span>
@@ -12,7 +12,8 @@ export default {
     name: 'BaseTransitionText',
     props: {
         text: { type: String },
-        appear: { type: Boolean, default: true }
+        appear: { type: Boolean, default: true },
+        appearDelay: { type: Number, default: 0 }
     },
     computed: {
         hash () {
@@ -49,14 +50,21 @@ export default {
 
     @for $i from 0 through 20 {
         &:nth-child(#{$i}) {
-            transition-delay: #{$i * 15}ms;
+            transition-delay: calc(#{$i * 15}ms + var(--disappear-delay, 0ms));
         }
     }
 }
 
 .TransitionText.is-appear {
+
     .TransitionText_letter {
         transform: translate3d(0, 0, 0);
+
+        @for $i from 0 through 20 {
+            &:nth-child(#{$i}) {
+                transition-delay: calc(#{$i * 15}ms + var(--appear-delay));
+            }
+        }
     }
 }
 </style>

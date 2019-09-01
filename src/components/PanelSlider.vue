@@ -49,6 +49,7 @@ export default {
         sliderItems: [],
         state: {
             activeItem: '',
+            selectedItem: 0,
             previousItem: ''
         }
     }),
@@ -66,16 +67,23 @@ export default {
         }
     },
     mounted () {
-       
+       window.addEventListener('wheel', () => this.nextProject())
     },
     methods: {
+        nextProject() {
+            if (this.state.previousItem !== '') return
+
+            this.state.selectedItem = this.state.selectedItem + 1 < this.items.length ? this.state.selectedItem + 1 : 0
+            this.updateActive()
+        },
         updateActive () {
             this.state.previousItem = this.state.activeItem
             setTimeout(() => this.state.previousItem = '', 1400)
 
             this.items.forEach((item, i) => {
-                if (i == 0 && this.state.activeItem == '') this.state.activeItem = item.slug
+                if (this.state.activeItem == '' && i == 0) this.state.activeItem = item.slug
                 if (this.$route.params.id && this.$route.params.id == item.slug) this.state.activeItem = item.slug
+                if (this.state.selectedItem !== false && i == this.state.selectedItem) this.state.activeItem = item.slug
             })
         },
         onTransitionBefore () {

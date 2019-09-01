@@ -12,7 +12,7 @@ export default [
         baseline: 'Find workplaces where you belong',
         image: tempProjectMain0,
         baseColor: '#ffe3bc',
-        highlightColor: '#e87917',
+        highlightColor: '#ffc551',
         content: [
             {
                 id: 0,
