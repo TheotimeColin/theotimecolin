@@ -1,5 +1,7 @@
 <template>
     <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem" :class="[ classes ]" :style="{ 'color': highlightColor }">
+        <div class="PanelItem_background" :style="{ 'backgroundColor': baseColor }" ref="background"></div>
+        
         <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="active" />
 
         <img class="PanelItem_image" :src="image" ref="image">
@@ -30,6 +32,11 @@ export default {
     name: 'PanelItem',
     components: { BaseTransitionText, BaseMarquee },
     mixins: [ FlipAnimation ],
+    data: () => ({
+        state: {
+            leaving: false
+        }
+    }),
     props: {
         id: { type: Number },
         active: { type: Boolean, default: false },
@@ -53,18 +60,27 @@ export default {
                 'is-active': this.active,
                 'is-left': this.isLeft,
                 'is-right': this.isRight,
-                'is-animating': this.isAnimating
+                'is-animating': this.isAnimating,
+                'is-leaving': this.state.leaving
+            }
+        }
+    },
+    watch: {
+        active (v) {
+            if (!v) {
+                this.state.leaving = true
+                setTimeout(() => this.state.leaving = false, 1000)
             }
         }
     },
     methods: {
         onTransitionBefore ({ id }) {
             this.flipAnimateBefore({ id: 'image', element: this.$refs.image })
-            this.flipAnimateBefore({ id: 'position', element: this.$refs.position })
+            this.flipAnimateBefore({ id: 'background', element: this.$refs.background })
         },
         onTransitionAfter ({ id, transitionDuration = 1, ease = null }) {
             this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
-            this.flipAnimateAfter({ id: 'position', element: this.$refs.position, transitionDuration, ease })
+            this.flipAnimateAfter({ id: 'background', element: this.$refs.background, scale: true, transitionDuration, ease })
         }
     }
 }
@@ -72,16 +88,15 @@ export default {
 
 <style lang="scss" scoped>
 .PanelItem {
-    display: inline-block;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     clip-path: polygon(0% 0%, 9999px 0%, 9999px 100%, 0% 100%);
-    transition: clip-path 800ms ease-in-out;
-    position: relative;
-    display: none;
+    transition: clip-path 800ms ease-in-out, transform 500ms ease;
+    transition-delay: 500ms;
+    transform: translateY(-100%);
 }
 
 .PanelItem_titles {
@@ -114,17 +129,22 @@ export default {
 }
 
 .PanelItem_image {
+    display: block;
+    max-width: 75%;
     will-change: transform;
     transform-origin: top left;
-    max-width: 75%;
 }
 
-.PanelItem_position {
-    position: absolute !important;
-    top: 40px;
-    right: 40px;
-    font: var(--font-main-xxl);
-    font-weight: bold;
+.PanelItem_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: top left;
+    opacity: 0;
+    transition: opacity 500ms ease;
+    transition-delay: 500ms;
 }
 
 .PanelItem_nav {
@@ -165,10 +185,21 @@ export default {
     }
 }
 
+.PanelItem.is-leaving,
 .PanelItem.is-active {
-    display: flex;
+    transform: translateY(0);
+
+    .PanelItem_background {
+        opacity: 1;
+    }
+}
+
+.PanelItem.is-active {
     z-index: 5;
-    clip-path: polygon(0% 0%, 9999px 0%, 9999px 100%, 0% 100%);
+}
+
+.PanelItem.is-leaving {
+    transform: translateY(100%);
 }
 
 .PanelItem.is-right {

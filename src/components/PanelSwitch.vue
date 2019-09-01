@@ -36,8 +36,6 @@ export default {
         },
         async goLeft (v) {
             return new Promise(resolve => {
-                console.log('go left !')
-
                 this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-left')
 
                 this.flipAnimate({
@@ -62,8 +60,6 @@ export default {
         },
         async goRight (v) {
             return new Promise(resolve => {
-                console.log('go right !')
-
                 this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-right')
 
                 this.flipAnimate({
@@ -89,8 +85,6 @@ export default {
         },
         async goCenter (v) {
             return new Promise(resolve => {
-                console.log('go center !')
-                
                 this.$store.commit(`sliderAnimation/${ANIMATION_START}`, 'is-center')
                 
                 this.flipAnimate({

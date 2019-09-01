@@ -20,6 +20,7 @@ export default {
     overflow: hidden;
     pointer-events: none;
     padding: 5% 0;
+    white-space: nowrap;
 }
 
 .Marquee_placeholder {

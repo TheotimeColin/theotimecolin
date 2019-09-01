@@ -11,7 +11,6 @@ export default [
         title: 'Kanarys',
         baseline: 'Find workplaces where you belong',
         image: tempProjectMain0,
-        color: 'yellow',
         baseColor: '#ffe3bc',
         highlightColor: '#ffc551',
         content: [
@@ -45,7 +44,6 @@ export default [
         title: 'Projets WWF',
         baseline: 'Here and there, the WWF acts',
         image: tempProjectMain1,
-        color: 'yellow',
         baseColor: '#144fcd',
         highlightColor: '#4a83ff',
         content: [
