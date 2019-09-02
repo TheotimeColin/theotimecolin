@@ -71,7 +71,7 @@ export default {
     },
     methods: {
         nextProject() {
-            if (this.state.previousItem !== '') return
+            if (this.state.previousItem !== '' || this.$route.name == 'Project') return
 
             this.state.selectedItem = this.state.selectedItem + 1 < this.items.length ? this.state.selectedItem + 1 : 0
             this.updateActive()
@@ -81,9 +81,11 @@ export default {
             setTimeout(() => this.state.previousItem = '', 1400)
 
             this.items.forEach((item, i) => {
-                if (this.state.activeItem == '' && i == 0) this.state.activeItem = item.slug
-                if (this.$route.params.id && this.$route.params.id == item.slug) this.state.activeItem = item.slug
                 if (this.state.selectedItem !== false && i == this.state.selectedItem) this.state.activeItem = item.slug
+                if (this.$route.params.id && this.$route.params.id == item.slug) {
+                    this.state.activeItem = item.slug
+                    this.state.selectedItem = i
+                }
             })
         },
         onTransitionBefore () {

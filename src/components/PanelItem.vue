@@ -89,9 +89,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    clip-path: polygon(0% 0%, 9999px 0%, 9999px 100%, 0% 100%);
-    transition: clip-path 800ms ease-in-out;
     transform: translateY(-100%);
+    opacity: 0;
 }
 
 .PanelItem_titles {
@@ -171,8 +170,9 @@ export default {
 .PanelItem.is-leaving,
 .PanelItem.is-active {
     transform: translateY(0);
-    transition: clip-path 800ms ease-in-out, transform 1200ms cubic-bezier(0.77, 0, 0.175, 1);
+    transition: transform 1200ms cubic-bezier(0.77, 0, 0.175, 1);
     transition-delay: 400ms;
+    opacity: 1;
 
     .PanelItem_background {
         opacity: 1;
