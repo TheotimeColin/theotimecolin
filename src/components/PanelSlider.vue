@@ -33,6 +33,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { SET_ACTIVE_PROJECT } from '@/store/types/mutation-types'
 
 import PanelItem from '@/components/PanelItem'
 
@@ -87,6 +88,8 @@ export default {
                     this.state.selectedItem = i
                 }
             })
+
+            this.$store.commit(`projects/${SET_ACTIVE_PROJECT}`, this.state.activeItem)
         },
         onTransitionBefore () {
             if (this.$refs.item) this.$refs.item.forEach(item => {
