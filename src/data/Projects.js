@@ -1,5 +1,7 @@
 import tempProjectMain0 from '@/assets/img/temp/project-main-0.png'
 import tempProjectMain1 from '@/assets/img/temp/project-main-1.png'
+import tempProjectMain2 from '@/assets/img/temp/project-main-2.png'
+import tempProjectMain3 from '@/assets/img/temp/project-main-3.png'
 
 import imageLeft0 from '@/assets/img/temp/project-left.jpg'
 import imageCenter0 from '@/assets/img/temp/project-center.jpg'
@@ -40,12 +42,12 @@ export default [
     },
     {
         id: 1,
-        slug: 'projets-wwf',
-        title: 'Projets WWF',
-        baseline: 'Here and there, the WWF acts',
-        image: tempProjectMain1,
-        baseColor: '#6b4870',
-        highlightColor: '#f15649',
+        slug: 'superprof',
+        title: 'Superprof',
+        baseline: 'Trouvez le professeur parfait',
+        image: tempProjectMain2,
+        baseColor: '#fa6d8b',
+        highlightColor: '#ff2b51',
         content: [
             {
                 id: 0,
@@ -77,8 +79,8 @@ export default [
         title: 'Agence Wandi',
         baseline: 'Sérieux, sans se prendre au sérieux.',
         image: tempProjectMain1,
-        baseColor: '#23ab93',
-        highlightColor: '#d9fa9f',
+        baseColor: '#5931d4',
+        highlightColor: '#be41f2',
         content: [
             {
                 id: 0,
@@ -102,6 +104,17 @@ export default [
                 textColor: '#ffffff',
                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.'
             },
+        ]
+    },
+    {
+        id: 2,
+        slug: 'weboucherie',
+        title: 'Weboucherie',
+        baseline: 'Une envie en un clic',
+        image: tempProjectMain3,
+        baseColor: '#ffcbcb',
+        highlightColor: '#fd7a9e',
+        content: [
         ]
     }
 ]

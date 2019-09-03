@@ -53,7 +53,7 @@ export default {
         })
     },
     mounted () {
-        this.state.appear = true
+        setTimeout(() =>this.state.appear = true, 500)
     },
     watch: {
         isLoaded () {
@@ -139,7 +139,7 @@ export default {
 }
 
 .PanelValues_title {
-    margin: 8px 0;
+    margin: 20px 0;
 }
 
 .PanelValues.is-loaded,

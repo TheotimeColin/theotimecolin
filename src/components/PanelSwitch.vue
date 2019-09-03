@@ -26,10 +26,10 @@ export default {
         })
     },
     methods: {
-        async updatePosition (position) {
+        async updatePosition (position, delay = 0) {
             if (position.from) await this.goCenter()
 
-            await this.delay(250)
+            await this.delay(delay)
 
             switch (position.to) {
                 case 'left': this.goLeft(); break;
