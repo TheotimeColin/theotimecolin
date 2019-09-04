@@ -1,20 +1,22 @@
 <template>
     <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem" :class="[ classes ]" :style="{ 'color': highlightColor }">
-        <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="true" />
+        <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="true" v-if="subtitle" />
 
-        <img class="PanelItem_image" :src="image" ref="image">
+        <img class="PanelItem_image" :src="image" ref="image" v-if="image">
 
-        <div class="PanelItem_titles">
+        <div class="PanelItem_titles" v-if="title && image">
             <div class="PanelItem_title">
                 <BaseTransitionText :appear="!isCenter && !isLeft && active" :text="title" :appear-delay="1200" />
             </div>
         </div>
 
-        <ul class="PanelItem_nav">
+        <ul class="PanelItem_nav" v-if="items && slug != 'about'">
             <li class="PanelItem_navItem" v-for="item in items" :key="item.id">
                 <router-link :to="{ name: 'Project', params: { id: item.slug }}" :style="{ 'color': highlightColor }">{{ item.title }}</router-link>
             </li>
         </ul>
+
+        <PanelAbout :active="$route.name == 'About'" :highlight-color="highlightColor" v-if="slug == 'about'" />
     </router-link>
 </template>
 
@@ -23,12 +25,13 @@ import { mapState } from 'vuex'
 
 import BaseTransitionText from '@/components/BaseTransitionText'
 import BaseMarquee from '@/components/BaseMarquee'
+import PanelAbout from '@/components/PanelAbout'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
 
 export default {
     name: 'PanelItem',
-    components: { BaseTransitionText, BaseMarquee },
+    components: { BaseTransitionText, BaseMarquee, PanelAbout },
     mixins: [ FlipAnimation ],
     data: () => ({
         state: {
@@ -39,7 +42,7 @@ export default {
         id: { type: Number },
         active: { type: Boolean, default: false },
         slug: { type: String },
-        image: { type: String, required: true },
+        image: { type: String },
         title: { type: String },
         subtitle: { type: String },
         baseColor: { type: String },

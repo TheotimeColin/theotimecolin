@@ -45,7 +45,7 @@ export default [
         id: 2,
         slug: 'agence-wandi',
         title: 'Agence Wandi',
-        baseline: 'Sérieux, sans se prendre au sérieux.',
+        baseline: 'Sérieux, sans se prendre au sérieux',
         image: tempProjectMain1,
         baseColor: '#5931d4',
         highlightColor: '#be41f2',

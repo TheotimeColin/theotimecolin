@@ -3,7 +3,7 @@
         <div class="PanelSlider_backgrounds">
             <div
                 class="PanelSlider_background"
-                v-for="item in items"
+                v-for="item in [...items, aboutItem ]"
                 :key="item.id"
                 :class="{ 'is-active': state.activeItem == item.slug, 'is-leaving': state.previousItem == item.slug }"
                 :style="{ 'backgroundColor': item.baseColor }"
@@ -14,7 +14,7 @@
         <div class="PanelSlider_rail">
             <PanelItem
                 class="PanelSlider_item"
-                v-for="item in items"
+                v-for="item in [...items, aboutItem ]"
                 :active="state.activeItem == item.slug"
                 :id="item.id"
                 :key="item.id"
@@ -48,6 +48,13 @@ export default {
     },
     data: () => ({
         sliderItems: [],
+        aboutItem: {
+            id: 999,
+            slug: 'about',
+            title: 'About me',
+            baseColor: '#2553c9',
+            highlightColor: '#01b4ff'
+        },
         state: {
             activeItem: '',
             selectedItem: 0,
@@ -61,33 +68,37 @@ export default {
     },
     watch: {
         items () {
-            this.updateActive()
+            this.updateActive(this.$route.name == 'About' ? 'about' : null)
         },
         $route (to, from) {
-            this.updateActive()
+            this.updateActive(to.name == 'About' ? 'about' : null)
         }
     },
     mounted () {
-       window.addEventListener('wheel', () => this.nextProject())
+        window.addEventListener('wheel', () => this.nextProject())
     },
     methods: {
         nextProject() {
-            if (this.state.previousItem !== '' || this.$route.name == 'Project') return
+            if (this.state.previousItem !== '' || this.$route.name !== 'Homepage') return
 
             this.state.selectedItem = this.state.selectedItem + 1 < this.items.length ? this.state.selectedItem + 1 : 0
             this.updateActive()
         },
-        updateActive () {
+        updateActive (slug) {
             this.state.previousItem = this.state.activeItem
             setTimeout(() => this.state.previousItem = '', 1400)
 
-            this.items.forEach((item, i) => {
-                if (this.state.selectedItem !== false && i == this.state.selectedItem) this.state.activeItem = item.slug
-                if (this.$route.params.id && this.$route.params.id == item.slug) {
-                    this.state.activeItem = item.slug
-                    this.state.selectedItem = i
-                }
-            })
+            if (slug) { /* Has defined slug already */
+                this.state.activeItem = slug
+            } else {
+                this.items.forEach((item, i) => {
+                    if (this.state.selectedItem !== false && i == this.state.selectedItem) this.state.activeItem = item.slug
+                    if (this.$route.params.id && this.$route.params.id == item.slug) {
+                        this.state.activeItem = item.slug
+                        this.state.selectedItem = i
+                    }
+                })
+            }
 
             this.$store.commit(`projects/${SET_ACTIVE_PROJECT}`, this.state.activeItem)
         },

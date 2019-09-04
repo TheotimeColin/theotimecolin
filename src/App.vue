@@ -40,6 +40,7 @@ export default {
     components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues },
     data: () => ({
         position: '',
+        centerDelay: 0,
         state: {
             loaded: false
         }
@@ -59,6 +60,12 @@ export default {
                 to: to.meta.position
             }
 
+            if (from.meta.centerDelay == to.meta.centerDelay) {
+                this.centerDelay = from.meta.centerDelay ? from.meta.centerDelay : 0
+            } else {
+                this.centerDelay = 0
+            }
+            
             next()
         })
     },
@@ -66,7 +73,7 @@ export default {
         position: {
             deep: true,
             handler (v) {
-                this.$refs.panelSwitch.updatePosition(v)
+                this.$refs.panelSwitch.updatePosition(v, this.centerDelay)
             }
         }
     },

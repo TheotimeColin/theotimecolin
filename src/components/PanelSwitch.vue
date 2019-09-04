@@ -1,6 +1,6 @@
 <template>
     <div class="PanelSwitch" ref="content">
-        <PanelSlider class="PanelSwitch_slider" ref="panelSlider" />
+        <PanelSlider class="PanelSwitch_slider" :is-about="isAbout" ref="panelSlider" />
     </div>
 </template>
 
@@ -23,11 +23,14 @@ export default {
             isAnimating: state => state.animating,
             isLeft: state => state.steps['is-left'].active,
             isRight: state => state.steps['is-right'].active
-        })
+        }),
+        isAbout () {
+            return this.$route.name == 'About'
+        }
     },
     methods: {
         async updatePosition (position, delay = 0) {
-            if (position.from) await this.goCenter()
+            if (!(position.from == 'center' && position.to == position.from)) await this.goCenter()
 
             await this.delay(delay)
 
@@ -126,15 +129,25 @@ export default {
     will-change: transform;
 }
 
-.PanelSwitch_slider {
+.PanelSwitch_slider,
+.PanelSwitch_about {
     position: absolute;
     top: 0;
     height: 100%;
     width: 100%;
 }
 
+.PanelSwitch_about {
+    z-index: 10;
+    background-color: #2553c9;
+}
+
 .PanelSwitch.is-go-center {
     width: 100% !important;
+}
+
+.PanelSwitch.is-center {
+    width: 100%;
 }
 
 .PanelSwitch.is-left {

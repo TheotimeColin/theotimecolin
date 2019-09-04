@@ -1,6 +1,6 @@
 <template>
     <div class="Project" v-if="project">
-        <h1 class="Project_title" :style="{ 'color': project.highlightColor }">{{ project.title }}</h1>
+        <h1 class="Project_title">{{ project.title }}</h1>
 
         <template v-for="item in project.content">
             <BaseLeftImageContainer class="Project_container" :image="item.image" :title="item.title" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-left'">

@@ -53,14 +53,14 @@ export default {
         })
     },
     mounted () {
-        setTimeout(() =>this.state.appear = true, 500)
+        setTimeout(() => this.state.appear = true, 500)
     },
     watch: {
         isLoaded () {
-            if (this.isLeft) {
-                this.animateOut()
-            } else {
+            if (this.isRight) {
                 this.animateLeft()
+            } else {
+                this.animateOut()
             }
         }
     },
