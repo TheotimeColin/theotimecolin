@@ -55,8 +55,6 @@ export default {
         flipAnimateAfter ({ id = 1, element = null, scale = false, position = true, transitionDuration = 1, ease = Power4.easeInOut, onEnd = null, modifier = null, transitionClass = null }) {
             if (!element) return
 
-            if (id == 'title') console.log(this.flipAnimation.before[id].y, element.offsetTop)
-
             this.flipAnimation.delta = {
                 x: position ? this.flipAnimation.before[id].x - element.offsetLeft : 0,
                 y: position ? this.flipAnimation.before[id].y - element.offsetTop : 0,

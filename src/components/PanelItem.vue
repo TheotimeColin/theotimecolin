@@ -72,7 +72,7 @@ export default {
         active (v) {
             if (!v) {
                 this.state.leaving = true
-                setTimeout(() => this.state.leaving = false, 1200)
+                setTimeout(() => this.state.leaving = false, 1500)
             }
         }
     },
