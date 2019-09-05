@@ -85,6 +85,8 @@ export default {
             this.updateActive()
         },
         updateActive (slug) {
+            let activeItem
+
             this.state.previousItem = this.state.activeItem
             setTimeout(() => this.state.previousItem = '', 1400)
 
@@ -92,15 +94,19 @@ export default {
                 this.state.activeItem = slug
             } else {
                 this.items.forEach((item, i) => {
-                    if (this.state.selectedItem !== false && i == this.state.selectedItem) this.state.activeItem = item.slug
+                    if (this.state.selectedItem !== false && i == this.state.selectedItem) {
+                        this.state.activeItem = item.slug
+                        activeItem = item
+                    }
                     if (this.$route.params.id && this.$route.params.id == item.slug) {
                         this.state.activeItem = item.slug
                         this.state.selectedItem = i
+                        activeItem = item
                     }
                 })
             }
 
-            this.$store.commit(`projects/${SET_ACTIVE_PROJECT}`, this.state.activeItem)
+            this.$store.commit(`projects/${SET_ACTIVE_PROJECT}`, slug == 'about' ? this.aboutItem : activeItem)
         },
         onTransitionBefore () {
             if (this.$refs.item) this.$refs.item.forEach(item => {

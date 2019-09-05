@@ -13,8 +13,8 @@ export default {
         [SET_PROJECTS] (state, projects) {
             state.items = projects
         },
-        [SET_ACTIVE_PROJECT] (state, slug) {
-            state.active = state.items.filter(item => item.slug == slug)[0]
+        [SET_ACTIVE_PROJECT] (state, item) {
+            state.active = item
         }
     },
     actions: {

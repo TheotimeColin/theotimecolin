@@ -1,5 +1,7 @@
 <template>
-    <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem" :class="[ classes ]" :style="{ 'color': highlightColor }">
+    <div class="PanelItem" :class="[ classes ]" :style="{ 'color': highlightColor }">
+        <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem_link" v-if="slug !== 'about' && !active"></router-link>
+        
         <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="true" v-if="subtitle" />
 
         <img class="PanelItem_image" :src="image" ref="image" v-if="image">
@@ -17,7 +19,7 @@
         </ul>
 
         <PanelAbout :active="$route.name == 'About'" :highlight-color="highlightColor" v-if="slug == 'about'" />
-    </router-link>
+    </div>
 </template>
 
 <script>
@@ -130,7 +132,16 @@ export default {
     max-width: 75%;
     will-change: transform;
     transform-origin: top left;
-} 
+}
+
+.PanelItem_link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
 
 .PanelItem_nav {
     position: absolute;
@@ -138,6 +149,7 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
+    z-index: 8;
     display: none;
     flex-direction: column;
     justify-content: center;
