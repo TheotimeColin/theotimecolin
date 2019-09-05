@@ -19,14 +19,14 @@
             <PanelSwitch class="App_panel" ref="panelSwitch" />
         </BaseContent>
     
-        <PanelValues :is-loaded="state.loaded" />
+        <PanelValues :is-loaded="loaded" />
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-import { UPDATE_STEP } from '@/store/types/mutation-types'
+import { UPDATE_STEP, SET_LOADED } from '@/store/types/mutation-types'
 import { LOAD_PROJECTS } from '@/store/types/action-types'
 
 import BaseContent from '@/components/BaseContent'
@@ -40,12 +40,12 @@ export default {
     components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues },
     data: () => ({
         position: '',
-        centerDelay: 0,
-        state: {
-            loaded: false
-        }
+        centerDelay: 0
     }),
     computed: {
+        ...mapState('global', {
+            loaded: state => state.loaded
+        }),
         ...mapState('sliderAnimation', {
             isLeft: state => state.steps['is-left'].active,
             isRight: state => state.steps['is-right'].active,
@@ -85,7 +85,7 @@ export default {
         await this.$store.dispatch(`projects/${LOAD_PROJECTS}`)
         
         setTimeout(() => {
-            this.state.loaded = true
+            this.$store.commit(`global/${SET_LOADED}`, true)
         }, 2500)
     }
 }

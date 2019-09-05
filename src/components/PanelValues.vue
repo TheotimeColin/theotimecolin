@@ -19,6 +19,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { SET_VISIBLE } from '@/store/types/mutation-types'
 
 import BaseDisplayTitle from '@/components/BaseDisplayTitle'
 
@@ -96,7 +97,8 @@ export default {
                             ease: Power4.easeInOut
                         })
                     })
-                }
+                },
+                onEnd: () => this.$store.commit(`global/${SET_VISIBLE}`, true)
             })
         },
         animateOut () {
@@ -107,6 +109,7 @@ export default {
 
                 setTimeout(() => {
                     this.state.animateEnd = true
+                    this.$store.commit(`global/${SET_VISIBLE}`, true)
                 }, 500)
             }, 500)
         }

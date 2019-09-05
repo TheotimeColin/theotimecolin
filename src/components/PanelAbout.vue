@@ -1,18 +1,18 @@
 <template>
-    <div class="PanelAbout" :class="{ 'is-active': active, 'is-ready': state.textActive, 'is-leaving': state.leaving }" :style="{ '--highlight-color': highlightColor }">
+    <div class="PanelAbout" :class="{ 'is-active': active && visible, 'is-ready': state.textActive && visible, 'is-leaving': state.leaving }" :style="{ '--highlight-color': highlightColor }">
         <div class="PanelAbout_content">
             <div class="PanelAbout_titleMain" ref="title">
                 About me
                 <div class="PanelAbout_picture" :style="{ 'backgroundImage': `url(${state.specialActive ? assets.tempAboutSpecial : assets.tempAbout})` }"></div>
             </div>
-            <BaseTransitionWord class="PanelAbout_text" :text="text" :appear="state.textActive" :appear-delay="800" />
+            <BaseTransitionWord class="PanelAbout_text" :text="text" :appear="state.textActive && visible" :appear-delay="800" />
 
             <div class="PanelAbout_skills">
                 <BaseTextList
                     class="PanelAbout_skill"
                     v-for="(skill, i) in skills"
                     :id="skill.id"
-                    :active="state.textActive"
+                    :active="state.textActive && visible"
                     :title="skill.title"
                     :items="skill.items"
                     :key="skill.id"
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import BaseTransitionWord from '@/components/BaseTransitionWord'
 import BaseTextList from '@/components/BaseTextList'
 
@@ -43,11 +45,16 @@ export default {
         active: { type: Boolean, default: false },
         highlightColor: { type: String }
     },
+    computed: {
+        ...mapState('global', {
+            visible: state => state.loadedVisible
+        })
+    },
     data: () => ({
         assets: { tempAbout, tempAboutSpecial },
         state: {
             leaving: false,
-            textActive: true,
+            textActive: false,
             specialActive: false
         },
         text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore tenetur consequuntur numquam blanditiis totam, mollitia eaque! Temporibus, magni pariatur non, id corporis voluptatibus odit expedita laborum similique ad exercitationem nemo.',
@@ -77,19 +84,21 @@ export default {
         ]
     }),
     watch: {
-        active (v) {
+        active (v) { if (this.visible) this.updateState(v) },
+        visible (v) { if (v && this.active) this.updateState(v, 0)  }
+    },
+    methods: {
+        onSpecialInteraction (text, toggle) {
+            if (text == 'Pokémon') this.state.specialActive = toggle 
+        },
+        updateState (v, delay = 2000) {
             this.state.leaving = !v
 
             setTimeout(() => {
                 this.flipAnimateBefore({ id: 'title', element: this.$refs.title })
                 this.state.textActive = v
                 this.$nextTick(() => this.flipAnimateAfter({ id: 'title', element: this.$refs.title, transitionDuration: 1.25 }))
-            }, v ? 2000 : 1000)
-        }
-    },
-    methods: {
-        onSpecialInteraction (text, toggle) {
-            if (text == 'Pokémon') this.state.specialActive = toggle 
+            }, v ? delay : 1000)
         }
     }
 }

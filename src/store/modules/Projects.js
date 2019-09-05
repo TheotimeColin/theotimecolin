@@ -1,6 +1,6 @@
 import tmpData from '@/data/Projects'
 
-import { SET_PROJECTS, SET_ACTIVE_PROJECT } from '@/store/types/mutation-types'
+import { SET_PROJECTS, SET_ACTIVE_PROJECT, } from '@/store/types/mutation-types'
 import { LOAD_PROJECTS } from '@/store/types/action-types'
 
 export default {
