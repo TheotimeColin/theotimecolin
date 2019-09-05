@@ -1,6 +1,6 @@
 <template>
     <div class="PanelItem" :class="[ classes ]" :style="{ 'color': highlightColor }">
-        <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem_link" v-if="slug !== 'about' && !active"></router-link>
+        <router-link :to="{ name: 'Project', params: { id: slug }}" class="PanelItem_link" v-if="slug !== 'about' && $route.params.id !== slug"></router-link>
         
         <BaseMarquee class="PanelItem_placeholder" :text="subtitle" :is-animated="true" v-if="subtitle" />
 
