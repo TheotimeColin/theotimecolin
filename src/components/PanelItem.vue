@@ -11,12 +11,13 @@
                 <BaseTransitionText :appear="!isCenter && !isLeft && active" :text="title" :appear-delay="1200" />
             </div>
         </div>
-
-        <ul class="PanelItem_nav" v-if="items && slug != 'about'">
-            <li class="PanelItem_navItem" v-for="item in items" :key="item.id">
-                <router-link :to="{ name: 'Project', params: { id: item.slug }}" :style="{ 'color': highlightColor }">{{ item.title }}</router-link>
-            </li>
-        </ul>
+        <div class="PanelItem_navContainer">
+            <ul class="PanelItem_nav" v-if="items && slug != 'about'" ref="nav">
+                <li class="PanelItem_navItem" v-for="item in items" :key="item.id">
+                    <router-link :to="{ name: 'Project', params: { id: item.slug }}" :style="{ 'color': highlightColor }">{{ item.title }}</router-link>
+                </li>
+            </ul>
+        </div>
 
         <PanelAbout :active="$route.name == 'About'" :highlight-color="highlightColor" v-if="slug == 'about'" />
     </div>
@@ -89,9 +90,11 @@ export default {
     methods: {
         onTransitionBefore ({ id }) {
             this.flipAnimateBefore({ id: 'image', element: this.$refs.image })
+            this.flipAnimateBefore({ id: 'nav', element: this.$refs.nav })
         },
         onTransitionAfter ({ id, transitionDuration = 1, ease = null }) {
             this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
+            this.flipAnimateAfter({ id: 'nav', element: this.$refs.nav, transitionDuration, ease })
         }
     }
 }
@@ -153,17 +156,22 @@ export default {
     z-index: 5;
 }
 
-.PanelItem_nav {
+.PanelItem_navContainer {
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 8;
-    display: none;
-    flex-direction: column;
+    display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 8;
+}
+
+.PanelItem_nav {
+    display: inline-block;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 500ms ease;
 }
 
 .PanelItem_navItem {
@@ -171,7 +179,7 @@ export default {
     transition: all 500ms ease-out;
     font: var(--font-main-xl);
     font-weight: bold;
-    margin: 10px 0;
+    margin: 20px 0;
     opacity: 0;
     transform: translateX(-10px);
     transition: all 250ms ease;
@@ -237,7 +245,8 @@ export default {
     &:not(.is-animating) {
 
         .PanelItem_nav {
-            display: flex;
+            opacity: 1;
+            pointer-events: all;
         }
 
         .PanelItem_image {

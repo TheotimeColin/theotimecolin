@@ -1,7 +1,7 @@
 <template>
     <nav class="Navigation" :class="{ ...modifiers, 'is-right': isRight, 'is-window-s': windowSmall }" :style="{ '--highlight-color': project && loaded ? project.highlightColor : null }">
         <router-link :to="{ name: 'Homepage' }" class="Navigation_item Navigation_item--top">théotime</router-link>
-        <router-link :to="{ name: 'About' }" class="Navigation_item Navigation_item--bot">about</router-link>
+        <router-link :to="{ name: 'About' }" class="Navigation_item Navigation_item--bot">about me</router-link>
     </nav>
 </template>
 
