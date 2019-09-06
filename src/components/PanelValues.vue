@@ -46,6 +46,9 @@ export default {
         ]
     }),
     computed: {
+        ...mapState('global', {
+            isWindowSmall: state => state.window.s
+        }),
         ...mapState('sliderAnimation', {
             isLeft: state => state.steps['is-left'].active,
             isCenter: state => state.steps['is-center'].active && state.steps['is-center'].transitionEnd,
@@ -58,7 +61,7 @@ export default {
     },
     watch: {
         isLoaded () {
-            if (this.isRight) {
+            if (this.isRight && !this.isWindowSmall) {
                 this.animateLeft()
             } else {
                 this.animateOut()

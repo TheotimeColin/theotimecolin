@@ -59,11 +59,12 @@ body {
 @media screen and (max-width: 800px) {
     :root {
         --font-main-about: 42px/1 var(--font-main);
-        --font-main-xxxl: 45px/1 var(--font-main);
+        --font-main-xl: 20px/1 var(--font-main);
     }
 
     html, body {
         overflow: auto;
         height: auto;
+        background-color: var(--color-borders);
     }
 }

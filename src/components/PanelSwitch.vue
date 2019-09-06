@@ -197,7 +197,7 @@ export default {
     }
     
     &.is-go-left {
-        height: 50vh !important;
+        height: 60vh !important;
     }
 
     &.is-go-right,
@@ -206,7 +206,7 @@ export default {
     }
     
     &.is-left {
-        height: 50vh;
+        height: 60vh;
     }
 
     &.is-right,

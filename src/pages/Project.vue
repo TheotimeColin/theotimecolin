@@ -48,7 +48,7 @@ export default {
     margin: 0 auto;
 
     &.is-window-s {
-        margin-top: 50vh;
+        margin-top: 60vh;
     }
 }
 

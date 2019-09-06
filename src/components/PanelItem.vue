@@ -164,13 +164,13 @@ export default {
     justify-content: center;
     align-items: center;
     z-index: 8;
+    pointer-events: none;
 }
 
 .PanelItem_nav {
     display: inline-block;
     text-align: center;
     opacity: 0;
-    pointer-events: none;
     transition: opacity 500ms ease;
 }
 
@@ -244,7 +244,8 @@ export default {
 
     &:not(.is-animating) {
 
-        .PanelItem_nav {
+        .PanelItem_nav,
+        .PanelItem_navContainer {
             opacity: 1;
             pointer-events: all;
         }
@@ -273,6 +274,10 @@ export default {
     .PanelItem_titles {
         left: 5vh;
         bottom: 5vh;
+    }
+
+    .PanelItem_navItem {
+        margin: 10px 0;
     }
 }
 </style>

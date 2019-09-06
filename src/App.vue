@@ -1,7 +1,9 @@
 <template>
     <div>
+        <BaseCorners />
+        
         <BaseContent class="App" :class="{ 'is-left': isLeft, 'is-center': isCenter, 'is-right': isRight, 'is-window-s': windowSmall }">
-            <BaseCorners />
+            
 
             <BaseNavigation />
 
@@ -135,10 +137,11 @@ export default {
     }
 
     .App.is-window-s {
-
+        
         .App_content {
             display: block;
             height: auto;
+            background-color: var(--color-background);
         }
     }
     

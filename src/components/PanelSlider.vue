@@ -44,9 +44,6 @@ export default {
     name: 'PanelSlider',
     mixins: [ FlipAnimation ],
     components: { PanelItem },
-    props: {
-        isAnimating: { type: Boolean, default: false }
-    },
     data: () => ({
         sliderItems: [],
         aboutItem: {

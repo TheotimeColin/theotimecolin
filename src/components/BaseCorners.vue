@@ -23,6 +23,9 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .Corners_border {
@@ -35,9 +38,10 @@
     height: 20px;
     width: 100%;
 }
-
 .Corners_border--bottom {
-    bottom: 0;
+    bottom: 20px;
+    transform: translateY(100%);
+    height: 300px;
 }
 
 .Corners_border--left,
