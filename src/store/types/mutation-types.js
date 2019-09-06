@@ -9,3 +9,4 @@ export const SET_ACTIVE_PROJECT = 'setActiveProject'
 
 export const SET_LOADED = 'setLoaded'
 export const SET_VISIBLE = 'setLoadedVisible'
+export const UPDATE_BREAKPOINTS = 'updateBreakpoints'

@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelSlider">
+    <div class="PanelSlider" :class="{ 'is-animating': isAnimating }">
         <div class="PanelSlider_backgrounds">
             <div
                 class="PanelSlider_background"
@@ -67,6 +67,9 @@ export default {
     computed: {
         ...mapState('projects', {
             items: (state) => state.items
+        }),
+        ...mapState('sliderAnimation', {
+            isAnimating: state => state.animating
         })
     },
     watch: {
@@ -161,6 +164,7 @@ export default {
     height: 100%;
     position: relative;
     z-index: 2;
+    overflow: hidden;
 }
 
 .PanelSlider_item {
@@ -189,6 +193,13 @@ export default {
 
     &.is-leaving {
         opacity: 1;
+    }
+}
+
+.PanelSlider.is-animating {
+
+    .PanelSlider_rail {
+        overflow: visible;
     }
 }
 </style>

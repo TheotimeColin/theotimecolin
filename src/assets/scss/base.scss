@@ -46,3 +46,24 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+@media screen and (max-width: 1000px) {
+
+    :root {
+        --font-main-xxl: 30px/1 var(--font-main);
+        --font-title-xxl: 35px/1 var(--font-title);
+    
+    }
+}
+
+@media screen and (max-width: 800px) {
+    :root {
+        --font-main-about: 42px/1 var(--font-main);
+        --font-main-xxxl: 45px/1 var(--font-main);
+    }
+
+    html, body {
+        overflow: auto;
+        height: auto;
+    }
+}

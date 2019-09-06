@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelAbout" :class="{ 'is-active': active && visible, 'is-ready': state.textActive && visible, 'is-leaving': state.leaving }" :style="{ '--highlight-color': highlightColor }">
+    <div class="PanelAbout" :class="{ 'is-active': active && visible, 'is-ready': state.textActive && visible, 'is-leaving': state.leaving, 'is-window-s': windowSmall }" :style="{ '--highlight-color': highlightColor }">
         <div class="PanelAbout_content">
             <div class="PanelAbout_titleMain" ref="title">
                 About me
@@ -47,7 +47,8 @@ export default {
     },
     computed: {
         ...mapState('global', {
-            visible: state => state.loadedVisible
+            visible: state => state.loadedVisible,
+            windowSmall: state => state.window.s
         })
     },
     data: () => ({
@@ -119,7 +120,8 @@ export default {
 }
 
 .PanelAbout_content {
-    width: 500px;
+    width: 80%;
+    max-width: 500px;
     min-height: 100%;
     display: flex;
     flex-direction: column;
@@ -133,6 +135,7 @@ export default {
     font-weight: bold;
     display: inline-block;
     position: relative;
+    white-space: nowrap;
 }
 
 .PanelAbout_text {
@@ -173,6 +176,7 @@ export default {
 }
 
 .PanelAbout_skill {
+    flex-grow: 1;
     flex-basis: 50%;
     padding: 20px;
 }
@@ -195,5 +199,9 @@ export default {
     opacity: 0;
     transition: opacity 250ms ease;
     transition-delay: 800ms;
+}
+
+.PanelAbout.is-window-s {
+    padding: 30% 0;
 }
 </style>

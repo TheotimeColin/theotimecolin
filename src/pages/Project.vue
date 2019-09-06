@@ -1,5 +1,5 @@
 <template>
-    <div class="Project" v-if="project">
+    <div class="Project" :class="{ 'is-window-s': windowSmall }" v-if="project">
         <h1 class="Project_title">{{ project.title }}</h1>
 
         <template v-for="item in project.content">
@@ -29,6 +29,9 @@ export default {
     name: 'Project',
     components: { BaseLeftImageContainer, BaseColumnTextContainer, BaseCenterImageContainer },
     computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        }),
         ...mapState('projects', {
             project (state) {
                 return state.items.filter(item => item.slug == this.$route.params.id)[0]
@@ -43,6 +46,10 @@ export default {
     padding: 40px;
     max-width: 950px;
     margin: 0 auto;
+
+    &.is-window-s {
+        margin-top: 50vh;
+    }
 }
 
 .Project_container {

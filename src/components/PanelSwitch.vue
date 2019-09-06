@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelSwitch" ref="content">
+    <div class="PanelSwitch" :class="{ 'is-window-s': windowSmall }" ref="content">
         <PanelSlider class="PanelSwitch_slider" :is-about="isAbout" ref="panelSlider" />
     </div>
 </template>
@@ -19,6 +19,9 @@ export default {
     components: { PanelSlider, BaseNavigation },
     mixins: [ FlipAnimation ],
     computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        }),
         ...mapState('sliderAnimation', {
             isAnimating: state => state.animating,
             isLeft: state => state.steps['is-left'].active,
@@ -180,6 +183,36 @@ export default {
     left: auto !important;
     right: 0 !important;
     width: 55% !important;
+}
+
+.PanelSwitch.is-window-s {
+
+    &.is-left,
+    &.is-right,
+    &.is-center,
+    &.is-go-left,
+    &.is-go-center,
+    &.is-go-right {
+        width: 100% !important;
+    }
+    
+    &.is-go-left {
+        height: 50vh !important;
+    }
+
+    &.is-go-right,
+    &.is-go-center {
+        height: 100% !important;
+    }
+    
+    &.is-left {
+        height: 50vh;
+    }
+
+    &.is-right,
+    &.is-center {
+        height: 100%;
+    }
 }
 </style>
 

@@ -54,6 +54,9 @@ export default {
         items: { type: Array, default: () => [] }
     },
     computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        }),
         ...mapState('sliderAnimation', {
             isLeft: state => state.steps['is-left'].active,
             isRight: state => state.steps['is-right'].active,
@@ -67,7 +70,8 @@ export default {
                 'is-right': this.isRight,
                 'is-animating': this.isAnimating,
                 'is-leaving': this.state.leaving,
-                'is-previous': !this.direction
+                'is-previous': !this.direction,
+                'is-window-s': this.windowSmall
             }
         }
     },
@@ -240,6 +244,7 @@ export default {
             transition: opacity 400ms ease;
         }
 
+        &.is-window-s,
         &:hover {
 
             .PanelItem_image {
@@ -251,6 +256,14 @@ export default {
                 transform: translateX(0);
             }
         }
+    }
+}
+
+.PanelItem.is-window-s {
+
+    .PanelItem_titles {
+        left: 5vh;
+        bottom: 5vh;
     }
 }
 </style>

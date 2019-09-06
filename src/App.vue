@@ -1,12 +1,12 @@
 <template>
     <div>
-        <BaseContent class="App" :class="{ 'is-left': isLeft, 'is-center': isCenter, 'is-right': isRight }">
+        <BaseContent class="App" :class="{ 'is-left': isLeft, 'is-center': isCenter, 'is-right': isRight, 'is-window-s': windowSmall }">
             <BaseCorners />
 
             <BaseNavigation />
 
             <div class="App_content">
-                <div class="App_contentLeft">
+                <div class="App_contentLeft" v-if="!windowSmall">
                     <PanelValues :is-static="true" />
                 </div>
                 <div class="App_contentRight">
@@ -26,7 +26,7 @@
 <script>
 import { mapState } from 'vuex'
 
-import { UPDATE_STEP, SET_LOADED } from '@/store/types/mutation-types'
+import { UPDATE_STEP, SET_LOADED, UPDATE_BREAKPOINTS } from '@/store/types/mutation-types'
 import { LOAD_PROJECTS } from '@/store/types/action-types'
 
 import BaseContent from '@/components/BaseContent'
@@ -37,14 +37,15 @@ import BaseNavigation from '@/components/BaseNavigation'
 
 export default {
     name: 'App',
-    components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues },
+    components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues, },
     data: () => ({
         position: '',
         centerDelay: 0
     }),
     computed: {
         ...mapState('global', {
-            loaded: state => state.loaded
+            loaded: state => state.loaded,
+            windowSmall: state => state.window.s
         }),
         ...mapState('sliderAnimation', {
             isLeft: state => state.steps['is-left'].active,
@@ -54,6 +55,8 @@ export default {
         })
     },
     created () {
+        this.updateBreakpoints()
+
         this.$router.beforeEach((to, from, next) => {
             this.position = {
                 from: from.meta.position,
@@ -87,6 +90,17 @@ export default {
         setTimeout(() => {
             this.$store.commit(`global/${SET_LOADED}`, true)
         }, 2500)
+
+        window.addEventListener('resize', () => this.updateBreakpoints())
+    },
+    methods: {
+        updateBreakpoints () {
+            this.$store.commit(`global/${UPDATE_BREAKPOINTS}`, {
+                s: window.innerWidth <= 800,
+                m: window.innerWidth <= 1000 && window.innerWidth > 800,
+                l: window.innerWidth > 1000
+            })
+        }
     }
 }
 </script>
@@ -118,6 +132,14 @@ export default {
 
     .App_contentRight {
         flex-grow: 1;
+    }
+
+    .App.is-window-s {
+
+        .App_content {
+            display: block;
+            height: auto;
+        }
     }
     
     .router-transition-enter-active {
