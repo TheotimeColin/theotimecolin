@@ -1,9 +1,10 @@
 <template>
-    <div class="PanelAbout" :class="{ 'is-active': active && visible, 'is-ready': state.textActive && visible, 'is-leaving': state.leaving, 'is-window-s': windowSmall }" :style="{ '--highlight-color': highlightColor }">
+    <div class="PanelAbout" :class="{ 'is-active': active && visible, 'is-ready': state.textActive && visible, 'is-leaving': state.leaving, 'is-window-s': windowSmall }" :style="{ '--highlight-color': highlightColor }" ref="container">
         <div class="PanelAbout_content">
             <div class="PanelAbout_titleMain" ref="title">
                 About me
-                <div class="PanelAbout_picture" :style="{ 'backgroundImage': `url(${state.specialActive ? assets.tempAboutSpecial : assets.tempAbout})` }"></div>
+                <div class="PanelAbout_picture" :style="{ 'backgroundImage': `url(${assets.tempAbout})` }" v-show="!state.specialActive"></div>
+                <div class="PanelAbout_picture" :style="{ 'backgroundImage': `url(${assets.tempAboutSpecial})` }" v-show="state.specialActive"></div>
             </div>
             <BaseTransitionWord class="PanelAbout_text" :text="text" :appear="state.textActive && visible" :appear-delay="800" />
 
@@ -18,8 +19,7 @@
                     :key="skill.id"
                     :color="highlightColor"
                     :transition-delay="1500 + (200 * i)"
-                    v-on:skill-enter="(v) => onSpecialInteraction(v, true)"
-                    v-on:skill-leave="(v) => onSpecialInteraction(v, false)"
+                    v-on:skill-click="(v) => onSpecialInteraction(v)"
                 />
             </div>
         </div>
@@ -89,8 +89,16 @@ export default {
         visible (v) { if (v && this.active) this.updateState(v, 0)  }
     },
     methods: {
-        onSpecialInteraction (text, toggle) {
-            if (text == 'Pokémon') this.state.specialActive = toggle 
+        onSpecialInteraction (text) {
+            if (text == 'Pokémon') {
+                this.state.specialActive = !this.state.specialActive
+
+                this.$refs.container.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                })
+            }
         },
         updateState (v, delay = 2000) {
             this.state.leaving = !v
@@ -112,7 +120,7 @@ export default {
     white-space: initial;
     text-align: center;
     color: var(--highlight-color);
-    padding: 10% 0;
+    padding: 15% 0;
 
     &.is-active {
         overflow-y: auto;

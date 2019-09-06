@@ -7,8 +7,7 @@
                 :class="{ 'is-special': item.special }"
                 v-for="item in items"
                 :key="item.id"
-                @mouseenter="$emit('skill-enter', item.text)"
-                @mouseleave="$emit('skill-leave', item.text)"
+                @click="$emit('skill-click', item.text)"
             >{{ item.text }}</li>
         </ul>
     </div>
@@ -49,6 +48,7 @@ export default {
 
 .TextList_items {
     font: var(--font-main-l);
+    line-height: 1.5;
 }
 
 .TextList_item {
@@ -56,6 +56,7 @@ export default {
 
     &.is-special {
         font-weight: bold;
+        cursor: pointer;
     }
 }
 
