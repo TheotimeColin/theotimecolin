@@ -13,7 +13,6 @@ export default {
     },
     mutations: {
         [UPDATE_BREAKPOINTS] (state, value) {
-            console.log(value)
             state.window = {
                 ...state.window,
                 ...value

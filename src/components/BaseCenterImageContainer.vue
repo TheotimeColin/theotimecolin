@@ -1,5 +1,5 @@
 <template>
-    <div class="CenterContainer" :style="{ 'backgroundColor': bgColor, 'color': textColor }">
+    <div class="CenterContainer" :class="{ 'is-appear': appear }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }">
         <div class="CenterContainer_content">
             <h2 class="CenterContainer_title" v-if="title">{{ title }}</h2>
             <slot></slot>
@@ -13,6 +13,8 @@
 export default {
     name: 'CenterImageContainer',
     props: {
+        appear: { type: Boolean, default: true },
+        appearDelay: { type: Number, default: 0 },
         title: { type: String, default: null },
         content: { type: String, default: null },
         image: { type: String, default: null },
@@ -25,12 +27,30 @@ export default {
 <style lang="scss" scoped>
 .CenterContainer {
     padding: 40px 40px 0 40px;
+    color: var(--color);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--background-color);
+        transform: scaleY(0);
+        transition: transform 800ms var(--ease-out-cubic);
+        transform-origin: bottom left;
+    }
 }
 
 .CenterContainer_image {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top right;
+    transform: translateY(100%);
+    transition: transform 800ms var(--ease-out-cubic);
 
     &::after {
         content: "";
@@ -41,11 +61,29 @@ export default {
 
 .CenterContainer_content {
     padding-bottom: 40px;
+    transform: translateY(50%);
+    opacity: 0;
+    transition: all 600ms var(--ease-out-cubic);
 }
 
 .CenterContainer_title {
     font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.CenterContainer.is-appear {
+
+    &::before {
+        transform: scaleY(1);
+        transition-delay: var(--appear-delay);
+    }
+
+    .CenterContainer_image,
+    .CenterContainer_content {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: calc(var(--appear-delay) + 600ms);
+    }
 }
 </style>

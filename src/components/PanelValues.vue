@@ -127,7 +127,7 @@ export default {
     height: calc(100vh - 40px);
     left: 20px;
     top: 20px;
-    padding: 4vw;
+    padding: 5vw;
     z-index: 15;
     display: flex;
     align-items: center;

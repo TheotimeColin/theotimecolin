@@ -1,6 +1,6 @@
 <template>
-    <div class="ColumnText">
-        <h2 class="ColumnText_title">{{ title }}</h2>
+    <div class="ColumnText" :class="{ 'is-appear': appear }" :style="{ '--appear-delay': appearDelay + 'ms' }">
+        <BaseTransitionWord class="ColumnText_title" :appear="appear" :appear-delay="appearDelay" :text="title" />
         <div class="ColumnText_content">
             <slot></slot>
         </div>
@@ -8,9 +8,14 @@
 </template>
 
 <script>
+import BaseTransitionWord from '@/components/BaseTransitionWord'
+
 export default {
     name: 'ColumnTextContainer',
+    components: { BaseTransitionWord },
     props: {
+        appear: { type: Boolean, default: true },
+        appearDelay: { type: Number, default: 0 },
         title: { type: String, default: null }
     }
 }
@@ -26,5 +31,20 @@ export default {
     font: var(--font-main-xl);
     font-weight: bold;
     min-width: 200px;
+}
+
+.ColumnText_content {
+    opacity: 0;
+    transition: all 600ms var(--ease-out-cubic);
+    transform: translateY(50%);
+}
+
+.ColumnText.is-appear {
+
+    .ColumnText_content {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: var(--appear-delay);
+    }
 }
 </style>

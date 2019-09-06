@@ -277,7 +277,7 @@ export default {
     }
 
     .PanelItem_navItem {
-        margin: 10px 0;
+        margin: 20px 0;
     }
 }
 </style>

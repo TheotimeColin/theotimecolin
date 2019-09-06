@@ -1,5 +1,5 @@
 <template>
-    <div class="LeftContainer" :style="{ 'backgroundColor': bgColor, 'color': textColor }">
+    <div class="LeftContainer" :class="{ 'is-appear': appear }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }">
         <div class="LeftContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
         <div class="LeftContainer_content">
             <h2 class="LeftContainer_title" v-if="title">{{ title }}</h2>
@@ -12,6 +12,8 @@
 export default {
     name: 'LeftImageContainer',
     props: {
+        appear: { type: Boolean, default: true },
+        appearDelay: { type: Number, default: 0 },
         bgColor: { type: String, default: '#e6e6e6' },
         textColor: { type: String, default: null },
         title: { type: String, default: null },
@@ -27,6 +29,22 @@ export default {
     align-items: stretch;
     padding: 40px 40px 0 0;
     min-height: 300px;
+    overflow: hidden;
+    color: var(--color);
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--background-color);
+        transform: scaleY(0);
+        transition: transform 600ms var(--ease-out-cubic);
+        transform-origin: bottom left;
+    }
 }
 
 .LeftContainer_image {
@@ -34,17 +52,36 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top right;
+    transform: translateY(100%);
+    transition: transform 800ms var(--ease-out-cubic);
 }
 
 .LeftContainer_content {
     width: 60%;
     align-self: center;
     padding: 0 0 40px 40px;
+    transform: translateY(50%);
+    opacity: 0;
+    transition: all 600ms var(--ease-out-cubic);
 }
 
 .LeftContainer_title {
     font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.LeftContainer.is-appear {
+    &::before {
+        transform: scaleY(1);
+        transition-delay: calc(var(--appear-delay) + 200ms);
+    }
+
+    .LeftContainer_image,
+    .LeftContainer_content {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: calc(var(--appear-delay) + 200ms);
+    }
 }
 </style>
