@@ -93,8 +93,8 @@ export default {
             this.flipAnimateBefore({ id: 'nav', element: this.$refs.nav })
         },
         onTransitionAfter ({ id, transitionDuration = 1, ease = null }) {
-            this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
-            this.flipAnimateAfter({ id: 'nav', element: this.$refs.nav, transitionDuration, ease })
+            if (this.active) this.flipAnimateAfter({ id: 'image', element: this.$refs.image, scale: true, transitionDuration, ease })
+            if (this.active) this.flipAnimateAfter({ id: 'nav', element: this.$refs.nav, transitionDuration, ease })
         }
     }
 }
