@@ -3,7 +3,7 @@
         <BaseTransitionText class="Project_title" :appear="!isAnimating" :text="project.title" :appear-delay="1000" />
         <BaseTransitionWord class="Project_subtitle" :appear="!isAnimating" :text="project.baseline" :appear-delay="1000" />
 
-        <template v-for="(item, i) in project.content">
+        <template v-for="item in project.content">
             <BaseLeftImageContainer class="Project_container" :appear="!isAnimating" :appear-delay="1000" :image="item.image" :title="item.title" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-left'">
                 <div v-html="item.text"></div>
             </BaseLeftImageContainer>
@@ -58,6 +58,7 @@ export default {
     padding: 5vw;
     max-width: 1400px;
     margin: 0 auto;
+    overflow: hidden;
 
     &.is-window-s {
         margin-top: 60vh;

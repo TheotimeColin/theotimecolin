@@ -1,5 +1,5 @@
 <template>
-    <div class="LeftContainer" :class="{ 'is-appear': appear }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }">
+    <div class="LeftContainer" :class="{ 'is-appear': appear, 'is-animated': animated }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
         <div class="LeftContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
         <div class="LeftContainer_content">
             <h2 class="LeftContainer_title" v-if="title">{{ title }}</h2>
@@ -19,6 +19,13 @@ export default {
         title: { type: String, default: null },
         content: { type: String, default: null },
         image: { type: String, default: null }
+    },
+    data: () => ({
+        animated: true
+    }),
+    mounted () {
+        // const bounds = this.$refs.container.getBoundingClientRect()
+        // this.animated = bounds.top <= window.innerHeight
     }
 }
 </script>
@@ -42,7 +49,6 @@ export default {
         height: 100%;
         background-color: var(--background-color);
         transform: scaleY(0);
-        transition: transform 600ms var(--ease-out-cubic);
         transform-origin: bottom left;
     }
 }
@@ -53,7 +59,6 @@ export default {
     background-size: cover;
     background-position: top right;
     transform: translateY(100%);
-    transition: transform 800ms var(--ease-out-cubic);
 }
 
 .LeftContainer_content {
@@ -62,13 +67,28 @@ export default {
     padding: 0 0 40px 40px;
     transform: translateY(50%);
     opacity: 0;
-    transition: all 600ms var(--ease-out-cubic);
 }
 
 .LeftContainer_title {
     font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+
+.LeftContainer.is-animated {
+
+    &::before {
+        transition: transform 600ms var(--ease-out-cubic);
+    }
+
+    .LeftContainer_image {
+        transition: transform 800ms var(--ease-out-cubic);
+    }
+
+    .LeftContainer_content {
+        transition: all 600ms var(--ease-out-cubic);
+    }
 }
 
 .LeftContainer.is-appear {

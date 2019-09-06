@@ -1,5 +1,5 @@
 <template>
-    <div class="CenterContainer" :class="{ 'is-appear': appear }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }">
+    <div class="CenterContainer" :class="{ 'is-appear': appear, 'is-animated': animated }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
         <div class="CenterContainer_content">
             <h2 class="CenterContainer_title" v-if="title">{{ title }}</h2>
             <slot></slot>
@@ -20,6 +20,13 @@ export default {
         image: { type: String, default: null },
         bgColor: { type: String, default: '#e6e6e6' },
         textColor: { type: String, default: null }
+    },
+    data: () => ({
+        animated: true
+    }),
+    mounted () {
+        // const bounds = this.$refs.container.getBoundingClientRect()
+        // this.animated = bounds.top <= window.innerHeight
     }
 }
 </script>
@@ -40,7 +47,6 @@ export default {
         height: 100%;
         background-color: var(--background-color);
         transform: scaleY(0);
-        transition: transform 800ms var(--ease-out-cubic);
         transform-origin: bottom left;
     }
 }
@@ -50,7 +56,6 @@ export default {
     background-size: cover;
     background-position: top right;
     transform: translateY(100%);
-    transition: transform 800ms var(--ease-out-cubic);
 
     &::after {
         content: "";
@@ -63,13 +68,27 @@ export default {
     padding-bottom: 40px;
     transform: translateY(50%);
     opacity: 0;
-    transition: all 600ms var(--ease-out-cubic);
 }
 
 .CenterContainer_title {
     font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.CenterContainer.is-animated {
+
+    &::before {
+        transition: transform 800ms var(--ease-out-cubic);
+    }
+
+    .CenterContainer_image {
+        transition: transform 800ms var(--ease-out-cubic);
+    }
+
+    .CenterContainer_content {
+        transition: all 600ms var(--ease-out-cubic);
+    }
 }
 
 .CenterContainer.is-appear {
