@@ -37,12 +37,14 @@ export default {
     mixins: [ FlipAnimation ],
     data: () => ({
         state: {
-            leaving: false
+            leaving: false,
+            changingDirection: false
         }
     }),
     props: {
         id: { type: Number },
         active: { type: Boolean, default: false },
+        direction: { type: Boolean, default: true },
         slug: { type: String },
         image: { type: String },
         title: { type: String },
@@ -60,16 +62,20 @@ export default {
         }),
         classes () {
             return {
-                'is-active': this.active,
+                'is-active': this.active && !this.state.changingDirection,
                 'is-left': this.isLeft,
                 'is-right': this.isRight,
                 'is-animating': this.isAnimating,
-                'is-leaving': this.state.leaving
+                'is-leaving': this.state.leaving,
+                'is-previous': !this.direction
             }
         }
     },
     watch: {
         active (v) {
+            this.state.changingDirection = true
+            setTimeout(() => this.state.changingDirection = false, 50)
+
             if (!v) {
                 this.state.leaving = true
                 setTimeout(() => this.state.leaving = false, 1500)
@@ -194,12 +200,24 @@ export default {
     }
 }
 
+.PanelItem.is-active.is-previous {
+    transform: translateY(0);
+}
+
 .PanelItem.is-active {
     z-index: 5;
 }
 
+.PanelItem.is-previous {
+    transform: translateY(100%);
+}
+
 .PanelItem.is-leaving {
     transform: translateY(100%);
+}
+
+.PanelItem.is-leaving.is-previous {
+    transform: translateY(-100%);
 }
 
 .PanelItem.is-right.is-active {

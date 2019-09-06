@@ -24,6 +24,7 @@
                 :subtitle="item.baseline"
                 :base-color="item.baseColor"
                 :highlight-color="item.highlightColor"
+                :direction="state.direction"
                 :items="items"
                 ref="item"
             />
@@ -58,7 +59,9 @@ export default {
         state: {
             activeItem: '',
             selectedItem: 0,
-            previousItem: ''
+            previousItem: '',
+            direction: true,
+            animating: false
         }
     }),
     computed: {
@@ -68,36 +71,47 @@ export default {
     },
     watch: {
         items () {
-            this.updateActive(this.$route.name == 'About' ? 'about' : null)
+            this.updateActive({ slug: this.$route.name == 'About' ? 'about' : null })
         },
         $route (to, from) {
-            this.updateActive(to.name == 'About' ? 'about' : null)
+            this.updateActive({ slug: to.name == 'About' ? 'about' : null })
         }
     },
     mounted () {
-        window.addEventListener('wheel', () => this.nextProject())
+        window.addEventListener('wheel', (e) => {
+            if (this.state.animating || this.$route.name !== 'Homepage') return
+            
+            if (e.deltaY > 0) {
+                this.updateActive({ next: true })
+            } else {
+                this.updateActive({ prev: true })
+            }
+        })
     },
     methods: {
-        nextProject() {
-            if (this.state.previousItem !== '' || this.$route.name !== 'Homepage') return
-
-            this.state.selectedItem = this.state.selectedItem + 1 < this.items.length ? this.state.selectedItem + 1 : 0
-            this.updateActive()
-        },
-        updateActive (slug) {
-            let activeItem
-
+        updateActive ({ slug = false, next, prev }) {
+            let activeItem, reachedLimit = false
+            this.state.animating = true
+            let previousItem = this.state.selectedItem
             this.state.previousItem = this.state.activeItem
-            setTimeout(() => this.state.previousItem = '', 1400)
+
+            if (next) {
+                if (this.state.selectedItem + 1 >= this.items.length) reachedLimit = true 
+                this.state.selectedItem = reachedLimit ? 0 : this.state.selectedItem + 1 
+            } else if (prev) {
+                if (this.state.selectedItem - 1 < 0) reachedLimit = true 
+                this.state.selectedItem = reachedLimit ? this.items.length - 1 :this.state.selectedItem - 1
+            }
 
             if (slug) { /* Has defined slug already */
                 this.state.activeItem = slug
             } else {
                 this.items.forEach((item, i) => {
-                    if (this.state.selectedItem !== false && i == this.state.selectedItem) {
+                    if (this.state.selectedItem !== false && this.state.selectedItem == i) {
                         this.state.activeItem = item.slug
                         activeItem = item
                     }
+
                     if (this.$route.params.id && this.$route.params.id == item.slug) {
                         this.state.activeItem = item.slug
                         this.state.selectedItem = i
@@ -105,6 +119,11 @@ export default {
                     }
                 })
             }
+
+            this.state.direction = reachedLimit ? this.state.selectedItem > previousItem : this.state.selectedItem < previousItem
+
+            setTimeout(() => this.state.previousItem = '', 1400)
+            setTimeout(() => this.state.animating = false, 2000)
 
             this.$store.commit(`projects/${SET_ACTIVE_PROJECT}`, slug == 'about' ? this.aboutItem : activeItem)
         },
