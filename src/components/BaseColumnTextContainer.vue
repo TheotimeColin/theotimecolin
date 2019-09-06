@@ -1,5 +1,5 @@
 <template>
-    <div class="ColumnText" :class="{ 'is-appear': appear, 'is-animated': animated }" :style="{ '--appear-delay': appearDelay + 'ms' }" ref="container">
+    <div class="ColumnText" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--appear-delay': appearDelay + 'ms' }" ref="container">
         <BaseTransitionWord class="ColumnText_title" :appear="appear" :appear-delay="appearDelay" :text="title" />
         <div class="ColumnText_content">
             <slot></slot>
@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import BaseTransitionWord from '@/components/BaseTransitionWord'
 
 export default {
@@ -21,6 +23,11 @@ export default {
     data: () => ({
         animated: true
     }),
+    computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        }),
+    },
     mounted () {
         // const bounds = this.$refs.container.getBoundingClientRect()
         // this.animated = bounds.top <= window.innerHeight
@@ -58,6 +65,16 @@ export default {
         opacity: 1;
         transform: translateY(0);
         transition-delay: var(--appear-delay);
+    }
+}
+
+.ColumnText.is-window-s {
+    display: block;
+    padding: 0 20px;
+
+    .ColumnText_title {
+        min-width: 0;
+        margin-bottom: 20px;
     }
 }
 </style>

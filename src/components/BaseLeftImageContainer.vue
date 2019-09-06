@@ -1,5 +1,5 @@
 <template>
-    <div class="LeftContainer" :class="{ 'is-appear': appear, 'is-animated': animated }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
+    <div class="LeftContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
         <div class="LeftContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
         <div class="LeftContainer_content">
             <h2 class="LeftContainer_title" v-if="title">{{ title }}</h2>
@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'LeftImageContainer',
     props: {
@@ -23,6 +25,11 @@ export default {
     data: () => ({
         animated: true
     }),
+    computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        }),
+    },
     mounted () {
         // const bounds = this.$refs.container.getBoundingClientRect()
         // this.animated = bounds.top <= window.innerHeight
@@ -102,6 +109,27 @@ export default {
         opacity: 1;
         transform: translateY(0);
         transition-delay: calc(var(--appear-delay) + 200ms);
+    }
+}
+
+.LeftContainer.is-window-s {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 20px;
+
+    .LeftContainer_image,
+    .LeftContainer_content {
+        width: auto;
+    }
+
+    .LeftContainer_content {
+        padding: 0;
+    }
+
+    .LeftContainer_image {
+        height: 200px;
+        width: 100%;
+        margin-top: 20px;
     }
 }
 </style>

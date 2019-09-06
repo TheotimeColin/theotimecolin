@@ -210,6 +210,6 @@ export default {
 }
 
 .PanelAbout.is-window-s {
-    padding: 30% 0;
+    padding: 50% 0;
 }
 </style>

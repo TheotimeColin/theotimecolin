@@ -59,10 +59,6 @@ export default {
     max-width: 1400px;
     margin: 0 auto;
     overflow: hidden;
-
-    &.is-window-s {
-        margin-top: 60vh;
-    }
 }
 
 .Project_container {
@@ -79,5 +75,14 @@ export default {
     font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 40px;
+}
+
+.Project.is-window-s {
+    margin-top: 60vh;
+    padding: 20px;
+
+    .Project_title {
+        margin-top: 20px;
+    }
 }
 </style>

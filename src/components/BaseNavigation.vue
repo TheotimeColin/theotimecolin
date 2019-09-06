@@ -55,10 +55,16 @@ export default {
 }
 
 .Navigation.is-window-s {
+
+    .Navigation_item--top {
+        left: 20px;
+        top: 20px;
+    }
+
     .Navigation_item--bot {
         bottom: auto;
-        top: 40px;
-        right: 40px;
+        top: 20px;
+        right: 20px;
         left: auto;
     }
 }

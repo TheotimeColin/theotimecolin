@@ -9,7 +9,7 @@
     --font-title: "DM Serif Text", serif;
 
     --font-main-m: 15px/1.5 var(--font-main);
-    --font-main-l: 18px/1.8 var(--font-main);
+    --font-main-l: 18px/1.5 var(--font-main);
     --font-main-xl: 24px/1 var(--font-main);
     --font-main-xxl: 42px/1 var(--font-main);
     --font-main-xxxl: 90px/1 var(--font-main);
@@ -51,11 +51,9 @@ body {
 }
 
 @media screen and (max-width: 1000px) {
-
     :root {
         --font-main-xxl: 30px/1 var(--font-main);
         --font-title-xxl: 35px/1 var(--font-title);
-    
     }
 }
 
@@ -63,6 +61,7 @@ body {
     :root {
         --font-main-about: 42px/1 var(--font-main);
         --font-main-xl: 20px/1 var(--font-main);
+        --font-main-xxxl: 40px/1 var(--font-main);
     }
 
     html, body {

@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelValues" :class="{ 'is-static': isStatic, 'is-animate-out': state.animateOut, 'is-hidden': state.animateEnd }" ref="panel">
+    <div class="PanelValues" :class="{ 'is-static': isStatic, 'is-animate-out': state.animateOut, 'is-hidden': state.animateEnd, 'is-window-small': isWindowSmall }" ref="panel">
         <div class="PanelValues_background" ref="background"></div>
 
         <div class="PanelValues_titles">
@@ -179,6 +179,13 @@ export default {
     height: 100%;
     justify-content: flex-start;
     text-align: left;
+}
+
+.PanelValues.is-window-small {
+
+    .PanelValues_title {
+        margin: 10px 0;
+    }
 }
 </style>
 

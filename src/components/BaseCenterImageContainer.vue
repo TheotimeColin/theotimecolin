@@ -1,5 +1,5 @@
 <template>
-    <div class="CenterContainer" :class="{ 'is-appear': appear, 'is-animated': animated }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
+    <div class="CenterContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
         <div class="CenterContainer_content">
             <h2 class="CenterContainer_title" v-if="title">{{ title }}</h2>
             <slot></slot>
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'CenterImageContainer',
     props: {
@@ -24,6 +26,11 @@ export default {
     data: () => ({
         animated: true
     }),
+    computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        }),
+    },
     mounted () {
         // const bounds = this.$refs.container.getBoundingClientRect()
         // this.animated = bounds.top <= window.innerHeight
@@ -103,6 +110,14 @@ export default {
         opacity: 1;
         transform: translateY(0);
         transition-delay: calc(var(--appear-delay) + 600ms);
+    }
+}
+
+.CenterContainer.is-window-s {
+    padding: 20px 20px 0 20px;
+
+    .CenterContainer_content {
+        padding-bottom: 20px;
     }
 }
 </style>
