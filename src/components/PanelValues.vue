@@ -123,8 +123,8 @@ export default {
 <style lang="scss" scoped>
 .PanelValues {
     position: absolute;
-    width: calc(100vw - 40px);
-    height: calc(100vh - 40px);
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
     left: 20px;
     top: 20px;
     padding: 5vw;
@@ -144,15 +144,19 @@ export default {
     transform-origin: left;
 }
 
+.PanelValues_titles {
+    display: inline-block;
+}
+
 .PanelValues_title {
     margin: 20px 0;
+    text-align: left;
 }
 
 .PanelValues.is-loaded,
 .PanelValues.is-done {
-    justify-content: flex-start;
     text-align: left;
-    width: calc(45% - 4vw);
+    width: calc(45% - 20px);
 }
 
 .PanelValues.is-done {
@@ -177,7 +181,6 @@ export default {
     left: auto;
     width: auto;
     height: 100%;
-    justify-content: flex-start;
     text-align: left;
 }
 
