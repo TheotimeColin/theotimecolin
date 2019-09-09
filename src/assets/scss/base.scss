@@ -50,6 +50,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+@media screen and (min-width: 1500px) {
+    :root {
+        --font-main-xxl: 50px/1 var(--font-main);
+        --font-title-xxl: 55px/1 var(--font-title);
+    }
+}
+
 @media screen and (max-width: 1000px) {
     :root {
         --font-main-xxl: 30px/1 var(--font-main);

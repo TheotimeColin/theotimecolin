@@ -149,7 +149,7 @@ export default {
 }
 
 .PanelValues_title {
-    margin: 20px 0;
+    margin: 4vh 0;
     text-align: left;
 }
 

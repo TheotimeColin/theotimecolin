@@ -50,8 +50,8 @@ export default {
             windowSmall: state => state.window.s
         }),
         ...mapState('sliderAnimation', {
-            isLeft: state => state.steps['is-left'].active,
-            isRight: state => state.steps['is-right'].active,
+            isLeft: state => state.steps['is-left'].active && !state.steps['is-right'].animating,
+            isRight: state => state.steps['is-right'].active && !state.steps['is-left'].animating,
             isCenter: state => state.steps['is-center'].active,
             isAnimating: state => state.animating
         })
@@ -118,8 +118,7 @@ export default {
         overflow: auto;
     }
 
-    .App.is-left,
-    .App.is-center {
+    .App.is-left {
 
         .App_contentLeft {
             width: 500px;
