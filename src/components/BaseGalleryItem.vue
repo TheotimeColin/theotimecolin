@@ -1,6 +1,6 @@
 <template>
-    <div class="GalleryItem">
-        <img :src="image">
+    <div class="GalleryItem" :style="{ '--height': height + 'px' }">
+        <img class="GalleryItem_image" :src="image">
     </div>
 </template>
 
@@ -9,6 +9,7 @@ export default {
     name: 'BaseGalleryItem',
     props: {
         image: { type: String },
+        height: { type: Number, default: 100 },
         title: { type: String }
     }
 }
@@ -16,6 +17,12 @@ export default {
 
 <style lang="scss" scoped>
 .GalleryItem {
-    
+    padding: 5px;
+}
+
+.GalleryItem_image {
+    display: block;
+    height: var(--height);
+    width: auto;
 }
 </style>

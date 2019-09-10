@@ -4,6 +4,12 @@ import tempProjectMain2 from '@/assets/img/temp/project-main-2.png'
 import tempProjectMain3 from '@/assets/img/temp/project-main-3.png'
 import tempProjectMain4 from '@/assets/img/temp/project-main-4.png'
 
+import tempGallery0 from '@/assets/img/temp/gallery-0.png'
+import tempGallery1 from '@/assets/img/temp/gallery-1.png'
+import tempGallery2 from '@/assets/img/temp/gallery-2.png'
+import tempGallery3 from '@/assets/img/temp/gallery-3.png'
+import tempGallery4 from '@/assets/img/temp/gallery-4.png'
+
 import imageLeft0 from '@/assets/img/temp/project-left.jpg'
 import imageCenter0 from '@/assets/img/temp/project-center.jpg'
 
@@ -123,15 +129,15 @@ export default [
                 textColor: '#000000',
                 title: 'Gallery',
                 galleryItems: [
-                    { id: 1, title: 'Lorem', image: imageLeft0 },
-                    { id: 2, title: 'Lorem', image: imageLeft0 },
-                    { id: 3, title: 'Lorem', image: imageLeft0 },
-                    { id: 4, title: 'Lorem', image: imageLeft0 },
-                    { id: 5, title: 'Lorem', image: imageLeft0 },
-                    { id: 6, title: 'Lorem', image: imageLeft0 },
-                    { id: 7, title: 'Lorem', image: imageLeft0 },
+                    { id: 1, title: 'Lorem', image: tempGallery0 },
+                    { id: 2, title: 'Lorem', image: tempGallery1 },
+                    { id: 3, title: 'Lorem', image: tempGallery2 },
+                    { id: 4, title: 'Lorem', image: tempGallery3 },
+                    { id: 5, title: 'Lorem', image: tempGallery4 },
+                    { id: 6, title: 'Lorem', image: tempGallery1 },
+                    { id: 7, title: 'Lorem', image: tempGallery3 },
                     { id: 8, title: 'Lorem', image: imageLeft0 },
-                    { id: 9, title: 'Lorem', image: imageLeft0 }
+                    { id: 9, title: 'Lorem', image: tempGallery2 }
                 ]
             }
         ]

@@ -115,14 +115,12 @@ export default {
         position: relative;
         z-index: 2;
         display: flex;
-        overflow: auto;
     }
 
     .App.is-left {
 
         .App_contentLeft {
             width: 500px;
-            overflow: hidden;
         }
     }
 
@@ -133,6 +131,7 @@ export default {
 
     .App_contentRight {
         flex-grow: 1;
+        overflow-y: auto;
     }
 
     .App.is-window-s {
