@@ -2,7 +2,7 @@
     <div>
         <BaseCorners />
         
-        <BaseContent class="App" :class="{ 'is-left': isLeft, 'is-center': isCenter, 'is-right': isRight, 'is-window-s': windowSmall }">
+        <BaseContent class="App" :class="{ 'is-left': isLeft, 'is-center': isCenter, 'is-right': isRight, 'is-window-s': windowSmall, [lastState]: true }">
             
 
             <BaseNavigation />
@@ -42,7 +42,8 @@ export default {
     components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues, },
     data: () => ({
         position: '',
-        centerDelay: 0
+        centerDelay: 0,
+        lastState: 'default'
     }),
     computed: {
         ...mapState('global', {
@@ -52,9 +53,23 @@ export default {
         ...mapState('sliderAnimation', {
             isLeft: state => state.steps['is-left'].active && !state.steps['is-right'].animating,
             isRight: state => state.steps['is-right'].active && !state.steps['is-left'].animating,
-            isCenter: state => state.steps['is-center'].active && !state.steps['is-center'].animating,
+            isCenter: state => state.steps['is-center'].active,
             isAnimating: state => state.animating
         })
+    },
+    watch: {
+        position: {
+            deep: true,
+            handler (v) {
+                this.$refs.panelSwitch.updatePosition(v, this.centerDelay)
+            }
+        },
+        isRight (v) {
+            if (!v) this.lastState = 'is-last-right'
+        },
+        isLeft (v) {
+            if (!v) this.lastState = 'is-last-left'
+        }
     },
     created () {
         this.updateBreakpoints()
@@ -73,14 +88,6 @@ export default {
             
             next()
         })
-    },
-    watch: {
-        position: {
-            deep: true,
-            handler (v) {
-                this.$refs.panelSwitch.updatePosition(v, this.centerDelay)
-            }
-        }
     },
     async mounted () {
         this.position = {
@@ -117,17 +124,25 @@ export default {
         display: flex;
     }
 
-    .App.is-left {
+    .App.is-left,
+    .App.is-last-left,
+    .App.is-last-right.is-left {
 
         .App_contentLeft {
             width: 500px;
         }
     }
 
-    .App_contentLeft {
-        width: 45%;
-        flex-shrink: 0;
+    .App.is-right,
+    .App.is-last-right,
+    .App.is-last-left.is-right {
+
+        .App_contentLeft {
+            width: 45%;
+            flex-shrink: 0;
+        }
     }
+        
 
     .App_contentRight {
         flex-grow: 1;
