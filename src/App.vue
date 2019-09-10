@@ -52,7 +52,7 @@ export default {
         ...mapState('sliderAnimation', {
             isLeft: state => state.steps['is-left'].active && !state.steps['is-right'].animating,
             isRight: state => state.steps['is-right'].active && !state.steps['is-left'].animating,
-            isCenter: state => state.steps['is-center'].active,
+            isCenter: state => state.steps['is-center'].active && !state.steps['is-center'].animating,
             isAnimating: state => state.animating
         })
     },
