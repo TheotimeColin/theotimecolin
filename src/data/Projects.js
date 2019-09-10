@@ -116,6 +116,24 @@ export default [
                 textColor: '#ffffff',
                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.'
             },
+            {
+                id: 3,
+                layout: 'gallery',
+                bgColor: '#f5f5f5',
+                textColor: '#000000',
+                title: 'Gallery',
+                galleryItems: [
+                    { id: 1, title: 'Lorem', image: imageLeft0 },
+                    { id: 2, title: 'Lorem', image: imageLeft0 },
+                    { id: 3, title: 'Lorem', image: imageLeft0 },
+                    { id: 4, title: 'Lorem', image: imageLeft0 },
+                    { id: 5, title: 'Lorem', image: imageLeft0 },
+                    { id: 6, title: 'Lorem', image: imageLeft0 },
+                    { id: 7, title: 'Lorem', image: imageLeft0 },
+                    { id: 8, title: 'Lorem', image: imageLeft0 },
+                    { id: 9, title: 'Lorem', image: imageLeft0 }
+                ]
+            }
         ]
     }
 ]

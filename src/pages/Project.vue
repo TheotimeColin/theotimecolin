@@ -15,6 +15,8 @@
             <BaseCenterImageContainer class="Project_container" :appear="!isAnimating" :appear-delay="1000" :image="item.image" :title="item.title" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-center'">
                 <div v-html="item.text"></div>
             </BaseCenterImageContainer>
+
+            <BaseGallery class="Project_container" :title="item.title" :items="item.galleryItems" :bg-color="item.bgColor" :text-color="item.textColor" v-if="item.layout == 'gallery'" :key="item.id"/>
         </template>
     </div>
 </template>
@@ -27,10 +29,11 @@ import BaseTransitionWord from '@/components/BaseTransitionWord'
 import BaseLeftImageContainer from '@/components/BaseLeftImageContainer'
 import BaseColumnTextContainer from '@/components/BaseColumnTextContainer'
 import BaseCenterImageContainer from '@/components/BaseCenterImageContainer'
+import BaseGallery from '@/components/BaseGallery'
 
 export default {
     name: 'Project',
-    components: { BaseLeftImageContainer, BaseColumnTextContainer, BaseCenterImageContainer, BaseTransitionText, BaseTransitionWord },
+    components: { BaseLeftImageContainer, BaseColumnTextContainer, BaseCenterImageContainer, BaseTransitionText, BaseTransitionWord, BaseGallery },
     computed: {
         ...mapState('global', {
             windowSmall: state => state.window.s

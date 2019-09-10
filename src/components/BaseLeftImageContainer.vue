@@ -70,6 +70,7 @@ export default {
 
 .LeftContainer_content {
     width: 60%;
+    max-width: 500px;
     align-self: center;
     padding: 0 0 40px 40px;
     transform: translateY(50%);

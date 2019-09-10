@@ -39,6 +39,9 @@ export default {
 .ColumnText {
     display: flex;
     align-items: flex-start;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .ColumnText_title {

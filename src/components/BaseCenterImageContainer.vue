@@ -1,11 +1,13 @@
 <template>
     <div class="CenterContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
-        <div class="CenterContainer_content">
-            <h2 class="CenterContainer_title" v-if="title">{{ title }}</h2>
-            <slot></slot>
-        </div>
+        <div class="CenterContainer_wrapper">
+            <div class="CenterContainer_content">
+                <h2 class="CenterContainer_title" v-if="title">{{ title }}</h2>
+                <slot></slot>
+            </div>
 
-        <div class="CenterContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
+            <div class="CenterContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
+        </div>
     </div>
 </template>
 
@@ -56,6 +58,11 @@ export default {
         transform: scaleY(0);
         transform-origin: bottom left;
     }
+}
+
+.CenterContainer_wrapper {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .CenterContainer_image {
