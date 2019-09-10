@@ -1,9 +1,11 @@
 <template>
     <div class="LeftContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
-        <div class="LeftContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
-        <div class="LeftContainer_content">
-            <h2 class="LeftContainer_title" v-if="title">{{ title }}</h2>
-            <slot></slot>
+        <div class="LeftContainer_wrapper">
+            <div class="LeftContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
+            <div class="LeftContainer_content">
+                <h2 class="LeftContainer_title" v-if="title">{{ title }}</h2>
+                <slot></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -39,10 +41,6 @@ export default {
 
 <style lang="scss" scoped>
 .LeftContainer {
-    display: flex;
-    align-items: stretch;
-    padding: 40px 40px 0 0;
-    min-height: 300px;
     overflow: hidden;
     color: var(--color);
     position: relative;
@@ -60,6 +58,15 @@ export default {
     }
 }
 
+.LeftContainer_wrapper {
+    display: flex;
+    align-items: stretch;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: 300px;
+    padding: 40px 40px 0 0;
+}
+
 .LeftContainer_image {
     width: 40%;
     background-repeat: no-repeat;
@@ -70,7 +77,6 @@ export default {
 
 .LeftContainer_content {
     width: 60%;
-    max-width: 500px;
     align-self: center;
     padding: 0 0 40px 40px;
     transform: translateY(50%);

@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .CenterContainer {
-    padding: 40px 40px 0 40px;
+    padding: 60px 40px 0 40px;
     color: var(--color);
     position: relative;
     overflow: hidden;
@@ -79,7 +79,7 @@ export default {
 }
 
 .CenterContainer_content {
-    padding-bottom: 40px;
+    padding-bottom: 60px;
     transform: translateY(50%);
     opacity: 0;
 }
