@@ -114,7 +114,7 @@ export default {
         },
         backToTop () {
             this.$refs.contentRight.scrollTo({ top: 0, behavior: 'smooth' })
-            window.scrollTo({ top: 0, behavior: 'smooth' })
+            window.scrollTo({ top: 0 })
         }
     }
 }

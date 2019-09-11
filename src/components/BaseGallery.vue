@@ -1,5 +1,5 @@
 <template>
-    <div class="Gallery" :style="{ '--background-color': bgColor, '--text-color': textColor }">
+    <div class="Gallery" :class="{ 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--text-color': textColor }">
         <div class="Gallery_title">{{ title }}</div>
         <div class="Gallery_items" ref="container">
             <div class="Gallery_row" v-for="row in rows" :key="row.id">
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import BaseGalleryItem from '@/components/BaseGalleryItem'
 
 export default {
@@ -29,6 +31,12 @@ export default {
             processing: false
         }
     }),
+    computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s,
+            isLoaded: state => state.loaded
+        }),
+    },
     watch: {
         appear (v) {
             if (v) this.updateHeights()
@@ -135,5 +143,13 @@ export default {
 .Gallery_item {
     margin: 5px;
     display: inline-block;
+}
+
+.Gallery.is-window-s {
+    padding: 20px;
+
+    .Gallery_title {
+        margin: 10px 0 30px 0;
+    }
 }
 </style>

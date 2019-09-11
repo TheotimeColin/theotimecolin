@@ -67,6 +67,10 @@ export default {
         right: 20px;
         left: auto;
     }
+
+    .Navigation_item {
+        color: var(--highlight-color);
+    }
 }
 </style>
 

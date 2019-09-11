@@ -106,6 +106,7 @@ export default {
 }
 
 .LeftContainer.is-appear {
+
     &::before {
         transform: scaleY(1);
         transition-delay: calc(var(--appear-delay) + 200ms);
@@ -120,9 +121,12 @@ export default {
 }
 
 .LeftContainer.is-window-s {
-    display: flex;
-    flex-direction: column-reverse;
-    padding: 20px;
+
+    .LeftContainer_wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 20px;
+    }
 
     .LeftContainer_image,
     .LeftContainer_content {
