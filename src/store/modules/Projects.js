@@ -7,6 +7,7 @@ export default {
     namespaced: true,
     state: {
         active: null,
+        next: null,
         items: []
     },
     mutations: {
@@ -15,6 +16,12 @@ export default {
         },
         [SET_ACTIVE_PROJECT] (state, item) {
             state.active = item
+            
+            let current = 0
+            state.items.forEach((project, i) => {
+                if (project.id == item.id) current = i + 1
+                if (current == i) state.next = project
+            })
         }
     },
     actions: {

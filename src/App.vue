@@ -11,7 +11,7 @@
                 <div class="App_contentLeft" v-if="!windowSmall">
                     <PanelValues :is-static="true" />
                 </div>
-                <div class="App_contentRight">
+                <div class="App_contentRight" ref="contentRight">
                     <transition name="router-transition" mode="in-out">
                         <router-view :key="$route.params.id" />
                     </transition>
@@ -87,6 +87,8 @@ export default {
             }
             
             next()
+
+            this.backToTop()
         })
     },
     async mounted () {
@@ -109,6 +111,10 @@ export default {
                 m: window.innerWidth <= 1000 && window.innerWidth > 800,
                 l: window.innerWidth > 1000
             })
+        },
+        backToTop () {
+            this.$refs.contentRight.scrollTo({ top: 0, behavior: 'smooth' })
+            window.scrollTo({ top: 0, behavior: 'smooth' })
         }
     }
 }
