@@ -1,5 +1,5 @@
 <template>
-    <div class="PanelSlider" :class="{ 'is-animating': isAnimating }">
+    <div class="PanelSlider" :class="{ 'is-animating': isAnimating }" ref="container">
         <div class="PanelSlider_backgrounds">
             <div
                 class="PanelSlider_background"
@@ -34,6 +34,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import Hammer from 'hammerjs'
 import { SET_ACTIVE_PROJECT } from '@/store/types/mutation-types'
 
 import PanelItem from '@/components/PanelItem'
@@ -86,6 +87,17 @@ export default {
             } else {
                 this.updateActive({ prev: true })
             }
+        })
+
+        let hammerStage = new Hammer(this.$refs.container)
+        hammerStage.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL })
+        
+        hammerStage.on('swipeup', (e) => {
+            this.updateActive({ next: true })
+        })
+
+        hammerStage.on('swipedown', (e) => {
+            this.updateActive({ prev: true })
         })
     },
     methods: {
