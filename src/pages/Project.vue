@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .Project {
-    padding: 5vw;
+    padding: 5vw 5vw 0 5vw;
     max-width: 1400px;
     margin: 0 auto;
     overflow: hidden;
@@ -67,6 +67,10 @@ export default {
 
 .Project_container {
     margin-bottom: 60px;
+
+    &:last-child {
+        margin: 0;
+    }
 }
 
 .Project_title {
