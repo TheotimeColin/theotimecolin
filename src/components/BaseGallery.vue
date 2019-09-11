@@ -3,7 +3,7 @@
         <div class="Gallery_title">{{ title }}</div>
         <div class="Gallery_items" ref="container">
             <div class="Gallery_row" v-for="row in rows" :key="row.id">
-                <BaseGalleryItem class="Gallery_item" v-for="item in row.items" :title="item.title" :image="item.image" :height="item.height" :key="item.id" ref="item" />
+                <BaseGalleryItem class="Gallery_item" v-for="item in row.items" :title="item.title" :image="item.image" :height="item.height" :video="item.video" :key="item.id" ref="item" />
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@ export default {
         items: { type: Array, default: () => [] },
         textColor: { type: String },
         bgColor: { type: String },
-        height: { type: Number, default: 400 }
+        height: { type: Number, default: 600 }
     },
     data: () => ({
         rows: [],
@@ -57,13 +57,16 @@ export default {
 
                     while (totalRowWidth < containerWidth && processedItems < this.items.length) {
                         let item = this.items[processedItems]
-                        item.height = this.height
-                        
-                        item.loadedImage = await new Promise((resolve, reject) => {
-                            let image = new Image()
-                            image.onload = () => resolve(image)
-                            image.src = item.image
-                        })
+
+                        if (!item.loadedImage) {
+                            item.height = this.height
+
+                            if (item.video) {
+                                item.loadedImage = await new Promise(resolve => this.loadVideo(resolve, item.image))
+                            } else {
+                                item.loadedImage = await new Promise(resolve => this.loadImage(resolve, item.image))
+                            }
+                        }
 
                         totalRowWidth += Math.round((item.loadedImage.width * this.height) / item.loadedImage.height)
                         itemsInRow.push(item)
@@ -72,7 +75,7 @@ export default {
                     }
 
                     let overflow = (containerWidth - (itemsInRow.length * 10)) / totalRowWidth
-                    if (processedItems < this.items.length) {
+                    if (overflow < 1) {
                         itemsInRow.forEach(item => {
                             item.height = this.height * overflow
                         })
@@ -86,6 +89,24 @@ export default {
 
                 this.state.processing = false
             })
+        },
+        loadImage (resolve, image) {
+            let imageElement = new Image()
+
+            imageElement.onload = function () {
+                resolve({ height: this.height, width: this.width })
+            }
+
+            imageElement.src = image
+        },
+        loadVideo (resolve, video) {
+            let videoElement = document.createElement('video')
+
+            videoElement.addEventListener('loadedmetadata', function () {
+                resolve({ height: this.videoHeight, width: this.videoWidth })
+            }, false)
+
+            videoElement.src = video
         }
     }
 }
@@ -111,10 +132,8 @@ export default {
     font-size: 0;
 }
 
-.Gallery_items {
-}
-
 .Gallery_item {
+    margin: 5px;
     display: inline-block;
 }
 </style>

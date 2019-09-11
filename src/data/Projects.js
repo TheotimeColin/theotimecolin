@@ -10,6 +10,8 @@ import tempGallery2 from '@/assets/img/temp/gallery-2.png'
 import tempGallery3 from '@/assets/img/temp/gallery-3.png'
 import tempGallery4 from '@/assets/img/temp/gallery-4.png'
 
+import tempVideo0 from '@/assets/img/temp/video-0.mp4'
+
 import imageLeft0 from '@/assets/img/temp/project-left.jpg'
 import imageCenter0 from '@/assets/img/temp/project-center.jpg'
 
@@ -135,7 +137,7 @@ export default [
                     { id: 4, title: 'Lorem', image: tempGallery3 },
                     { id: 5, title: 'Lorem', image: tempGallery4 },
                     { id: 6, title: 'Lorem', image: tempGallery1 },
-                    { id: 7, title: 'Lorem', image: tempGallery3 },
+                    { id: 7, title: 'Lorem', image: tempVideo0, video: true },
                     { id: 8, title: 'Lorem', image: imageLeft0 },
                     { id: 9, title: 'Lorem', image: tempGallery2 }
                 ]
