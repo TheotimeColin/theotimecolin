@@ -1,5 +1,7 @@
 <template>
-    <div class="PanelAbout" :class="{ 'is-active': active && visible, 'is-ready': state.textActive && visible, 'is-leaving': state.leaving, 'is-window-s': windowSmall }" :style="{ '--highlight-color': highlightColor }" ref="container">
+    <simplebar class="PanelAbout" :class="{ 'is-active': active && visible, 'is-ready': state.textActive && visible, 'is-leaving': state.leaving, 'is-window-s': windowSmall }" :style="{ '--highlight-color': highlightColor }" ref="container">
+        <BaseFloatingButton :appear="active && visible" link="https://www.linkedin.com/in/theotimecolin" :icon="assets.inIcon" color="#0073b1" title="Contact" />
+        
         <div class="PanelAbout_content">
             <div class="PanelAbout_titleMain" ref="title">
                 About me
@@ -24,14 +26,18 @@
                 />
             </div>
         </div>
-    </div>
+    </simplebar>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import simplebar from 'simplebar-vue'
+import 'simplebar/dist/simplebar.min.css'
+import inIcon from '@/assets/img/icons/linkedin.png'
 
 import BaseTransitionWord from '@/components/BaseTransitionWord'
 import BaseTextList from '@/components/BaseTextList'
+import BaseFloatingButton from '@/components/BaseFloatingButton'
 
 import FlipAnimation from '@/mixins/FlipAnimation'
 
@@ -41,9 +47,10 @@ import tempAboutSpecial from '@/assets/img/temp/about-pokemon.jpg'
 export default {
     name: 'PanelAbout',
     mixins: [ FlipAnimation ],
-    components: { BaseTransitionWord, BaseTextList },
+    components: { BaseTransitionWord, BaseTextList, BaseFloatingButton, simplebar },
     props: {
         active: { type: Boolean, default: false },
+        baseColor: { type: String },
         highlightColor: { type: String }
     },
     computed: {
@@ -53,7 +60,7 @@ export default {
         })
     },
     data: () => ({
-        assets: { tempAbout, tempAboutSpecial },
+        assets: { tempAbout, tempAboutSpecial, inIcon },
         state: {
             leaving: false,
             textActive: false,
@@ -93,7 +100,7 @@ export default {
             if (text == 'Pokémon') {
                 this.state.specialActive = !this.state.specialActive
 
-                this.$refs.container.scroll({
+                this.$refs.container.scrollElement.scroll({
                     top: 0,
                     left: 0,
                     behavior: 'smooth'
@@ -120,17 +127,13 @@ export default {
     white-space: initial;
     text-align: center;
     color: var(--highlight-color);
-    padding: 20vh 0;
-
-    &.is-active {
-        overflow-y: auto;
-    }
 }
 
 .PanelAbout_content {
     width: 80%;
     max-width: 550px;
-    min-height: 100%;
+    padding: 20vh 0;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -210,6 +213,13 @@ export default {
 }
 
 .PanelAbout.is-window-s {
-    padding: 20vh 0;
+
+    .PanelAbout_content {
+        padding: 20vh 0;
+    }
+
+    .PanelAbout_skills {
+        display: block;
+    }
 }
 </style>

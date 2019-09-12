@@ -186,6 +186,11 @@ export default {
 
 .PanelValues.is-window-small {
 
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    left: 10px;
+    top: 10px;
+
     .PanelValues_title {
         margin: 10px 0;
     }

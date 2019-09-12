@@ -1,16 +1,24 @@
 <template>
-    <a :href="link" class="FloatingButton" :class="{ 'is-appear': appear }" target="_blank" title="Visit live website" :style="{ '--icon': `url(${icon})`, '--background-color': color }">
+    <a :href="link" class="FloatingButton" :class="{ 'is-appear': appear, 'is-window-s': windowSmall }" target="_blank" :title="title" :style="{ '--icon': `url(${icon})`, '--background-color': color }">
     </a>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'BaseFloatingButton',
     props: {
         appear: { type: Boolean, default: true },
         icon: { type: String },
         color: { type: String, default: '#2553c9' },
-        link: { type: String }
+        link: { type: String },
+        title: { type: String }
+    },
+    computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        })
     }
 }
 </script>
@@ -38,5 +46,13 @@ export default {
 .FloatingButton.is-appear {
     opacity: 1;
     transform: translateY(0%);
+}
+
+.FloatingButton.is-window-s {
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    background-size: 16px;
 }
 </style>

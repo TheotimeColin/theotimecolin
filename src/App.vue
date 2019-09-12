@@ -2,9 +2,7 @@
     <div>
         <BaseCorners />
         
-        <BaseContent class="App" :class="{ 'is-left': isLeft, 'is-center': isCenter, 'is-right': isRight, 'is-window-s': windowSmall, [lastState]: true }">
-            
-
+        <BaseContent class="App" :class="{ 'is-left': isLeft, 'is-center': isCenter, 'is-right': isRight, 'is-window-s': windowSmall, [lastState]: true }" ref="content">
             <BaseNavigation />
 
             <div class="App_content">
@@ -116,6 +114,7 @@ export default {
         },
         backToTop () {
             this.$refs.contentRight.scrollElement.scrollTo({ top: 0, behavior: 'smooth' })
+            this.$refs.content.$el.scrollTo({ top: 0 })
 
             window.scrollTo({ top: 0 })
         }
@@ -158,7 +157,8 @@ export default {
     }
 
     .App.is-window-s {
-        
+        overflow: auto;
+
         .App_content {
             display: block;
             height: auto;

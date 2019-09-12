@@ -93,10 +93,14 @@ export default {
         hammerStage.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL })
         
         hammerStage.on('swipeup', (e) => {
+            if (this.state.animating || this.$route.name !== 'Homepage') return
+            
             this.updateActive({ next: true })
         })
 
         hammerStage.on('swipedown', (e) => {
+            if (this.state.animating || this.$route.name !== 'Homepage') return
+            
             this.updateActive({ prev: true })
         })
     },

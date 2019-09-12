@@ -1,6 +1,6 @@
 <template>
     <div class="Project" :class="{ 'is-window-s': windowSmall }" v-if="project">
-        <BaseFloatingButton :appear="!isAnimating && isLoaded" :icon="assets.externalIcon" :color="project.highlightColor" :link="project.link" v-if="project.link" />
+        <BaseFloatingButton :appear="!isAnimating && isLoaded" :icon="assets.externalIcon" :color="project.highlightColor" :link="project.link" title="Visit live website" v-if="project.link" />
 
         <div class="Project_wrapper">
             <BaseTransitionText class="Project_title" :appear="!isAnimating && isLoaded" :text="project.title" :appear-delay="1000" />
