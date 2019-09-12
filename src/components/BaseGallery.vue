@@ -11,6 +11,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { debounce } from 'throttle-debounce';
 
 import BaseGalleryItem from '@/components/BaseGalleryItem'
 
@@ -26,7 +27,9 @@ export default {
         height: { type: Number, default: 500 }
     },
     data: () => ({
+        loadedItems: [],
         rows: [],
+        debounce: null,
         state: {
             processing: false
         }
@@ -43,10 +46,11 @@ export default {
         }
     },
     mounted () {
-        window.addEventListener('resize', this.updateHeights)
+        this.debounce = debounce(300, this.updateHeights)
+        window.addEventListener('resize', this.debounce)
     },
     beforeDestroy () {
-        window.removeEventListener('resize', this.updateHeights)
+        window.removeEventListener('resize', this.debounce)
     },
     methods: {
         updateHeights () {
@@ -64,7 +68,7 @@ export default {
                     let itemsInRow = []
 
                     while (totalRowWidth < containerWidth && processedItems < this.items.length) {
-                        let item = this.items[processedItems]
+                        let item = this.loadedItems[processedItems] ? this.loadedItems[processedItems] : this.items[processedItems]
 
                         if (!item.loadedImage) {
                             item.height = this.height
@@ -79,6 +83,8 @@ export default {
                         if (item.loadedImage) {
                             totalRowWidth += Math.round((item.loadedImage.width * this.height) / item.loadedImage.height)
                             itemsInRow.push(item)
+
+                            this.loadedItems.push(item)
                         }
 
                         processedItems++

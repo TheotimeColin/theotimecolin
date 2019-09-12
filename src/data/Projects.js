@@ -37,6 +37,7 @@ export default [
         image: tempProjectMain0,
         baseColor: '#ffe3bc',
         highlightColor: '#ffc551',
+        link: 'https://app.kanarys.com/company-compare/browse',
         content: [
             {
                 id: 0,
