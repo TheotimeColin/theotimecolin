@@ -1,5 +1,5 @@
 <template>
-    <div class="GalleryItem" :class="{ 'is-video': video }" :style="{ '--height': height + 'px' }">
+    <div class="GalleryItem" :class="{ 'is-video': false }" :style="{ '--height': height + 'px' }">
         <img class="GalleryItem_image" :src="image" v-if="!video">
         <video
             class="GalleryItem_image"
@@ -10,6 +10,8 @@
             @mouseleave="(v) => onVideoLeave(v)"
             ref="video"
             loop
+            autoplay
+            muted
         />
     </div>
 </template>
@@ -30,8 +32,8 @@ export default {
             target.play()
         },
         onVideoLeave (video) {
-            let target = video.target
-            target.pause()
+            // let target = video.target
+            // target.pause()
         }
     }
 }

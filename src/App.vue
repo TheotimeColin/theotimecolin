@@ -11,11 +11,11 @@
                 <div class="App_contentLeft" v-if="!windowSmall">
                     <PanelValues :is-static="true" />
                 </div>
-                <div class="App_contentRight" ref="contentRight">
+                <simplebar class="App_contentRight" ref="contentRight">
                     <transition name="router-transition" mode="in-out">
                         <router-view :key="$route.params.id" />
                     </transition>
-                </div>
+                </simplebar>
             </div>
 
             <PanelSwitch class="App_panel" ref="panelSwitch" />
@@ -27,6 +27,8 @@
 
 <script>
 import { mapState } from 'vuex'
+import simplebar from 'simplebar-vue'
+import 'simplebar/dist/simplebar.min.css'
 
 import { UPDATE_STEP, SET_LOADED, UPDATE_BREAKPOINTS } from '@/store/types/mutation-types'
 import { LOAD_PROJECTS } from '@/store/types/action-types'
@@ -39,7 +41,7 @@ import BaseNavigation from '@/components/BaseNavigation'
 
 export default {
     name: 'App',
-    components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues, },
+    components: { BaseCorners, BaseContent, PanelSwitch, BaseNavigation, PanelValues, simplebar },
     data: () => ({
         position: '',
         centerDelay: 0,
@@ -100,7 +102,7 @@ export default {
         
         setTimeout(() => {
             this.$store.commit(`global/${SET_LOADED}`, true)
-        }, 2500)
+        }, 0)
 
         window.addEventListener('resize', () => this.updateBreakpoints())
     },
@@ -113,7 +115,8 @@ export default {
             })
         },
         backToTop () {
-            this.$refs.contentRight.scrollTo({ top: 0, behavior: 'smooth' })
+            this.$refs.contentRight.scrollElement.scrollTo({ top: 0, behavior: 'smooth' })
+
             window.scrollTo({ top: 0 })
         }
     }
@@ -152,7 +155,6 @@ export default {
 
     .App_contentRight {
         flex-grow: 1;
-        overflow-y: auto;
     }
 
     .App.is-window-s {

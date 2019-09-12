@@ -23,7 +23,7 @@ export default {
         items: { type: Array, default: () => [] },
         textColor: { type: String },
         bgColor: { type: String },
-        height: { type: Number, default: 600 }
+        height: { type: Number, default: 500 }
     },
     data: () => ({
         rows: [],
@@ -51,7 +51,7 @@ export default {
     methods: {
         updateHeights () {
             if (this.state.processing) return
-
+            
             this.rows = []
             this.state.processing = true
 
@@ -76,18 +76,20 @@ export default {
                             }
                         }
 
-                        totalRowWidth += Math.round((item.loadedImage.width * this.height) / item.loadedImage.height)
-                        itemsInRow.push(item)
+                        if (item.loadedImage) {
+                            totalRowWidth += Math.round((item.loadedImage.width * this.height) / item.loadedImage.height)
+                            itemsInRow.push(item)
+                        }
 
                         processedItems++
                     }
 
                     let overflow = (containerWidth - (itemsInRow.length * 10)) / totalRowWidth
-                    if (overflow < 1) {
-                        itemsInRow.forEach(item => {
-                            item.height = this.height * overflow
-                        })
-                    }
+                    overflow = overflow > 1 ? 1 : overflow
+
+                    itemsInRow.forEach(item => {
+                        item.height = this.height * overflow
+                    })
 
                     this.rows.push({
                         id: processedItems,

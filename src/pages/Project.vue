@@ -1,23 +1,25 @@
 <template>
     <div class="Project" :class="{ 'is-window-s': windowSmall }" v-if="project">
+        <BaseFloatingButton :icon="assets.externalIcon" :color="project.highlightColor" :link="project.link" v-if="project.link" />
+
         <div class="Project_wrapper">
             <BaseTransitionText class="Project_title" :appear="!isAnimating && isLoaded" :text="project.title" :appear-delay="1000" />
             <BaseTransitionWord class="Project_subtitle" :appear="!isAnimating && isLoaded" :text="project.baseline" :appear-delay="1000" />
 
             <template v-for="item in project.content">
-                <BaseLeftImageContainer class="Project_container" :appear="!isAnimating && isLoaded" :appear-delay="1000" :image="item.image" :title="item.title" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-left'">
+                <BaseLeftImageContainer class="Project_container" :appear="!isAnimating && isLoaded" :appear-delay="1000" :image="item.image" :title="item.title" :subtitle="item.subtitle" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-left'">
                     <div v-html="item.text"></div>
                 </BaseLeftImageContainer>
 
-                <BaseColumnTextContainer class="Project_container" :appear="!isAnimating && isLoaded" :appear-delay="1000" :title="item.title" :key="item.id" :bg-color="item.bgColor" :text-color="item.textColor" v-if="item.layout == 'text-column'">
+                <BaseColumnTextContainer class="Project_container" :appear="!isAnimating && isLoaded" :appear-delay="1000" :title="item.title" :subtitle="item.subtitle" :key="item.id" :bg-color="item.bgColor" :text-color="item.textColor" v-if="item.layout == 'text-column'">
                     <div v-html="item.text"></div>
                 </BaseColumnTextContainer>
 
-                <BaseCenterImageContainer class="Project_container" :appear="!isAnimating && isLoaded" :appear-delay="1000" :image="item.image" :title="item.title" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-center'">
+                <BaseCenterImageContainer class="Project_container" :appear="!isAnimating && isLoaded" :appear-delay="1000" :image="item.image" :title="item.title" :subtitle="item.subtitle" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-center'">
                     <div v-html="item.text"></div>
                 </BaseCenterImageContainer>
 
-                <BaseGallery class="Project_container" :appear="!isAnimating && isLoaded" :title="item.title" :items="item.galleryItems" :bg-color="item.bgColor" :text-color="item.textColor" v-if="item.layout == 'gallery'" :key="item.id"/>
+                <BaseGallery class="Project_container" :appear="!isAnimating && isLoaded" :title="item.title" :subtitle="item.subtitle" :items="item.galleryItems" :bg-color="item.bgColor" :text-color="item.textColor" v-if="item.layout == 'gallery'" :key="item.id"/>
             </template>
         </div>
 
@@ -30,9 +32,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import externalIcon from '@/assets/img/icons/external.png'
 
 import BaseTransitionText from '@/components/BaseTransitionText'
 import BaseTransitionWord from '@/components/BaseTransitionWord'
+import BaseFloatingButton from '@/components/BaseFloatingButton'
 import BaseLeftImageContainer from '@/components/BaseLeftImageContainer'
 import BaseColumnTextContainer from '@/components/BaseColumnTextContainer'
 import BaseCenterImageContainer from '@/components/BaseCenterImageContainer'
@@ -40,7 +44,7 @@ import BaseGallery from '@/components/BaseGallery'
 
 export default {
     name: 'Project',
-    components: { BaseLeftImageContainer, BaseColumnTextContainer, BaseCenterImageContainer, BaseTransitionText, BaseTransitionWord, BaseGallery },
+    components: { BaseLeftImageContainer, BaseColumnTextContainer, BaseCenterImageContainer, BaseTransitionText, BaseTransitionWord, BaseGallery, BaseFloatingButton },
     computed: {
         ...mapState('global', {
             windowSmall: state => state.window.s,
@@ -57,7 +61,7 @@ export default {
         })
     },
     data: () => ({
-        test: false
+        assets: { externalIcon }
     }),
     mounted () {
         setInterval(() => this.test = !this.test, 3000)

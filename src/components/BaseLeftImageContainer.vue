@@ -3,7 +3,11 @@
         <div class="LeftContainer_wrapper">
             <div class="LeftContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
             <div class="LeftContainer_content">
-                <h2 class="LeftContainer_title" v-if="title">{{ title }}</h2>
+                <p class="LeftContainer_subtitle" v-if="subtitle">01. the pitch</p>
+                <h2 class="LeftContainer_title" v-if="title">
+                    {{ title }}
+                </h2>
+
                 <slot></slot>
             </div>
         </div>
@@ -21,6 +25,7 @@ export default {
         bgColor: { type: String, default: '#e6e6e6' },
         textColor: { type: String, default: null },
         title: { type: String, default: null },
+        subtitle: { type: String, default: null },
         content: { type: String, default: null },
         image: { type: String, default: null }
     },
@@ -41,14 +46,15 @@ export default {
 
 <style lang="scss" scoped>
 .LeftContainer {
-    overflow: hidden;
     color: var(--color);
     position: relative;
+    padding-top: 20px;
+    overflow: hidden;
 
     &::before {
         content: "";
         position: absolute;
-        top: 0;
+        top: 20px;
         left: 0;
         width: 100%;
         height: 100%;
@@ -61,14 +67,14 @@ export default {
 .LeftContainer_wrapper {
     display: flex;
     align-items: stretch;
-    max-width: 900px;
     margin: 0 auto;
     min-height: 300px;
-    padding: 40px 40px 0 0;
+    padding: 0 40px 0 0;
 }
 
 .LeftContainer_image {
-    width: 40%;
+    width: 50%;
+    margin: -20px 0 0 0;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top right;
@@ -77,18 +83,26 @@ export default {
 
 .LeftContainer_content {
     width: 60%;
+    max-width: 600px;
     align-self: center;
-    padding: 0 0 40px 40px;
+    padding: 40px 0 40px 40px;
     transform: translateY(50%);
     opacity: 0;
+    position: relative;
 }
 
 .LeftContainer_title {
     font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 20px;
+    position: relative;
 }
 
+.LeftContainer_subtitle {
+    font: var(--font-main-l);
+    font-weight: bold;
+    opacity: 0.2;
+}
 
 .LeftContainer.is-animated {
 

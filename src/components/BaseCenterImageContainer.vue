@@ -2,6 +2,7 @@
     <div class="CenterContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
         <div class="CenterContainer_wrapper">
             <div class="CenterContainer_content">
+                <p class="CenterContainer_subtitle" v-if="subtitle">{{ subtitle }}</p>
                 <h2 class="CenterContainer_title" v-if="title">{{ title }}</h2>
                 <slot></slot>
             </div>
@@ -20,6 +21,7 @@ export default {
         appear: { type: Boolean, default: true },
         appearDelay: { type: Number, default: 0 },
         title: { type: String, default: null },
+        subtitle: { type: String, default: null },
         content: { type: String, default: null },
         image: { type: String, default: null },
         bgColor: { type: String, default: '#e6e6e6' },
@@ -88,6 +90,12 @@ export default {
     font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.CenterContainer_subtitle {
+    font: var(--font-main-l);
+    font-weight: bold;
+    opacity: 0.2;
 }
 
 .CenterContainer.is-animated {

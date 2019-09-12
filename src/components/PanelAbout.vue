@@ -120,7 +120,7 @@ export default {
     white-space: initial;
     text-align: center;
     color: var(--highlight-color);
-    padding: 15% 0;
+    padding: 20vh 0;
 
     &.is-active {
         overflow-y: auto;
@@ -210,6 +210,6 @@ export default {
 }
 
 .PanelAbout.is-window-s {
-    padding: 50% 0;
+    padding: 20vh 0;
 }
 </style>

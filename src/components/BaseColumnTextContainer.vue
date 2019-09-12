@@ -1,6 +1,9 @@
 <template>
     <div class="ColumnText" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--appear-delay': appearDelay + 'ms' }" ref="container">
-        <BaseTransitionWord class="ColumnText_title" :appear="appear" :appear-delay="appearDelay" :text="title" />
+        <div>
+            <BaseTransitionWord class="ColumnText_subtitle" :appear="appear" :appear-delay="appearDelay" :text="subtitle" v-if="subtitle" />
+            <BaseTransitionWord class="ColumnText_title" :appear="appear" :appear-delay="appearDelay" :text="title" />
+        </div>
         <div class="ColumnText_content">
             <slot></slot>
         </div>
@@ -18,7 +21,8 @@ export default {
     props: {
         appear: { type: Boolean, default: true },
         appearDelay: { type: Number, default: 0 },
-        title: { type: String, default: null }
+        title: { type: String, default: null },
+        subtitle: { type: String, default: null }
     },
     data: () => ({
         animated: true
@@ -37,8 +41,8 @@ export default {
 
 <style lang="scss" scoped>
 .ColumnText {
-    display: flex;
-    align-items: flex-start;
+    // display: flex;
+    align-items: flex-end;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
@@ -47,12 +51,19 @@ export default {
 .ColumnText_title {
     font: var(--font-main-xl);
     font-weight: bold;
-    min-width: 200px;
+    max-width: 300px;
+    margin-bottom: 20px;
 }
 
 .ColumnText_content {
     opacity: 0;
     transform: translateY(50%);
+}
+
+.ColumnText_subtitle {
+    font: var(--font-main-l);
+    font-weight: bold;
+    opacity: 0.2;
 }
 
 .ColumnText.is-animated {
