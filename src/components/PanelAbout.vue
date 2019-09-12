@@ -108,6 +108,7 @@ export default {
             }
         },
         updateState (v, delay = 2000) {
+            this.$refs.container.scrollElement.scrollTo({ top: 0 })
             this.state.leaving = !v
 
             setTimeout(() => {
