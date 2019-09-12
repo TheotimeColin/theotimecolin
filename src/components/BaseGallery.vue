@@ -156,10 +156,11 @@ export default {
 }
 
 .Gallery.is-window-s {
-    padding: 20px;
+    padding: 5px;
 
     .Gallery_title {
-        margin: 10px 0 30px 0;
+        margin: 15px 0 15px 0;
+        text-align: center;
     }
 }
 </style>

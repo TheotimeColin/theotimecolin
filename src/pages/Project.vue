@@ -139,12 +139,20 @@ export default {
         margin-top: 20px;
     }
 
+    .Project_subtitle {
+        margin-bottom: 15px;
+    }
+
     .Project_container {
         margin-bottom: 40px;
     }
 
     .Project_next {
         margin-top: -20px;
+    }
+
+    .Project_wrapper {
+        padding: 15px 15px 0 15px;
     }
 }
 </style>
