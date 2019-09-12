@@ -102,7 +102,7 @@ export default {
         
         setTimeout(() => {
             this.$store.commit(`global/${SET_LOADED}`, true)
-        }, 0)
+        }, 2500)
 
         window.addEventListener('resize', () => this.updateBreakpoints())
     },

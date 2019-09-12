@@ -28,7 +28,7 @@ export default {
     methods: {
         onVideoEnter (video) {
             let target = video.target
-            target.currentTime = 0
+            // target.currentTime = 0
             target.play()
         },
         onVideoLeave (video) {

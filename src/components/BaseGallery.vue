@@ -42,7 +42,9 @@ export default {
     },
     watch: {
         appear (v) {
-            if (v) this.updateHeights()
+            if (v) {
+                setTimeout(() => this.updateHeights(), 1000)
+            }
         }
     },
     mounted () {

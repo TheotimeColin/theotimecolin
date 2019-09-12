@@ -77,7 +77,7 @@ export default {
     margin: -20px 0 0 0;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top right;
+    background-position: top left;
     transform: translateY(100%);
 }
 

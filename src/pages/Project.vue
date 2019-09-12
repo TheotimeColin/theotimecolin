@@ -62,10 +62,7 @@ export default {
     },
     data: () => ({
         assets: { externalIcon }
-    }),
-    mounted () {
-        setInterval(() => this.test = !this.test, 3000)
-    }
+    })
 }
 </script>
 

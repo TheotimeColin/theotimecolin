@@ -6,6 +6,7 @@
                 <div class="PanelAbout_picture" :style="{ 'backgroundImage': `url(${assets.tempAbout})` }" v-show="!state.specialActive"></div>
                 <div class="PanelAbout_picture" :style="{ 'backgroundImage': `url(${assets.tempAboutSpecial})` }" v-show="state.specialActive"></div>
             </div>
+
             <BaseTransitionWord class="PanelAbout_text" :text="text" :appear="state.textActive && visible" :appear-delay="800" />
 
             <div class="PanelAbout_skills">
@@ -18,7 +19,7 @@
                     :items="skill.items"
                     :key="skill.id"
                     :color="highlightColor"
-                    :transition-delay="1500 + (200 * i)"
+                    :transition-delay="1800 + (200 * i)"
                     v-on:skill-click="(v) => onSpecialInteraction(v)"
                 />
             </div>
@@ -58,13 +59,12 @@ export default {
             textActive: false,
             specialActive: false
         },
-        text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore tenetur consequuntur numquam blanditiis totam, mollitia eaque! Temporibus, magni pariatur non, id corporis voluptatibus odit expedita laborum similique ad exercitationem nemo.',
+        text: `I'm a 24 creative developer, graduate from Les Gobelins in Interactive Design. I have a 4-year experience at Wandi where I started as an intern and ended as a Lead front developer.`,
         skills: [
-            { id: 0, title: 'Awesome at', items: [
+            { id: 0, title: 'Pretty good at', items: [
+                { id: 3, text: 'Javascript ES6' },
                 { id: 0, text: 'VueJs' },
-                { id: 1, text: 'HTML5' },
-                { id: 2, text: 'CSS3 / SCSS' },
-                { id: 3, text: 'Javascript ES6' }
+                { id: 2, text: 'HTML5 / CSS3 / SCSS' },
             ]},
             { id: 1, title: 'Good at', items: [
                 { id: 0, text: 'ReactJs' },
@@ -78,8 +78,8 @@ export default {
             ]},
             { id: 3, title: 'Interested in', items: [
                 { id: 0, text: 'UI & Graphic design' },
-                { id: 1, text: 'Photography' },
-                { id: 2, text: 'Filmmaking' },
+                { id: 1, text: 'Photography / Filmmaking' },
+                { id: 2, text: 'Game design' },
                 { id: 3, text: 'Pokémon', special: true, onMouseEnter: this.onSpecialInteraction }
             ]}
         ]
@@ -129,7 +129,7 @@ export default {
 
 .PanelAbout_content {
     width: 80%;
-    max-width: 500px;
+    max-width: 550px;
     min-height: 100%;
     display: flex;
     flex-direction: column;
