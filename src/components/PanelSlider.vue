@@ -11,6 +11,8 @@
             ></div>
         </div>
 
+        <router-link class="PanelSlider_hammer" :to="{ name: 'Project', params: { id: state.activeItem }}" v-if="windowSmall" v-show="$route.name == 'Homepage'" ref="hammer"></router-link>
+
         <div class="PanelSlider_rail">
             <PanelItem
                 class="PanelSlider_item"
@@ -63,6 +65,9 @@ export default {
         }
     }),
     computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        }),
         ...mapState('projects', {
             items: (state) => state.items
         }),
@@ -89,20 +94,7 @@ export default {
             }
         })
 
-        let hammerStage = new Hammer(this.$refs.container)
-        hammerStage.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL })
-        
-        hammerStage.on('swipeup', (e) => {
-            if (this.state.animating || this.$route.name !== 'Homepage') return
-            
-            this.updateActive({ next: true })
-        })
-
-        hammerStage.on('swipedown', (e) => {
-            if (this.state.animating || this.$route.name !== 'Homepage') return
-            
-            this.updateActive({ prev: true })
-        })
+        if (this.$refs.hammer) this.setupHammer()
     },
     methods: {
         updateActive ({ slug = false, next, prev }) {
@@ -142,6 +134,20 @@ export default {
             setTimeout(() => this.state.animating = false, 2000)
 
             this.$store.commit(`projects/${SET_ACTIVE_PROJECT}`, slug == 'about' ? this.aboutItem : activeItem)
+        },
+        setupHammer () {
+            let hammerStage = new Hammer(this.$refs.hammer.$el)
+            hammerStage.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL })
+
+            hammerStage.on('swipeup', (e) => {
+                if (this.state.animating || this.$route.name !== 'Homepage') return
+                this.updateActive({ next: true })
+            })
+
+            hammerStage.on('swipedown', (e) => {
+                if (this.state.animating || this.$route.name !== 'Homepage') return
+                this.updateActive({ prev: true })
+            })
         },
         onTransitionBefore () {
             if (this.$refs.item) this.$refs.item.forEach(item => {
@@ -207,6 +213,17 @@ export default {
     &.is-leaving {
         opacity: 1;
     }
+}
+
+.PanelSlider_hammer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    z-index: 12;
+    display: block;
 }
 
 .PanelSlider.is-animating {

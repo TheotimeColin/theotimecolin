@@ -218,7 +218,6 @@ export default {
     font-weight: bold;
 }
 
-
 .PanelAbout.is-ready {
 
     .PanelAbout_picture {

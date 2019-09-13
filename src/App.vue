@@ -116,7 +116,7 @@ export default {
         updateBreakpoints () {
             this.$store.commit(`global/${UPDATE_BREAKPOINTS}`, {
                 s: window.innerWidth <= 800,
-                m: window.innerWidth <= 1000 && window.innerWidth > 800,
+                m: window.innerWidth <= 1000,
                 l: window.innerWidth > 1000
             })
         },

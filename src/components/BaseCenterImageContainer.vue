@@ -1,5 +1,5 @@
 <template>
-    <div class="CenterContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
+    <div class="CenterContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-m': windowMedium }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
         <div class="CenterContainer_wrapper">
             <div class="CenterContainer_content">
                 <p class="CenterContainer_subtitle" v-if="subtitle">{{ subtitle }}</p>
@@ -32,7 +32,7 @@ export default {
     }),
     computed: {
         ...mapState('global', {
-            windowSmall: state => state.window.s
+            windowMedium: state => state.window.m
         }),
     },
     mounted () {
@@ -128,7 +128,7 @@ export default {
     }
 }
 
-.CenterContainer.is-window-s {
+.CenterContainer.is-window-m {
     padding: 20px 20px 0 20px;
 
     .CenterContainer_content {

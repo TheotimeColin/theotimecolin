@@ -5,6 +5,7 @@
         <div class="Project_wrapper">
             <BaseTransitionText class="Project_title" :appear="!isAnimating && isLoaded" :text="project.title" :appear-delay="1000" />
             <BaseTransitionWord class="Project_subtitle" :appear="!isAnimating && isLoaded" :text="project.baseline" :appear-delay="1000" />
+            <BaseTransitionText class="Project_year" :appear="!isAnimating && isLoaded" :text="'- ' + project.year" :appear-delay="1000" v-if="project.year" />
 
             <template v-for="item in project.content">
                 <BaseLeftImageContainer class="Project_container" :appear="!isAnimating && isLoaded" :appear-delay="1000" :image="item.image" :title="item.title" :subtitle="item.subtitle" :bg-color="item.bgColor" :text-color="item.textColor" :key="item.id" v-if="item.layout == 'image-left'">
@@ -88,6 +89,11 @@ export default {
 }
 
 .Project_subtitle {
+    font: var(--font-main-xl);
+    font-weight: bold;
+}
+
+.Project_year {
     font: var(--font-main-xl);
     font-weight: bold;
     margin-bottom: 40px;

@@ -1,19 +1,7 @@
 import tempProjectMain0 from '@/assets/img/temp/project-main-0.png'
 import tempProjectMain1 from '@/assets/img/temp/project-main-1.png'
 import tempProjectMain2 from '@/assets/img/temp/project-main-2.png'
-import tempProjectMain3 from '@/assets/img/temp/project-main-3.png'
 import tempProjectMain4 from '@/assets/img/temp/project-main-4.png'
-
-import tempGallery0 from '@/assets/img/temp/gallery-0.png'
-import tempGallery1 from '@/assets/img/temp/gallery-1.png'
-import tempGallery2 from '@/assets/img/temp/gallery-2.png'
-import tempGallery3 from '@/assets/img/temp/gallery-3.png'
-import tempGallery4 from '@/assets/img/temp/gallery-4.png'
-
-import tempVideo0 from '@/assets/img/temp/video-0.mp4'
-
-import imageLeft0 from '@/assets/img/temp/project-left.jpg'
-import imageCenter0 from '@/assets/img/temp/project-center.jpg'
 
 import kanarysPitch0 from '@/assets/img/kanarys/pitch-0.jpg'
 import kanarysChallenges0 from '@/assets/img/kanarys/challenges-0.jpg'
@@ -58,6 +46,7 @@ export default [
         slug: 'kanarys',
         title: 'Kanarys',
         baseline: 'Find workplaces where you belong',
+        year: '2019',
         image: tempProjectMain0,
         baseColor: '#ffe3bc',
         highlightColor: '#ffc551',
@@ -115,6 +104,7 @@ export default [
         slug: 'agence-wandi',
         title: 'Agence Wandi',
         baseline: 'Sérieux, sans se prendre au sérieux',
+        year: '2019',
         image: tempProjectMain1,
         baseColor: '#5931d4',
         highlightColor: '#be41f2',
@@ -157,8 +147,9 @@ export default [
     },
     {
         id: 3,
-        slug: 'portfolio-2019',
-        title: 'Portfolio 2019',
+        slug: 'portfolio',
+        title: 'Portfolio',
+        year: '2019',
         baseline: 'Code with passion, design with purpose, work with creativity',
         image: tempProjectMain4,
         baseColor: '#ffeb7d',
@@ -196,6 +187,7 @@ export default [
         id: 1,
         slug: 'superprof',
         title: 'Superprof',
+        year: '2018',
         baseline: 'Find the perfect teacher',
         image: tempProjectMain2,
         baseColor: '#fa6d8b',

@@ -1,5 +1,5 @@
 <template>
-    <div class="LeftContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
+    <div class="LeftContainer" :class="{ 'is-appear': appear, 'is-animated': animated, 'is-window-m': windowMedium }" :style="{ '--background-color': bgColor, '--color': textColor, '--appear-delay': appearDelay + 'ms' }" ref="container">
         <div class="LeftContainer_wrapper">
             <div class="LeftContainer_image" :style="{ 'backgroundImage': `url(${image})` }" v-if="image"></div>
             <div class="LeftContainer_content">
@@ -34,7 +34,7 @@ export default {
     }),
     computed: {
         ...mapState('global', {
-            windowSmall: state => state.window.s
+            windowMedium: state => state.window.m
         }),
     },
     mounted () {
@@ -134,7 +134,7 @@ export default {
     }
 }
 
-.LeftContainer.is-window-s {
+.LeftContainer.is-window-m {
 
     .LeftContainer_wrapper {
         display: flex;

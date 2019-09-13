@@ -1,5 +1,5 @@
 <template>
-    <div class="Gallery" :class="{ 'is-window-s': windowSmall }" :style="{ '--background-color': bgColor, '--text-color': textColor }">
+    <div class="Gallery" :class="{ 'is-window-m': windowMedium }" :style="{ '--background-color': bgColor, '--text-color': textColor }">
         <div class="Gallery_title">{{ title }}</div>
         <div class="Gallery_items" ref="container">
             <div class="Gallery_row" v-for="row in rows" :key="row.id">
@@ -36,7 +36,7 @@ export default {
     }),
     computed: {
         ...mapState('global', {
-            windowSmall: state => state.window.s,
+            windowMedium: state => state.window.m,
             isLoaded: state => state.loaded
         }),
     },
@@ -164,7 +164,7 @@ export default {
     display: inline-block;
 }
 
-.Gallery.is-window-s {
+.Gallery.is-window-m {
     padding: 5px;
 
     .Gallery_title {
