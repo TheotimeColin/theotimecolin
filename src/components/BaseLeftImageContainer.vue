@@ -152,9 +152,14 @@ export default {
     }
 
     .LeftContainer_image {
-        height: 200px;
         width: 100%;
         margin-top: 20px;
+
+        &::after {
+            content: "";
+            display: block;
+            padding-bottom: 50%;
+        }
     }
 }
 </style>

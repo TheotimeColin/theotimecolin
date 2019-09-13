@@ -97,10 +97,18 @@ export default {
         }
 
         await this.$store.dispatch(`projects/${LOAD_PROJECTS}`)
+
+        let check = () => {
+            setTimeout(() => {
+                if (!document.hidden && !this.isLoaded) this.$store.commit(`global/${SET_LOADED}`, true)
+            }, 2500)
+        }
         
-        setTimeout(() => {
-            this.$store.commit(`global/${SET_LOADED}`, true)
-        }, 2500)
+        if (document.hidden) {
+            document.addEventListener('visibilitychange', check)
+        } else {
+            check()
+        }
 
         window.addEventListener('resize', () => this.updateBreakpoints())
     },
