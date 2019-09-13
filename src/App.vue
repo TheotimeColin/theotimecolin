@@ -100,7 +100,7 @@ export default {
 
         let check = () => {
             setTimeout(() => {
-                if (!document.hidden && !this.isLoaded) this.$store.commit(`global/${SET_LOADED}`, true)
+                if (!document.hidden && !this.loaded) this.$store.commit(`global/${SET_LOADED}`, true)
             }, 2500)
         }
         

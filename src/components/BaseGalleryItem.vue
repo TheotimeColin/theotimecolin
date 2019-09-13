@@ -1,39 +1,47 @@
 <template>
-    <div class="GalleryItem" :class="{ 'is-video': false }" :style="{ '--height': height + 'px' }">
+    <div class="GalleryItem" :class="{ 'is-video': video && windowSmall, 'is-playing': state.playing }" :style="{ '--height': height + 'px' }">
         <img class="GalleryItem_image" :src="image" v-if="!video">
         <video
             class="GalleryItem_image"
             :src="image"
             v-if="video"
             @click="(v) => onVideoEnter(v)"
-            @mouseenter="(v) => onVideoEnter(v)"
-            @mouseleave="(v) => onVideoLeave(v)"
             ref="video"
             loop
-            autoplay
+            :autoplay="!windowSmall"
             muted
         />
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'BaseGalleryItem',
     props: {
         image: { type: String },
         height: { type: Number, default: 100 },
         title: { type: String },
-        video: { type: Boolean, default: false }
+        video: { type: Object, default: null }
+    },
+    data: () => ({
+        state: {
+            playing: false
+        }
+    }),
+    computed: {
+        ...mapState('global', {
+            windowSmall: state => state.window.s
+        })
     },
     methods: {
         onVideoEnter (video) {
+            this.state.playing = true
+
             let target = video.target
-            // target.currentTime = 0
+            target.currentTime = 0
             target.play()
-        },
-        onVideoLeave (video) {
-            // let target = video.target
-            // target.pause()
         }
     }
 }
@@ -81,10 +89,13 @@ export default {
         opacity: 1;
         transition: opacity 250ms ease;
     }
+}
 
-    &:hover::before,
-    &:hover::after {
-        opacity: 0;
+.GalleryItem.is-video.is-playing {
+
+    &::before,
+    &::after {
+        display: none;
     }
 }
 </style>

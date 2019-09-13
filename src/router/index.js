@@ -33,6 +33,13 @@ export default new Router({
       meta: {
         position: 'center'
       }
+    },
+    {
+      path: '*',
+      component: Homepage,
+      meta: {
+        position: 'right'
+      }
     }
   ]
 })

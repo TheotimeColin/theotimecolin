@@ -25,29 +25,29 @@ import kanarysGallery4 from '@/assets/img/kanarys/gallery-4.jpg'
 import kanarysGallery5 from '@/assets/img/kanarys/gallery-5.jpg'
 import kanarysGallery6 from '@/assets/img/kanarys/gallery-6.jpg'
 import kanarysGallery7 from '@/assets/img/kanarys/gallery-7.jpg'
-import kanarysGallery8 from '@/assets/img/kanarys/gallery-8.webm'
-import kanarysGallery9 from '@/assets/img/kanarys/gallery-9.webm'
+import kanarysGallery8 from '@/assets/img/kanarys/gallery-8.mp4'
+import kanarysGallery9 from '@/assets/img/kanarys/gallery-9.mp4'
 
 import portfolioPitch0 from '@/assets/img/portfolio/pitch-0.jpg'
 import portfolioTech0 from '@/assets/img/portfolio/tech-0.jpg'
 
 import wandiPitch0 from '@/assets/img/wandi/pitch-0.jpg'
-import wandiGallery0 from '@/assets/img/wandi/gallery-0.webm'
-import wandiGallery1 from '@/assets/img/wandi/gallery-1.webm'
-import wandiGallery2 from '@/assets/img/wandi/gallery-2.webm'
-import wandiGallery3 from '@/assets/img/wandi/gallery-3.webm'
+import wandiGallery0 from '@/assets/img/wandi/gallery-0.mp4'
+import wandiGallery1 from '@/assets/img/wandi/gallery-1.mp4'
+import wandiGallery2 from '@/assets/img/wandi/gallery-2.mp4'
+import wandiGallery3 from '@/assets/img/wandi/gallery-3.mp4'
 import wandiGallery4 from '@/assets/img/wandi/gallery-4.jpg'
 import wandiGallery5 from '@/assets/img/wandi/gallery-5.jpg'
 import wandiGallery6 from '@/assets/img/wandi/gallery-6.jpg'
 import wandiGallery7 from '@/assets/img/wandi/gallery-7.jpg'
-import wandiGallery8 from '@/assets/img/wandi/gallery-8.webm'
+import wandiGallery8 from '@/assets/img/wandi/gallery-8.mp4'
 
 import superprofPitch0 from '@/assets/img/superprof/pitch-0.jpg'
 import superprofChallenge0 from '@/assets/img/superprof/challenge-0.jpg'
-import superprofGallery0 from '@/assets/img/superprof/gallery-0.webm'
-import superprofGallery1 from '@/assets/img/superprof/gallery-1.webm'
-import superprofGallery2 from '@/assets/img/superprof/gallery-2.webm'
-import superprofGallery3 from '@/assets/img/superprof/gallery-3.webm'
+import superprofGallery0 from '@/assets/img/superprof/gallery-0.mp4'
+import superprofGallery1 from '@/assets/img/superprof/gallery-1.mp4'
+import superprofGallery2 from '@/assets/img/superprof/gallery-2.mp4'
+import superprofGallery3 from '@/assets/img/superprof/gallery-3.mp4'
 import superprofGallery4 from '@/assets/img/superprof/gallery-4.jpg'
 import superprofGallery5 from '@/assets/img/superprof/gallery-5.jpg'
 import superprofGallery6 from '@/assets/img/superprof/gallery-6.jpg'
@@ -99,11 +99,11 @@ export default [
                     { id: 0, image: kanarysGallery0 },
                     { id: 4, image: kanarysGallery4 },
                     { id: 1, image: kanarysGallery1 },
-                    { id: 9, image: kanarysGallery9, video: true },
+                    { id: 9, image: kanarysGallery9, video: { x: 980, y: 680 } },
                     { id: 2, image: kanarysGallery2 },
                     { id: 3, image: kanarysGallery3 },
                     { id: 5, image: kanarysGallery5 },
-                    { id: 8, image: kanarysGallery8, video: true },
+                    { id: 8, image: kanarysGallery8, video: { x: 248, y: 506 } },
                     { id: 7, image: kanarysGallery7 },
                     { id: 6, image: kanarysGallery6 },
                 ]
@@ -142,15 +142,15 @@ export default [
                 textColor: '#000000',
                 title: 'Components gallery',
                 galleryItems: [
-                    { id: 2, image: wandiGallery2, video: true },
-                    { id: 0, image: wandiGallery0, video: true },
+                    { id: 2, image: wandiGallery2, video: { x: 1200, y: 569 } },
+                    { id: 0, image: wandiGallery0, video: { x: 810, y: 486 } },
                     { id: 5, image: wandiGallery5 },
                     { id: 6, image: wandiGallery6 },
                     { id: 7, image: wandiGallery7 },
-                    { id: 1, image: wandiGallery1, video: true },
+                    { id: 1, image: wandiGallery1, video: { x: 600, y: 690 } },
                     { id: 4, image: wandiGallery4 },
                     /* { id: 3, image: wandiGallery3, video: true }, */
-                    { id: 8, image: wandiGallery8, video: true }
+                    { id: 8, image: wandiGallery8, video: { x: 780, y: 400 } }
                 ]
             }
         ]
@@ -227,11 +227,11 @@ export default [
                 textColor: '#000000',
                 title: 'Gallery',
                 galleryItems: [
-                    { id: 1, image: superprofGallery1, video: true },
+                    { id: 1, image: superprofGallery1, video: { x: 406, y: 655 } },
                     { id: 4, image: superprofGallery4 },
-                    { id: 3, image: superprofGallery3, video: true },
-                    { id: 2, image: superprofGallery2, video: true },
-                    { id: 0, image: superprofGallery0, video: true },
+                    { id: 3, image: superprofGallery3, video: { x: 813, y: 660 } },
+                    { id: 2, image: superprofGallery2, video: { x: 856, y: 462 } },
+                    { id: 0, image: superprofGallery0, video: { x: 1000, y: 420 } },
                     { id: 6, image: superprofGallery6 },
                     { id: 5, image: superprofGallery5 },
                 ]

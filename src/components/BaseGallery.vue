@@ -73,12 +73,20 @@ export default {
                         let item = this.loadedItems[processedItems] ? this.loadedItems[processedItems] : this.items[processedItems]
 
                         if (!item.loadedImage) {
-                            item.height = this.height
+                            try {
+                                item.height = this.height
 
-                            if (item.video) {
-                                item.loadedImage = await new Promise(resolve => this.loadVideo(resolve, item.image))
-                            } else {
-                                item.loadedImage = await new Promise(resolve => this.loadImage(resolve, item.image))
+                                if (item.video) {
+                                    // item.loadedImage = await new Promise((resolve, reject) => this.loadVideo(resolve, reject, item.image))
+                                    item.loadedImage = {
+                                        width: item.video.x,
+                                        height: item.video.y
+                                    }
+                                } else if (!item.video) {
+                                    item.loadedImage = await new Promise(resolve => this.loadImage(resolve, item.image))
+                                }
+                            } catch (e) {
+                                console.warn(e)
                             }
                         }
 
@@ -117,8 +125,9 @@ export default {
 
             imageElement.src = image
         },
-        loadVideo (resolve, video) {
+        loadVideo (resolve, reject, video) {
             let videoElement = document.createElement('video')
+            videoElement.autoplay = true
 
             videoElement.addEventListener('loadedmetadata', function () {
                 resolve({ height: this.videoHeight, width: this.videoWidth })

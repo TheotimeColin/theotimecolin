@@ -11,6 +11,14 @@
 
             <BaseTransitionWord class="PanelAbout_text" :text="text" :appear="state.textActive && visible" :appear-delay="800" />
 
+            <div class="PanelAbout_resume">
+                download my resume<br>
+                
+                <a class="PanelAbout_link" :href="assets.resumeEn" target="_blank">EN</a>
+                | 
+                <a class="PanelAbout_link" :href="assets.resumeFr" target="_blank">FR</a>
+            </div>
+
             <div class="PanelAbout_skills">
                 <BaseTextList
                     class="PanelAbout_skill"
@@ -34,6 +42,8 @@ import { mapState } from 'vuex'
 import simplebar from 'simplebar-vue'
 import 'simplebar/dist/simplebar.min.css'
 import inIcon from '@/assets/img/icons/linkedin.png'
+import resumeFr from '@/assets/docs/theotimeColin-cv-fr.pdf'
+import resumeEn from '@/assets/docs/theotimeColin-cv-en.pdf'
 
 import BaseTransitionWord from '@/components/BaseTransitionWord'
 import BaseTextList from '@/components/BaseTextList'
@@ -60,13 +70,13 @@ export default {
         })
     },
     data: () => ({
-        assets: { tempAbout, tempAboutSpecial, inIcon },
+        assets: { tempAbout, tempAboutSpecial, inIcon, resumeFr, resumeEn },
         state: {
             leaving: false,
             textActive: false,
             specialActive: false
         },
-        text: `I'm a 24 creative developer, graduate from Les Gobelins in Interactive Design. I have a 4-year experience at Wandi where I started as an intern and ended as a Lead front developer.`,
+        text: `Hi! I'm a creative developer, graduate from Les Gobelins in Interactive Design. I have a 4-year experience at Wandi where I started as an apprentice and ended as a Lead front developer.`,
         skills: [
             { id: 0, title: 'Pretty good at', items: [
                 { id: 3, text: 'Javascript ES6' },
@@ -193,6 +203,22 @@ export default {
     padding: 20px;
 }
 
+.PanelAbout_resume {
+    margin-top: 25px;
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    opacity: 0;
+    transform: translateY(25%);
+    transition: transform 500ms ease, opacity 500ms ease;
+    transition-delay: 1500ms;
+}
+
+.PanelAbout_link {
+    font-weight: bold;
+}
+
+
 .PanelAbout.is-ready {
 
     .PanelAbout_picture {
@@ -201,9 +227,13 @@ export default {
     }
 
     .PanelAbout_text,
-    .PanelAbout_skills {
+    .PanelAbout_skills,
+    .PanelAbout_resume {
         position: relative;
+        left: auto;
+        top: auto;
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
